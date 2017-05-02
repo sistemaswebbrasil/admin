@@ -16,3 +16,9 @@ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo s
 
 ##Limpar o cache deu uma view
 php artisan view:clear
+
+
+##Comandos para atualizar o repositório
+git add *
+git commit -m "Ainda apanhando"
+git push origin master

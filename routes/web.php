@@ -12,17 +12,5 @@
 */
 
 Route::get('/', function () {
-     return view('welcome');
+    return view('welcome');
 });
-
-//Route::get('/', 'VueItemController@manageVue');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::resource('usuarios', 'UsuarioController', [
-    'except' => ['create', 'edit']
-]);
-
-

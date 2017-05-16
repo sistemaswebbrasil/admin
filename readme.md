@@ -1,5 +1,5 @@
 ##Projeto de início de estudos no Laravel 
-
+*Erro na ultima importação
 ##Permissão projeto dentro do apache
 
 sudo chgrp -R www-data /var/www/html/admin

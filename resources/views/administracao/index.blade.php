@@ -1,9 +1,7 @@
-@extends('layouts.app')
+  @extends('layouts.app')
 
-@section('content')
-
-<example></example>
-
-
-
-@endsection
+  @section('content')
+    <div class="container">
+        <my-vuetable></my-vuetable>
+    </div>
+  @endsection

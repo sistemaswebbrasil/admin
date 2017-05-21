@@ -11,11 +11,20 @@
   },
   "devDependencies": {
     "axios": "^0.15.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-stage-2": "^6.24.1",
     "bootstrap-sass": "^3.3.7",
     "cross-env": "^3.2.3",
     "jquery": "^3.1.1",
     "laravel-mix": "0.*",
     "lodash": "^4.17.4",
-    "vue": "^2.1.10"
+    "vue": "^2.1.10",
+    "vuetable-2": "^1.6.0"
+  },
+  "dependencies": {
+    "accounting": "^0.4.1",
+    "moment": "^2.18.1",
+    "vue-events": "^3.0.1"
   }
 }
+

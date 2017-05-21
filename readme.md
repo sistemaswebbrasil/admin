@@ -1,3 +1,5 @@
+##Projeto simples com Laravel 5.4 , Zizaco/entrust para autorização e Vuetable2
+
 ##Projeto de início de estudos no Laravel 
 
 *Erro na ultima importação

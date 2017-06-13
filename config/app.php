@@ -177,7 +177,20 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        Zizaco\Entrust\EntrustServiceProvider::class,
+        /**
+         * Plugin adminlte : https://github.com/jeroennoten/Laravel-AdminLTE
+         */
+        JeroenNoten\LaravelAdminLte\ServiceProvider::class,
+
+        /**
+         * Plugin para administrar as permissões de usuários : http://laratrust.readthedocs.io/en/3.2/installation.html
+         */
+        Laratrust\LaratrustServiceProvider::class,
+
+        /**
+         *  Utilitário para ajudar no envio de dados de formulários
+         */
+        Collective\Html\HtmlServiceProvider::class,
 
     ],
 
@@ -227,8 +240,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
-
+        'Laratrust'   => Laratrust\LaratrustFacade::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
     ],
 
 ];

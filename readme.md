@@ -1,6 +1,6 @@
 ##Projeto simples com Laravel 5.4 , Zizaco/entrust para autorização e Vuetable2
 
-##Projeto de início de estudos no Laravel 
+##Projeto de início de estudos no Laravel
 
 *Erro na ultima importação
 ##Permissão projeto dentro do apache
@@ -31,6 +31,14 @@ git add *
 git commit -m "Ainda apanhando"
 
 git push origin master
+
+#Atualiza o repositorio local com as atualizações dos externos
+git pull
+
+#quando o pull falha por ter arquivos locais não atualizados
+git stash save --keep-index
+git stash drop
+
 
 ##production.ERROR: RuntimeException: The only supported ciphers are AES-128-CBC and AES-256-CBC with the  correct key lengths.
 

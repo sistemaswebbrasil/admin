@@ -5,9 +5,9 @@
 *Erro na ultima importação
 ##Permissão projeto dentro do apache
 
-sudo chmod 777 -R /var/www/html/admin
+sudo chmod 777 -R /var/www/html/laravel/admin
 
-sudo chgrp -R www-data /var/www/html/admin
+sudo chgrp -R www-data /var/www/html/laravel/admin
 
 ##Rodar a aplicação com live reload
 
@@ -53,3 +53,23 @@ chromium-browser --disable-web-security --user-data-dir
 const wchar_t kDisableWebSecurity[] = L"disable-web-security";
 
 chromium-browser --disable-web-security
+
+##
+<VirtualHost *:80>
+    ServerAdmin admin@sistemaswebbrasil.com
+    ServerName admin.com
+    ServerAlias www.admin.com   
+
+    ServerAdmin adriano.faria@gmail.com
+    DocumentRoot  /var/www/html/laravel/admin/public
+
+    <Directory /var/www/html/laravel/admin/public>
+         Options Indexes FollowSymLinks
+         AllowOverride All
+         Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    ErrorLog /var/www/html/laravel/admin/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>

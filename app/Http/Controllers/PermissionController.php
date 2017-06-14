@@ -10,6 +10,16 @@ use App\Model\Permission;
 
 class PermissionController extends Controller
 {
+
+    
+    /**
+     * Insere o controle de autenticação no controller
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Exibe uma lista
      *

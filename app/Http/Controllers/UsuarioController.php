@@ -5,11 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Model\Role;
 
 
 
 class UsuarioController extends Controller
 {
+
+    /**
+     * Insere o controle de autenticação no controller
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     /**
      * Exibe uma lista
      *
@@ -46,7 +57,13 @@ class UsuarioController extends Controller
             'password' => 'required',
         ]);
 
-        User::create($request->all());
+        //User::create($request->all());
+
+        $user = User::create($request->all());
+        User::find($user);        
+        $roles =$request->input('roles');         
+        $user->roles()->attach($roles);
+
         return redirect()->route('usuario.index')
                         ->with('success','User created successfully');
     }
@@ -72,7 +89,8 @@ class UsuarioController extends Controller
     public function edit($id)
     {
         $usuario = User::find($id);
-        return view('usuario.edit',compact('usuario'));
+        $roles =  Role::pluck('display_name', 'id');
+        return view('usuario.edit',compact('usuario','roles'));
     }
 
     /**
@@ -90,6 +108,10 @@ class UsuarioController extends Controller
         ]);
 
         User::find($id)->update($request->all());
+        $user = User::find($id);
+        $roles =$request->input('roles');        
+        $user->roles()->sync($roles);
+
         return redirect()->route('usuario.index')
                         ->with('success','User updated successfully');
     }

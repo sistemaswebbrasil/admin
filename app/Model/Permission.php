@@ -15,10 +15,11 @@ class Permission extends LaratrustPermission
         'name', 'display_name',
     ]; 
    
+
     public function roles()
     {
-        return $this->belongsToMany('App\Model\Role');
-        //return $this->belongsToMany('App\Model\Role', 'roles');
+        return $this->belongsToMany('App\Model\Role');        
     }
+
 
 }

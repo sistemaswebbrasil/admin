@@ -18,6 +18,23 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('usuario','UsuarioController');
-Route::resource('role','RoleController');
-Route::resource('permission','PermissionController');
+
+
+//Route::resource('usuario','UsuarioController');
+
+Route::group(['middleware' => ['role:ADMIN']], function() {
+	Route::resource('role','RoleController');
+});	
+
+Route::group(['middleware' => ['role:ADMIN']], function() {
+	Route::resource('permission','PermissionController');
+});
+
+Route::group(['middleware' => ['role:ADMIN|MANAGER']], function() {
+    //Route::get('/usuario', 'UsuarioController@index');
+    Route::resource('usuario','UsuarioController');
+});
+
+Route::group(['middleware' => ['role:ADMIN|MANAGER']], function() {    
+    Route::resource('menuacesso','MenuAcessoController');
+});

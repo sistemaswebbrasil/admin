@@ -41,7 +41,42 @@
                 {!! Form::text('url', null, array('placeholder' => 'Apelido','class' => 'form-control')) !!}
             </div>
         </div> 
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Menu Pai:</strong>
+                {!! Form::select('parent',$menus,null,['class' => 'form-control','placeholder' => 'Selecionar']) !!} 
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Icone:</strong>  
+             <select class="form-control" name="icon">
+                <option value="">Selecione</option>
+                @foreach($icones as $item)
+                  <option value="{{$item}}"   {{ $menuacesso->icon == $item ? 'selected="selected"' : '' }} >{{$item}}</option>                  
+                @endforeach
+              </select>
+            </div>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Cor Icone:</strong>
+                {!! Form::select('icon_color',$iconesCores,null,['class' => 'form-control','placeholder' => 'Selecionar']) !!} 
+            </div>
+        </div>
+
+         <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Permissão:</strong>
+                {!! Form::text('permission', null, array('placeholder' => 'Permissão para exibir este menu','class' => 'form-control')) !!}
+            </div>
+        </div> 
         
+
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                 <button type="submit" class="btn btn-primary">Confirmar</button>
         </div>

@@ -40,7 +40,8 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        return view('usuario.create');
+        $roles =  Role::pluck('display_name', 'id');
+        return view('usuario.create',compact('roles'));
     }
 
     /**

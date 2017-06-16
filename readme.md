@@ -73,3 +73,16 @@ chromium-browser --disable-web-security
     ErrorLog /var/www/html/laravel/admin/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
+
+##
+Exemplo debugar sql:
+    $debug = DB::table('menuacesso')            
+    ->where('parent', 0,'')            
+    ->orWhere('parent', 0,'')            
+    ->toSql();      
+    Log::info($debug);      
+
+##
+Exemplo Log:
+Log::info('Quantidade de Itens encontrados: '.count($subItems));
+Log::info('Menu Final: '.print_r( $arrayMenu,true));---> Exibe formatado como array pulando linhas

@@ -39,7 +39,9 @@ class MenuAcessoController extends Controller
      */
     public function create()
     {
-        return view('menuacesso.create');
+        $menus =  MenuAcesso::pluck('text', 'id');
+        return view('menuacesso.create',compact('menus'));
+
     }
 
     /**
@@ -51,8 +53,8 @@ class MenuAcessoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',            
-            'display_name' => 'required',
+            'text' => 'required',            
+            'url' => 'required',
         ]);
 
         MenuAcesso::create($request->all());
@@ -81,7 +83,17 @@ class MenuAcessoController extends Controller
     public function edit($id)
     {
         $menuacesso = MenuAcesso::find($id);
-        return view('menuacesso.edit',compact('menuacesso'));
+        $menus =  MenuAcesso::where('id', '<>', $id)->pluck('text','id');        
+        $menus->prepend('Selecione',0);
+        $icones = ['file','user','lock','share'];
+        $collection = collect([['value' => 'red'],['value' => 'yellow'],['value' => 'aqua'],]);
+        $iconesCores = $collection->pluck('value','value');
+
+        
+
+
+
+        return view('menuacesso.edit',compact('menuacesso','menus','icones','iconesCores'));
     }
 
     /**
@@ -94,8 +106,8 @@ class MenuAcessoController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'email',
+            'text' => 'required',
+            'url' => 'required',
         ]);
 
         MenuAcesso::find($id)->update($request->all());

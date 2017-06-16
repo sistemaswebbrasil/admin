@@ -27,17 +27,24 @@
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Nome:</strong>
-                {!! Form::text('name', null, array('placeholder' => 'Nome','class' => 'form-control')) !!}
+                <strong>Texto do Menu:</strong>
+                {!! Form::text('text', null, array('placeholder' => 'Texto do Menu','class' => 'form-control')) !!}
             </div>
         </div>
 
+         <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>URL:</strong>
+                {!! Form::text('url', null, array('placeholder' => 'URL','class' => 'form-control')) !!}
+            </div>
+        </div> 
+
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Apelido:</strong>
-                {!! Form::text('display_name', null, array('placeholder' => 'Apelido','class' => 'form-control')) !!}
+                <strong>Menu Pai:</strong>
+                {!! Form::select('menus[]',$menus,null,['class' => 'form-control','placeholder' => 'Selecionar']) !!}                
             </div>
-        </div>
+        </div>             
 
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                 <button type="submit" class="btn btn-primary">Confirmar</button>

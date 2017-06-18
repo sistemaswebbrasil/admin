@@ -19,8 +19,7 @@ class UsuarioController extends Controller
     {
         $this->middleware('auth');
     }
-
-
+    
     /**
      * Exibe uma lista
      *

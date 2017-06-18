@@ -15,7 +15,7 @@ class AdicionarCamposMenu extends Migration
     {
         Schema::table('menuacesso', function($table)
         {
-            $table->string('icon_color');           
+            $table->string('icon_color')->after('icon');           
         });
     }
 

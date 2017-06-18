@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laratrust\Traits\LaratrustUserTrait;
+use Illuminate\Support\Facades\Log;
+
 
 class User extends Authenticatable
 {
@@ -40,6 +42,14 @@ class User extends Authenticatable
 
     public function getRoleListAttribute()
     {
-        return $this->roles->pluck('id')->toArray();
+        return $this->roles->pluck('id','name')->toArray();
     }        
+    public function getPermissionListAttribute()
+    {
+        $roles = $this->Roles()->get();
+        foreach ($roles as $role) {
+            $permissoes = $role->permissions->pluck('name')->toArray();
+            return $permissoes;
+        }
+    }      
 }

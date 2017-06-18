@@ -1,4 +1,4 @@
-##Projeto simples com Laravel 5.4 , Zizaco/entrust para autorização e Vuetable2
+##Projeto simples com Laravel 5.4 , Laratrust e AdminLte
 
 ##Projeto de início de estudos no Laravel
 

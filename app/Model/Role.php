@@ -10,7 +10,7 @@ class Role extends LaratrustRole
 {
     use Notifiable;
     protected $fillable = [
-        'name', 'display_name',
+        'name', 'display_name'
     ]; 
 
     public function permissions(){        
@@ -18,6 +18,11 @@ class Role extends LaratrustRole
     }   
 
     public function users(){        
-         return $this->belongsToMany('App\User');         
+        return $this->belongsToMany('App\User');         
     }
+
+    public function getPermissionListAttribute()
+    {
+        return $this->permissions->pluck('id','name')->toArray();
+    }    
 }

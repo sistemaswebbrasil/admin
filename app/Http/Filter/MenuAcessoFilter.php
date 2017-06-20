@@ -14,8 +14,9 @@ class MenuAcessoFilter implements FilterInterface
     {
 
 		Log::info('Chamou aqui ? MenuAcessoFilter');
-
-		Log::info('Item:'.$item);
+		Log::info('Item: '.print_r( $item,true));
+		
+		//Log::info('Builder: '.print_r( $builder,true));
 		//Log::info('Builder:'.$builder);
 
         if (isset($item['permission']) && ! Laratrust::can($item['permission'])) {

@@ -18,12 +18,12 @@ class MenuAcesso extends Migration
             $table->increments('id');
             $table->string('text');
             $table->string('url');
-            $table->string('icon');
-            $table->string('label');
-            $table->string('label_color');
-            $table->string('permission');
-            $table->string('target');            
-            $table->string('parent');            
+            $table->string('icon')->default('');
+            $table->string('label')->default('');
+            $table->string('label_color')->default('');
+            $table->string('permission')->default('');
+            $table->string('target')->default('');
+            $table->string('parent')->default(0);
             $table->timestamps();
         });        //
     }

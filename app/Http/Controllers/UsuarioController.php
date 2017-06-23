@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Model\Role;
-
+use Illuminate\Support\Facades\Storage;
+use Auth;
+use Image;
 
 
 class UsuarioController extends Controller
@@ -19,8 +21,7 @@ class UsuarioController extends Controller
     {
         $this->middleware('auth');
     }
-
-
+    
     /**
      * Exibe uma lista
      *
@@ -113,6 +114,18 @@ class UsuarioController extends Controller
         $roles =$request->input('roles');        
         $user->roles()->sync($roles);
 
+        //$path = $request->file('avatar')->store('avatars');
+
+
+        if (request()->hasFile('avatar')) {
+            $file = request()->file('avatar')->store('events');
+            Events::Create($request->all() + ['image' => $file]);
+        }else{
+            $path = $request->file('avatar')->store('events');
+
+        }        
+
+
         return redirect()->route('usuario.index')
                         ->with('success','User updated successfully');
     }
@@ -129,4 +142,25 @@ class UsuarioController extends Controller
         return redirect()->route('usuario.index')
                         ->with('success','User deleted successfully');
     }
+
+
+
+
+    public function profile(){
+        return view('profile', array('user' => Auth::user()) );
+    }
+    public function update_avatar(Request $request){
+        // Handle the user upload of avatar
+        if($request->hasFile('avatar')){
+            $avatar = $request->file('avatar');
+            $filename = time() . '.' . $avatar->getClientOriginalExtension();
+            Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
+            $user = Auth::user();
+            $user->avatar = $filename;
+            $user->save();
+        }
+        return view('profile', array('user' => Auth::user()) );
+    }
+
+
 }

@@ -15,7 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+    'App\Model' => 'App\Policies\ModelPolicy',
     ];
 
     /**
@@ -23,37 +23,27 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(GateContract $gate)
-    {
+    public function boot(GateContract $gate){
         $this->registerPolicies();
+        $this->verificarSeAutorizado($gate);
+    }
 
-        Log::info('AuthServiceProvider');
-         $this->registerPolicies($gate);
+    protected function verificarSeAutorizado($gate){
+        $gate->before(function ($user, $ability) {
+            if ($user) {
+                // Log::info('Usuário: '.$user);                
+                //Log::info('Abilidade Necessária: '.$ability);
+                $roles = $user->getRoleListAttribute();
+                $permissoes = $user->getPermissionListAttribute();
+                //Log::info('Permissoes: '.print_r( $permissoes ,true));
 
-         // $gate->define('admin-create', function ($user, $post) {
-         //     Log::info('usuário: $user Post: $post');
-
-         //     return $user->id == $post->user_id;
-         // });    
-
-        //$gate->define('manage-blog', 'User');
-
-         $gate->before(function ($user, $ability) {
-             if ($user) {
-                 Log::info('Usuário: '.$user);                
-                 Log::info('Abilidade: '.$ability);                
-                 return false;
-             }
-        });     
-
-        // $gate->define('manage-blog', function ($user, $post) {
-        //     Log::info('usuário: $user Post: $post');
-
-        //     //return $user->id == $post->user_id;
-        // });        
-
-
-
+                if ((in_array($ability, $roles)) || (in_array($ability, $permissoes))){
+                    //Log::info('Encontrado a habilidade nescessaria');
+                    return true;
+                }
+                //Log::info('Usuário não autorizado');
+                return false;                
+            }
+        });
     }
 }
-//Log::info('Menu Final: '.print_r( $arrayMenu,true));---> Exibe formatado como array pulando linhas

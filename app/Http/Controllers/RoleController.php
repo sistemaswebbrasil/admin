@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Role;
 use App\Model\Permission;
+use App\Model\CriaNovaPermissao;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -18,7 +21,13 @@ class RoleController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        /**
+         * Função que irá criar nova permissão se ela não existir e vinculará ao administrador
+         */
+        CriaNovaPermissao::verifica(['listar-funcoes','alterar-funcoes']);
+
+        $this->middleware('ability:,listar-funcoes,alterar-funcoes', ['only' => ['index', 'show']]);
+        $this->middleware('ability:,alterar-funcoes', ['only' => ['create', 'store','edit','update','destroy']]);
     }
 
 

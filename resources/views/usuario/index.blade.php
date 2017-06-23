@@ -5,11 +5,11 @@
 @section('content_header')
 <h1>Usuários</h1>
 
-@role('ADMIN')
+<!-- @role('ADMIN') -->
 <div class="pull-right">
     <a class="btn btn-success" href="{{ route('usuario.create') }}"> Create New usuario</a>
 </div>
-@endrole
+<!-- @endrole -->
 
 @stop
 
@@ -35,12 +35,12 @@
         <td>{{ $usuario->email }}</td>
         <td>
             <a class="btn btn-info" href="{{ route('usuario.show',$usuario->id) }}">Show</a>
-            @role('ADMIN')
+            
             <a class="btn btn-primary" href="{{ route('usuario.edit',$usuario->id) }}">Edit</a>
             {!! Form::open(['method' => 'DELETE','route' => ['usuario.destroy', $usuario->id],'style'=>'display:inline']) !!}
             {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
             {!! Form::close() !!}
-            @endrole
+            
         </td>
     </tr>
     @endforeach

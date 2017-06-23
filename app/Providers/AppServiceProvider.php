@@ -8,6 +8,8 @@ use Illuminate\Contracts\Events\Dispatcher;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,8 +18,24 @@ class AppServiceProvider extends ServiceProvider
      *
      * 
      */
+
+    protected function cadastrarRotas(){
+        //Log::info('Função para cadastrar rotas no menu de acesso');
+        //Log::info('Menu Final: '.print_r( $arrayMenu,true));
+
+        foreach (Route::getRoutes() as $route) {
+            //var_dump($route->getUri());
+            // Log::info('Rotas: '.$route->getUri());
+        }
+
+
+    }
+
     public function boot(Dispatcher $events)
     {
+        $this->cadastrarRotas();
+
+
         /**
          * Cria o menu inicial do AdminLte que neste caso será alimentado pela tabela menuacesso
          */
@@ -27,8 +45,8 @@ class AppServiceProvider extends ServiceProvider
              * Select * from menuacesso where  parent = 0 or parent = ''
              */
             $items = DB::table('menuacesso')          
-            ->where('parent', 0,'')            
-            ->get();            
+            ->where('parent', 0)            
+            ->get();      
             foreach ($items as $item) {
                 /**
                  * Agora dentro dos itens principais de menu verifico a primeira camada de filhos

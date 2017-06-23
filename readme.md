@@ -1,4 +1,4 @@
-##Projeto simples com Laravel 5.4 , Zizaco/entrust para autorização e Vuetable2
+##Projeto simples com Laravel 5.4 , Laratrust e AdminLte
 
 ##Projeto de início de estudos no Laravel
 
@@ -34,6 +34,10 @@ git push origin master
 
 #Atualiza o repositorio local com as atualizações dos externos
 git pull
+
+#git pull error: The following untracked working tree files would be overwritten by merge:
+
+git clean  -d  -fx ""
 
 #quando o pull falha por ter arquivos locais não atualizados
 git stash save --keep-index

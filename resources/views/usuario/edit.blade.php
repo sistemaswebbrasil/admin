@@ -25,6 +25,10 @@
     @endif
 
     {!! Form::model($usuario, ['method' => 'PATCH','route' => ['usuario.update', $usuario->id]]) !!}
+
+
+
+
     <div class="row">
 
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -52,9 +56,44 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Foto:</strong>
-                    Form::file('image');         
+                    @if(Session::has('success'))
+                      <div class="alert-box success">
+                      <h2>{!! Session::get('success') !!}</h2>
+                      </div>
+                    @endif
+                    <div class="secure">Upload form</div>
+                    {!! Form::open(array('url'=>'apply/upload','method'=>'POST', 'files'=>true)) !!}
+                    <div class="control-group">
+                        <div class="controls">
+                        {!! Form::file('avatar') !!}
+                        <p class="errors">{!!$errors->first('image')!!}</p>
+                        @if(Session::has('error'))
+                            <p class="errors">{!! Session::get('error') !!}</p>
+                        @endif
+                    </div>
+                    </div>
+                    <div id="success"> </div>
+                  {!! Form::submit('Submit', array('class'=>'send-btn')) !!}
+                  {!! Form::close() !!}
             </div>
         </div>        
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Foto2</strong>
+                    {!! Form::label('avatar', 'Image')!!}
+                    {!! Form::file('avatar', ['class' => 'form-control border-input']) !!}
+
+
+            </div>
+        </div> 
+        
+
+      
+
+
+
+
 
         
 

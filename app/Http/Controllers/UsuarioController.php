@@ -92,7 +92,17 @@ class UsuarioController extends Controller
     {
         $usuario = User::find($id);
         $roles =  Role::pluck('display_name', 'id');
-        return view('usuario.edit',compact('usuario','roles'));
+
+        //$nomeArquivo = 'usuario_'.str_pad($id, 10, "0", STR_PAD_LEFT).'.'.request()->file('avatar')->getClientOriginalExtension();
+        //$path = $public_path().'/usuarios/'. $nomeArquivo;
+        // if (file_exists($public_path().'/')) { 
+        //     // return Response::download($path);
+        //     $userAvatar = $path;
+
+        // }
+        $teste = 'teste';
+
+        return view('usuario.edit',compact('usuario','roles','teste'));
     }
 
     /**
@@ -104,30 +114,41 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //$request->user()->id
         $this->validate($request, [
             'name' => 'required',
             'email' => 'email',
-        ]);
+            'avatar' => 'mimes:jpeg,png,jpg,gif,svg',
+        ]);      
+        
 
-        User::find($id)->update($request->all());
-        $user = User::find($id);
-        $roles =$request->input('roles');        
-        $user->roles()->sync($roles);
+        $usuario = User::find($id);
+        $params = $request->all();//$request->except(['avatar']); //$request->all();
 
-        //$path = $request->file('avatar')->store('avatars');
+        if (request()->hasFile('avatar')) {           
+            $nomeArquivo = 'usuario_'.str_pad($id, 10, "0", STR_PAD_LEFT).'.'.request()->file('avatar')->getClientOriginalExtension();
+
+            //$file = $request->file('avatar');
+            //$request->file('avatar')->move("public", $nomeArquivo);
+            //$file->move(public_path().'/usuarios/',$id.'.jpg');
+
+            // $path = $request->file('avatar')->storeAs(
+            //     'usuarios', $nomeArquivo                
+            //     //public_path(), $nomeArquivo
+            // );
+            $request->file('avatar')->move(public_path().'/usuarios/',$nomeArquivo);
+            $pasta = '/usuarios/'.$nomeArquivo ;
+            //$request->avatar = avatar ;
+            //
+            //'picture' => 'required | mimes:jpeg,jpg,png | max:1000',
+            $params['avatar'] = $pasta;
+        }
 
 
-        if (request()->hasFile('avatar')) {
-            $file = request()->file('avatar')->store('events');
-            Events::Create($request->all() + ['image' => $file]);
-        }else{
-            $path = $request->file('avatar')->store('events');
+        
+        $usuario->update($params);        
 
-        }        
-
-
-        return redirect()->route('usuario.index')
-                        ->with('success','User updated successfully');
+        return redirect()->route('usuario.index')->with('success','User updated successfully');
     }
 
     /**

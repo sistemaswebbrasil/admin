@@ -30,7 +30,7 @@
         </tr>
     @foreach ($usuarios as $key => $usuario)
     <tr>
-        <td>{{ ++$i }}</td>
+        <td>{{ $usuario->id }}</td>
         <td>{{ $usuario->name }}</td>
         <td>{{ $usuario->email }}</td>
         <td>

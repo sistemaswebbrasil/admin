@@ -24,7 +24,9 @@
         </div>
     @endif
 
-    {!! Form::model($usuario, ['method' => 'PATCH','route' => ['usuario.update', $usuario->id]]) !!}
+    <!-- {!! Form::model($usuario, ['method' => 'PATCH','route' => ['usuario.update', $usuario->id]]) !!} -->
+
+    {!! Form::model($usuario, ['method' => 'PATCH', 'route' =>  ['usuario.update', $usuario->id], 'files' => true]) !!}    
 
 
 
@@ -55,26 +57,14 @@
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Foto:</strong>
-                    @if(Session::has('success'))
-                      <div class="alert-box success">
-                      <h2>{!! Session::get('success') !!}</h2>
-                      </div>
-                    @endif
-                    <div class="secure">Upload form</div>
-                    {!! Form::open(array('url'=>'apply/upload','method'=>'POST', 'files'=>true)) !!}
-                    <div class="control-group">
-                        <div class="controls">
-                        {!! Form::file('avatar') !!}
-                        <p class="errors">{!!$errors->first('image')!!}</p>
-                        @if(Session::has('error'))
-                            <p class="errors">{!! Session::get('error') !!}</p>
-                        @endif
-                    </div>
-                    </div>
-                    <div id="success"> </div>
-                  {!! Form::submit('Submit', array('class'=>'send-btn')) !!}
-                  {!! Form::close() !!}
+                <strong>Nome:</strong>
+                {!! Form::text('avatar', null, array('placeholder' => 'Nome','class' => 'form-control')) !!}
+            </div>
+        </div>   
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">                
+                <img src={{ $usuario->avatar }} > 
             </div>
         </div>        
 

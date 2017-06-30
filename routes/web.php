@@ -48,6 +48,7 @@ Route::group(['middleware' => ['ability:admin,listar-permissoes']], function() {
 Route::group(['middleware' => ['ability:admin,listar-usuarios']], function() {
     //Route::get('usuario', 'UsuarioController@index');
     Route::resource('usuario','UsuarioController');
+    Route::get('/profile', 'UsuarioController@profile')->name('usuario.profile');
 });
 
 Route::group(['middleware' => ['ability:admin,listar-itens-menu-acesso']], function() {    
@@ -56,8 +57,8 @@ Route::group(['middleware' => ['ability:admin,listar-itens-menu-acesso']], funct
 });
 
 
-Route::get('profile', 'UsuarioController@profile');
-Route::post('profile', 'UsuarioController@update_avatar');
+//Route::get('profile', 'UsuarioController@profile');
+//Route::post('profile', 'UsuarioController@update_avatar');
 
 
 // public function index(Request $request)

@@ -42,7 +42,8 @@ class UsuarioController extends Controller
     public function create()
     {
         $roles =  Role::pluck('display_name', 'id');
-        return view('usuario.create',compact('roles'));
+        $titulo = 'Criar novo usuário' ;        
+        return view('usuario.edit',compact('roles','titulo'));
     }
 
     /**
@@ -51,21 +52,27 @@ class UsuarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $this->validate($request, [
             'name' => 'required',
             'email' => 'email',
+            'avatar' => 'mimes:jpeg,png,jpg,gif,svg',
             'password' => 'required',
+            'password_confirmation' => 'required|same:password',
         ]);
-
-        //User::create($request->all());
-
-        $user = User::create($request->all());
+        
+        $params = $request->except(['avatar']); //$request->all();
+        $user = User::create($params); //($request->all());
         User::find($user);        
         $roles =$request->input('roles');         
         $user->roles()->attach($roles);
 
+        if (request()->hasFile('avatar')) {           
+            $nomeArquivo = 'usuario_'.str_pad($user->id, 10, "0", STR_PAD_LEFT);
+            $request->file('avatar')->move(public_path().'/usuarios/',$nomeArquivo);
+            $arquivo = '/usuarios/'.$nomeArquivo ;            
+            $user->update(['avatar' => $arquivo]);                   
+        }
         return redirect()->route('usuario.index')
                         ->with('success','User created successfully');
     }
@@ -92,17 +99,8 @@ class UsuarioController extends Controller
     {
         $usuario = User::find($id);
         $roles =  Role::pluck('display_name', 'id');
-
-        //$nomeArquivo = 'usuario_'.str_pad($id, 10, "0", STR_PAD_LEFT).'.'.request()->file('avatar')->getClientOriginalExtension();
-        //$path = $public_path().'/usuarios/'. $nomeArquivo;
-        // if (file_exists($public_path().'/')) { 
-        //     // return Response::download($path);
-        //     $userAvatar = $path;
-
-        // }
-        $teste = 'teste';
-
-        return view('usuario.edit',compact('usuario','roles','teste'));
+        $titulo = 'Editar o Usuário '.$id ;
+        return view('usuario.edit',compact('usuario','roles','titulo'));
     }
 
     /**
@@ -119,35 +117,28 @@ class UsuarioController extends Controller
             'name' => 'required',
             'email' => 'email',
             'avatar' => 'mimes:jpeg,png,jpg,gif,svg',
-        ]);      
-        
+            'new_password' => 'same:password_confirmation',
+            'password_confirmation' => 'same:new_password',
+        ]);              
 
         $usuario = User::find($id);
         $params = $request->all();//$request->except(['avatar']); //$request->all();
 
         if (request()->hasFile('avatar')) {           
-            $nomeArquivo = 'usuario_'.str_pad($id, 10, "0", STR_PAD_LEFT).'.'.request()->file('avatar')->getClientOriginalExtension();
-
-            //$file = $request->file('avatar');
-            //$request->file('avatar')->move("public", $nomeArquivo);
-            //$file->move(public_path().'/usuarios/',$id.'.jpg');
-
-            // $path = $request->file('avatar')->storeAs(
-            //     'usuarios', $nomeArquivo                
-            //     //public_path(), $nomeArquivo
-            // );
+            $nomeArquivo = 'usuario_'.str_pad($id, 10, "0", STR_PAD_LEFT);
             $request->file('avatar')->move(public_path().'/usuarios/',$nomeArquivo);
-            $pasta = '/usuarios/'.$nomeArquivo ;
-            //$request->avatar = avatar ;
-            //
-            //'picture' => 'required | mimes:jpeg,jpg,png | max:1000',
-            $params['avatar'] = $pasta;
+            $arquivo = '/usuarios/'.$nomeArquivo ;
+            $params['avatar'] = $arquivo;
         }
 
+        if  (!empty($request->input('new_password')) ){            
+            $params['password'] =  bcrypt($request->input('new_password'));
+            $usuario->update($params);        
+            return redirect()->route('home')->with('success','Usuário e Senha alterada com sucesso');
+        }
 
         
         $usuario->update($params);        
-
         return redirect()->route('usuario.index')->with('success','User updated successfully');
     }
 
@@ -160,28 +151,18 @@ class UsuarioController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
+
+        $arquivo = public_path().'/usuarios/usuario_'.str_pad($id, 10, "0", STR_PAD_LEFT);
+
+        if (\File::exists($arquivo))
+            unlink($arquivo);
+
         return redirect()->route('usuario.index')
                         ->with('success','User deleted successfully');
-    }
-
-
+    }  
 
 
     public function profile(){
-        return view('profile', array('user' => Auth::user()) );
+        return view('usuario/profile', array('usuario' => Auth::user()) );
     }
-    public function update_avatar(Request $request){
-        // Handle the user upload of avatar
-        if($request->hasFile('avatar')){
-            $avatar = $request->file('avatar');
-            $filename = time() . '.' . $avatar->getClientOriginalExtension();
-            Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
-            $user = Auth::user();
-            $user->avatar = $filename;
-            $user->save();
-        }
-        return view('profile', array('user' => Auth::user()) );
-    }
-
-
 }

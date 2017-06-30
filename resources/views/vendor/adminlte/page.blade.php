@@ -64,36 +64,45 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                  <img src={{ Auth::user()->avatar }} class="user-image" alt="User Image">
                   <span class="hidden-xs">{{ Auth::user()->name }}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    <img src={{ Auth::user()->avatar }} class="img-circle" alt="User Image">
                     <p>
                       {{ Auth::user()->name }}                      
+
                     </p> 
                   </li>
                   <!-- Menu Body -->
-                  <li class="user-body">
+<!--                   <li class="user-body">
                     <div class="col-xs-4 text-center">
                       <a href="#">Followers</a>
                     </div>
-                    <div class="col-xs-4 text-center">
+                    <div class="col-xs-4 text-center">  
                       <a href="#">Sales</a>
                     </div>
                     <div class="col-xs-4 text-center">
                       <a href="#">Friends</a>
                     </div>
-                  </li>
+                  </li> -->
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">
-                      <a href="#" class="btn btn-default btn-flat">Profile</a>
+                      <a href="{{ route('usuario.profile') }}" class="btn btn-default btn-flat">Editar</a>
+                       
                     </div>
                     <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                        <a href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">
+                            Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
                     </div>
                   </li>
                 </ul>

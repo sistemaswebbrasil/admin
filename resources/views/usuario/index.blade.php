@@ -5,7 +5,7 @@
 @section('content_header')
 <h1>Usuários</h1>
 
-<!-- @role('ADMIN') -->
+<!-- @role('admin') -->
 <div class="pull-right">
     <a class="btn btn-success" href="{{ route('usuario.create') }}"> Create New usuario</a>
 </div>

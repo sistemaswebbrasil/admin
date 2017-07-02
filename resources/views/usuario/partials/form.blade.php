@@ -1,5 +1,10 @@
 <div class="box-body">
 
+<div class="box-header">
+    <a class="btn btn-primary" href="{{ route('usuario.index') }}"><i class="fa fa-chevron-left"> {{ trans('geral.voltar') }}</i> </a>
+    <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-check-circle"> {{ trans('geral.confirmar') }}</i></button>
+</div>
+
 
     <div class="form-group">
         <strong>{{ trans('usuario.name') }}:</strong>
@@ -67,7 +72,7 @@
     </span>
     @endif
 </div>    
-</div>    
+
 
 
 
@@ -85,7 +90,8 @@
 
 <div class="form-group">
     <strong>{{ trans('usuario.avatar') }}</strong>            
-    {!! Form::file('avatar', ['class' => 'form-control border-input','id' => 'avatar-input']) !!}
+    {!! Form::file('avatar', ['class' => '','id' => 'avatar-input']) !!}
+
 </div>
 
 
@@ -126,14 +132,10 @@
 </script>
 @stop
 
-<div class="box-footer">
-
+<!-- <div class="box-footer">
     <a class="btn btn-primary" href="{{ route('usuario.index') }}"> {{ trans('geral.voltar') }}</a>
-
-
     <button type="submit" class="btn btn-primary pull-right">{{ trans('geral.confirmar') }}</button>
-
-</div>
+</div> -->
 
 
 

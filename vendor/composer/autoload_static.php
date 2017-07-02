@@ -76,6 +76,7 @@ class ComposerStaticInit97b1e31d7b570baf545a524f9eac4236
         'J' => 
         array (
             'JeroenNoten\\LaravelAdminLte\\' => 28,
+            'Jenssegers\\Date\\' => 16,
         ),
         'I' => 
         array (
@@ -221,6 +222,10 @@ class ComposerStaticInit97b1e31d7b570baf545a524f9eac4236
         array (
             0 => __DIR__ . '/..' . '/jeroennoten/laravel-adminlte/src',
         ),
+        'Jenssegers\\Date\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jenssegers/date/src',
+        ),
         'Illuminate\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate',
@@ -328,6 +333,7 @@ class ComposerStaticInit97b1e31d7b570baf545a524f9eac4236
         'AdicionarIdioma' => __DIR__ . '/../..' . '/database/migrations/2017_07_01_210021_AdicionarIdioma.php',
         'AlterarParentMenuAcesso' => __DIR__ . '/../..' . '/database/migrations/2017_06_17_122939_alterarParentMenuAcesso.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\Events\\Event' => __DIR__ . '/../..' . '/app/Events/Event.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
@@ -346,6 +352,10 @@ class ComposerStaticInit97b1e31d7b570baf545a524f9eac4236
         'App\\Http\\Middleware\\SetLocale' => __DIR__ . '/../..' . '/app/Http/Middleware/SetLocale.php',
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Listeners\\EventListener' => __DIR__ . '/../..' . '/app/Listeners/EventListener.php',
+        'App\\Listeners\\LogAuthenticated' => __DIR__ . '/../..' . '/app/Listeners/LogAuthenticated.php',
+        'App\\Listeners\\LogRegisteredUser' => __DIR__ . '/../..' . '/app/Listeners/LogRegisteredUser.php',
+        'App\\Listeners\\LogSuccessfulLogin' => __DIR__ . '/../..' . '/app/Listeners/LogSuccessfulLogin.php',
         'App\\Model\\CriaNovaPermissao' => __DIR__ . '/../..' . '/app/Model/CriaNovaPermissao.php',
         'App\\Model\\Permission' => __DIR__ . '/../..' . '/app/Model/Permission.php',
         'App\\Model\\Role' => __DIR__ . '/../..' . '/app/Model/Role.php',
@@ -1934,6 +1944,8 @@ class ComposerStaticInit97b1e31d7b570baf545a524f9eac4236
         'JakubOnderka\\PhpConsoleColor\\ConsoleColor' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/JakubOnderka/PhpConsoleColor/ConsoleColor.php',
         'JakubOnderka\\PhpConsoleColor\\InvalidStyleException' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/JakubOnderka/PhpConsoleColor/InvalidStyleException.php',
         'JakubOnderka\\PhpConsoleHighlighter\\Highlighter' => __DIR__ . '/..' . '/jakub-onderka/php-console-highlighter/src/JakubOnderka/PhpConsoleHighlighter/Highlighter.php',
+        'Jenssegers\\Date\\Date' => __DIR__ . '/..' . '/jenssegers/date/src/Date.php',
+        'Jenssegers\\Date\\DateServiceProvider' => __DIR__ . '/..' . '/jenssegers/date/src/DateServiceProvider.php',
         'JeroenNoten\\LaravelAdminLte\\AdminLte' => __DIR__ . '/..' . '/jeroennoten/laravel-adminlte/src/AdminLte.php',
         'JeroenNoten\\LaravelAdminLte\\Console\\MakeAdminLteCommand' => __DIR__ . '/..' . '/jeroennoten/laravel-adminlte/src/Console/MakeAdminLteCommand.php',
         'JeroenNoten\\LaravelAdminLte\\Events\\BuildingMenu' => __DIR__ . '/..' . '/jeroennoten/laravel-adminlte/src/Events/BuildingMenu.php',

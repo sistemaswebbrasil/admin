@@ -12,5 +12,6 @@ return [
     'novo' => 'Novo',
     'errovalidacao' => 'Atenção ! Foram encontrados os seguintes dados incorretos',
     'sucesso' => 'Sucesso',
-    'acao' => 'Ações',    
+    'acao' => 'Ações',
+    'detalhes' => 'Detalhes',
 ]; 

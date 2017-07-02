@@ -203,8 +203,8 @@ return [
         /**
          *  Utilitário para ajudar no envio de dados de formulários
          */
-        Collective\Html\HtmlServiceProvider::class,
-
+        Collective\Html\HtmlServiceProvider::class,        
+        'Jenssegers\Date\DateServiceProvider',
     ],
 
     /*
@@ -255,7 +255,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Laratrust'   => Laratrust\LaratrustFacade::class,
         'Form' => Collective\Html\FormFacade::class,
-        'Html' => Collective\Html\HtmlFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,        
+        'Date' => 'Jenssegers\Date\Date',
     ],
 
 ];

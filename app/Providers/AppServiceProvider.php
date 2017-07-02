@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
+use Jenssegers\Date\Date;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(Dispatcher $events)
     {
+        //Carbon::setLocale(env('LOCALE', 'en'));
         $this->cadastrarRotas();
 
 

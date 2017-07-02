@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Storage;
 use Auth;
 use Image;
 use App;
+use Jenssegers\Date\Date;
+use Carbon\Carbon;
 
 
 class UsuarioController extends Controller

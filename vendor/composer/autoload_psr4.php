@@ -34,6 +34,7 @@ return array(
     'Laravel\\Tinker\\' => array($vendorDir . '/laravel/tinker/src'),
     'Laratrust\\' => array($vendorDir . '/santigarcor/laratrust/src/Laratrust'),
     'JeroenNoten\\LaravelAdminLte\\' => array($vendorDir . '/jeroennoten/laravel-adminlte/src'),
+    'Jenssegers\\Date\\' => array($vendorDir . '/jenssegers/date/src'),
     'Illuminate\\' => array($vendorDir . '/laravel/framework/src/Illuminate'),
     'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),

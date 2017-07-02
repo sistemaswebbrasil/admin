@@ -1,68 +1,57 @@
 @extends('adminlte::page')
-
-@section('title', 'AdminLTE')
-
+@section('title', trans('usuario.criar')  )
 @section('content_header')
-<h1>Criar novo Usuário</h1>
-    <div class="pull-right">
-        <a class="btn btn-primary" href="{{ route('usuario.index') }}"> Back</a>
-    </div>
+<!-- <h1>{{ trans('usuario.criar') }}</h1> -->
+
 @stop
-
 @section('content')
+@if (count($errors) > 0)
+<!-- <div class="alert alert-danger"> -->
+<div class="box box-solid box-danger">
+	<div class="box-header">
+		<h3 class="box-title">
+			{{ trans('geral.errovalidacao') }}
+		</h3>
+	</div>
+	<div class="box-body">
 
-    @if (count($errors) > 0)
-        <div class="alert alert-danger">
-            <strong>Atenção!</strong>Foram encontrados os seguintes dados incorretos:<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+		<ul>
+			@foreach ($errors->all() as $error)
+			<li>{{ $error }}</li>
+			@endforeach
+		</ul>
+	</div>
+</div>
+@endif
 
-    {!! Form::open(array('route' => 'usuario.store','method'=>'POST')) !!}
-    <div class="row">
+<div class="box box-primary">
+	<div class="box-header with-border">
+		<h3 class="box-title">{{ trans('usuario.criar') }}</h3>
+	</div>
 
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Nome:</strong>
-                {!! Form::text('name', null, array('placeholder' => 'Nome','class' => 'form-control')) !!}
-            </div>
-        </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Email:</strong>
-                {!! Form::text('email', null, array('placeholder' => 'Email','class' => 'form-control')) !!}
-            </div>
-        </div>
-
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Senha:</strong>
-                {!! Form::password('password', null, array('placeholder' => 'Senha','class' => 
-                'form-control')) !!}                
-            </div>
-        </div>  
-
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Funções:</strong>
-                {!! Form::select('roles[]',$roles,null,['class' => 'form-control', 
-                'multiple' => 'multiple']) !!}
-            </div>
-        </div>               
-
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-
-    </div>
-    {!! Form::close() !!}
+{!! Form::open(array('route' => 'usuario.store','method'=>'POST','files' => true ,'role' => 'form')) !!}
+ @include('usuario.partials.form')
 
 
 
 
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+{!! Form::close() !!}
 @endsection

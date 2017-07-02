@@ -9,6 +9,7 @@ use App\Model\Role;
 use Illuminate\Support\Facades\Storage;
 use Auth;
 use Image;
+use App;
 
 
 class UsuarioController extends Controller
@@ -41,9 +42,10 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        $roles =  Role::pluck('display_name', 'id');
+        $roles =  Role::pluck('display_name', 'id');        
         $titulo = 'Criar novo usuário' ;        
-        return view('usuario.edit',compact('roles','titulo'));
+        $languages = \Config::get('app.locales');
+        return view('usuario.create',compact('roles','titulo','languages'));
     }
 
     /**
@@ -77,6 +79,7 @@ class UsuarioController extends Controller
                         ->with('success','User created successfully');
     }
 
+
     /**
      * Mostra a informação selecionada
      *
@@ -100,7 +103,8 @@ class UsuarioController extends Controller
         $usuario = User::find($id);
         $roles =  Role::pluck('display_name', 'id');
         $titulo = 'Editar o Usuário '.$id ;
-        return view('usuario.edit',compact('usuario','roles','titulo'));
+        $languages = \Config::get('app.locales');
+        return view('usuario.edit',compact('usuario','roles','titulo','languages'));
     }
 
     /**
@@ -139,6 +143,9 @@ class UsuarioController extends Controller
 
         
         $usuario->update($params);        
+        if ($id == Auth::user()->id){
+            \Session::put('locale', $request->input('language'));
+        }
         return redirect()->route('usuario.index')->with('success','User updated successfully');
     }
 
@@ -163,6 +170,33 @@ class UsuarioController extends Controller
 
 
     public function profile(){
-        return view('usuario/profile', array('usuario' => Auth::user()) );
+        $usuario = Auth::user();
+
+        $languages = \Config::get('app.locales');
+        //\Config::get('app.locales');
+
+        return view('usuario.profile',compact('usuario','languages'));
+
+        // return view('usuario/profile', array('usuario' => Auth::user()) );
     }
+
+    /**
+     * Change session locale
+     * @param  Request $request
+     * @return Response
+     */
+    public function changeLocale(Request $request)
+    {
+        $this->validate($request, ['locale' => 'required|in:pt-br,en']);
+
+        \Session::put('locale', $request->locale);
+
+        $usuario = App\User::find(Auth::user()->id);
+        $usuario->language = $request->locale;
+        $usuario->save();
+
+        return redirect()->back();
+    }   
+
+
 }

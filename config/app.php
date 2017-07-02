@@ -78,6 +78,19 @@ return [
     */
 
     'locale' => 'pt-br',
+    'locales' => [ 'pt-br', 'en'],
+    // 'locales' => 
+    //     [
+    //         ['id' => 'pt-br','value'  => 'Português',],  
+    //         ['id' => 'en','value'  => 'Inglês'],
+    //     ];     
+
+
+         // [
+         //     'id' => 'pt-br',
+         //     'value'  => 'admin/blog',
+         //     'can'  => 'manage-blog',
+         // ],
 
     /*
     |--------------------------------------------------------------------------

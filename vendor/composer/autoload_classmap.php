@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'AdicionarAvatar' => $baseDir . '/database/migrations/2017_06_21_205433_adicionarAvatar.php',
     'AdicionarCamposMenu' => $baseDir . '/database/migrations/2017_06_16_185759_adicionarCamposMenu.php',
+    'AdicionarIdioma' => $baseDir . '/database/migrations/2017_07_01_210021_AdicionarIdioma.php',
     'AlterarParentMenuAcesso' => $baseDir . '/database/migrations/2017_06_17_122939_alterarParentMenuAcesso.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
@@ -25,6 +26,7 @@ return array(
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
     'App\\Http\\Middleware\\RedirectIfAuthenticated' => $baseDir . '/app/Http/Middleware/RedirectIfAuthenticated.php',
+    'App\\Http\\Middleware\\SetLocale' => $baseDir . '/app/Http/Middleware/SetLocale.php',
     'App\\Http\\Middleware\\TrimStrings' => $baseDir . '/app/Http/Middleware/TrimStrings.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Model\\CriaNovaPermissao' => $baseDir . '/app/Model/CriaNovaPermissao.php',

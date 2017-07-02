@@ -48,7 +48,8 @@ Route::group(['middleware' => ['ability:admin,listar-permissoes']], function() {
 Route::group(['middleware' => ['ability:admin,listar-usuarios']], function() {
     //Route::get('usuario', 'UsuarioController@index');
     Route::resource('usuario','UsuarioController');
-    Route::get('/profile', 'UsuarioController@profile')->name('usuario.profile');
+    Route::get('/profile', 'UsuarioController@profile')->name('usuario.profile');    
+    Route::post('changelocale', ['as' => 'changelocale', 'uses' => 'UsuarioController@changeLocale']);
 });
 
 Route::group(['middleware' => ['ability:admin,listar-itens-menu-acesso']], function() {    

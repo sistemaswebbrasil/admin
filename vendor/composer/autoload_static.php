@@ -323,7 +323,9 @@ class ComposerStaticInit97b1e31d7b570baf545a524f9eac4236
     );
 
     public static $classMap = array (
+        'AdicionarAvatar' => __DIR__ . '/../..' . '/database/migrations/2017_06_21_205433_adicionarAvatar.php',
         'AdicionarCamposMenu' => __DIR__ . '/../..' . '/database/migrations/2017_06_16_185759_adicionarCamposMenu.php',
+        'AdicionarIdioma' => __DIR__ . '/../..' . '/database/migrations/2017_07_01_210021_AdicionarIdioma.php',
         'AlterarParentMenuAcesso' => __DIR__ . '/../..' . '/database/migrations/2017_06_17_122939_alterarParentMenuAcesso.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
@@ -341,9 +343,10 @@ class ComposerStaticInit97b1e31d7b570baf545a524f9eac4236
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
+        'App\\Http\\Middleware\\SetLocale' => __DIR__ . '/../..' . '/app/Http/Middleware/SetLocale.php',
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
-        'App\\Menu' => __DIR__ . '/../..' . '/app/Menu.php',
+        'App\\Model\\CriaNovaPermissao' => __DIR__ . '/../..' . '/app/Model/CriaNovaPermissao.php',
         'App\\Model\\Permission' => __DIR__ . '/../..' . '/app/Model/Permission.php',
         'App\\Model\\Role' => __DIR__ . '/../..' . '/app/Model/Role.php',
         'App\\Permission' => __DIR__ . '/../..' . '/app/Permission.php',
@@ -377,6 +380,7 @@ class ComposerStaticInit97b1e31d7b570baf545a524f9eac4236
         'Cron\\MinutesField' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/MinutesField.php',
         'Cron\\MonthField' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/MonthField.php',
         'Cron\\YearField' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/YearField.php',
+        'DadosIniciais' => __DIR__ . '/../..' . '/database/seeds/DadosIniciais.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'DeepCopy\\DeepCopy' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/DeepCopy.php',
         'DeepCopy\\Exception\\CloneException' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/Exception/CloneException.php',

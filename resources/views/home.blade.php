@@ -3,9 +3,11 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>{{ trans('geral.inicio') }}</h1>
 @stop
 
 @section('content')
-    <p>You are logged in!</p>
+    <p>{{ trans('geral.logado') }}</p>
 @stop
+
+

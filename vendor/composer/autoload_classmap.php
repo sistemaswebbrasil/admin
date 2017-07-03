@@ -9,6 +9,7 @@ return array(
     'AdicionarAvatar' => $baseDir . '/database/migrations/2017_06_21_205433_adicionarAvatar.php',
     'AdicionarCamposMenu' => $baseDir . '/database/migrations/2017_06_16_185759_adicionarCamposMenu.php',
     'AdicionarIdioma' => $baseDir . '/database/migrations/2017_07_01_210021_AdicionarIdioma.php',
+    'AdicionarSkin' => $baseDir . '/database/migrations/2017_07_03_015344_AdicionarSkin.php',
     'AlterarParentMenuAcesso' => $baseDir . '/database/migrations/2017_06_17_122939_alterarParentMenuAcesso.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Events\\Event' => $baseDir . '/app/Events/Event.php',

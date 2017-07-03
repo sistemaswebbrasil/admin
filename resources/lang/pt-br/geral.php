@@ -14,4 +14,6 @@ return [
     'sucesso' => 'Sucesso',
     'acao' => 'Ações',
     'detalhes' => 'Detalhes',
+    'geral' => 'Geral',
+    'preferencias' => 'Preferencias',
 ]; 

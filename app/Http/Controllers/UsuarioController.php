@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Auth;
 use Image;
 use App;
-use Jenssegers\Date\Date;
-use Carbon\Carbon;
+
 
 
 class UsuarioController extends Controller
@@ -47,7 +46,8 @@ class UsuarioController extends Controller
         $roles =  Role::pluck('display_name', 'id');        
         $titulo = 'Criar novo usuário' ;        
         $languages = \Config::get('app.locales');
-        return view('usuario.create',compact('roles','titulo','languages'));
+        $skins = ['blue','black','purple','yellow','red','green','blue-light','purple-light','purple-light'];
+        return view('usuario.create',compact('roles','titulo','languages','skin'));
     }
 
     /**
@@ -106,7 +106,9 @@ class UsuarioController extends Controller
         $roles =  Role::pluck('display_name', 'id');
         $titulo = 'Editar o Usuário '.$id ;
         $languages = \Config::get('app.locales');
-        return view('usuario.edit',compact('usuario','roles','titulo','languages'));
+        $skins = ['blue','black','purple','yellow','red','green','blue-light','purple-light','purple-light'];
+
+        return view('usuario.edit',compact('usuario','roles','titulo','languages','skins'));
     }
 
     /**
@@ -148,6 +150,12 @@ class UsuarioController extends Controller
         if ($id == Auth::user()->id){
             \Session::put('locale', $request->input('language'));
         }
+
+        // 'skin' => 'red',
+        // $languages = \Config::get('app.locales');
+        //\Adminlte::skin(red);
+
+
         return redirect()->route('usuario.index')->with('success','User updated successfully');
     }
 
@@ -175,9 +183,10 @@ class UsuarioController extends Controller
         $usuario = Auth::user();
 
         $languages = \Config::get('app.locales');
+        $skins = ['blue','black','purple','yellow','red','green','blue-light','purple-light','purple-light'];
         //\Config::get('app.locales');
 
-        return view('usuario.profile',compact('usuario','languages'));
+        return view('usuario.profile',compact('usuario','languages','skins'));
 
         // return view('usuario/profile', array('usuario' => Auth::user()) );
     }

@@ -6,8 +6,6 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laratrust\Traits\LaratrustUserTrait;
 use Illuminate\Support\Facades\Log;
-use Carbon\Carbon;
-
 
 class User extends Authenticatable
 {
@@ -20,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','avatar','language','roles'
+        'name', 'email', 'password','avatar','language','skin'
     ];
 
     /**
@@ -52,10 +50,5 @@ class User extends Authenticatable
             $permissoes = $role->permissions->pluck('name')->toArray();
             return $permissoes;
         }
-    }   
-
-    // public function getCreatedAtAttribute($value)
-    // {
-    //    return Date::instance($value);
-    // }
+    }  
 }

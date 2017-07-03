@@ -1,9 +1,28 @@
 <div class="box-body">
 
-<div class="box-header">
+<!-- <div class="box-header">
     <a class="btn btn-primary" href="{{ route('usuario.index') }}"><i class="fa fa-chevron-left"> {{ trans('geral.voltar') }}</i> </a>
     <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-check-circle"> {{ trans('geral.confirmar') }}</i></button>
-</div>
+</div> -->
+
+
+
+  <!-- Nav tabs -->
+<div class="nav-tabs-custom">  
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#geral" aria-controls="geral" role="tab" data-toggle="tab">{{ trans('geral.geral')}}</a></li>
+    <li role="presentation"><a href="#avatar" aria-controls="avatar" role="tab" data-toggle="tab">{{ trans('usuario.avatar')}}</a></li>
+    @if (Route::current()->getName() != 'usuario.profile'  )  
+        <li role="presentation"><a href="#roles" aria-controls="roles" role="tab" data-toggle="tab">    
+        {{ trans('usuario.roles')}}</a></li>
+    @endif
+    <li role="presentation"><a href="#preferencias" aria-controls="preferencias" role="tab" data-toggle="tab">  {{ trans('geral.preferencias')}}</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="geral">
+
 
 
     <div class="form-group">
@@ -19,15 +38,7 @@
     </div>
 
 
-    @if (Route::current()->getName() != 'usuario.profile'  )     
 
-    <div class="form-group">
-        <strong>{{ trans('usuario.roles') }}:</strong>
-        {!! Form::select('roles[]',$roles,null,['class' => 'form-control', 
-        'multiple' => 'multiple']) !!}
-    </div>
-
-    @endif
 
 
 
@@ -71,44 +82,89 @@
         <strong>{{ $errors->first('password_confirmation') }}</strong>
     </span>
     @endif
-</div>    
+</div>         
 
 
 
 
-<div class="form-group" >                
 
-    @if (!empty($usuario->avatar))
-    <img src={{ $usuario->avatar }} id='avatar' width="200px" > 
+    </div>
+    <div role="tabpanel" class="tab-pane" id="avatar">
+        <div class="form-group" >                
 
-    @else
-    <img src='/usuarios/usuario.jpg' id='avatar' width="200px" > 
+            @if (!empty($usuario->avatar))
+            <img src={{ $usuario->avatar }} id='avatar' width="200px" > 
+
+            @else
+            <img src='/usuarios/usuario.jpg' id='avatar' width="200px" > 
+            @endif
+        </div>
+               
+
+
+        <div class="form-group">
+            <strong>{{ trans('usuario.avatar') }}</strong>            
+            {!! Form::file('avatar', ['class' => '','id' => 'avatar-input']) !!}
+
+        </div>        
+
+    </div>
+
+    @if (Route::current()->getName() != 'usuario.profile'  )  
+    <div role="tabpanel" class="tab-pane" id="roles">
+        <div class="form-group">
+            <strong>{{ trans('usuario.roles') }}:</strong>
+            {!! Form::select('roles[]',$roles,null,['class' => 'form-control', 
+            'multiple' => 'multiple']) !!}
+        </div>        
+    </div>
     @endif
-</div>
-       
+    
+
+    <div role="tabpanel" class="tab-pane" id="preferencias">
+        <div class="form-group">
+            <select class="form-control" name="language">
+                @foreach($languages as $language)
+                <option value="{{$language}}"   
+                @if(isset($usuario))
+                    {{ $usuario->language == $language ? 'selected="selected"' : '' }} 
+                @endif> 
+                {{ trans(  'usuario.'.$language ) }}
+                </option>                  
+                @endforeach
+            </select>    
+        </div> 
+
+        <div class="form-group">
+            <select class="form-control" name="skin">
+                @foreach($skins as $skin)
+                <option value="{{$skin}}"   
+                @if(isset($usuario))
+                    {{ $usuario->skin == $skin ? 'selected="selected"' : '' }} 
+                @endif> 
+                {{ $skin }}
+                </option>                  
+                @endforeach
+            </select>              
+        </div>
 
 
-<div class="form-group">
-    <strong>{{ trans('usuario.avatar') }}</strong>            
-    {!! Form::file('avatar', ['class' => '','id' => 'avatar-input']) !!}
-
-</div>
+    </div>
+  </div>
+</div>  
 
 
+   
 
 
-<div class="form-group">
-    <select class="form-control" name="language">
-        @foreach($languages as $language)
-        <option value="{{$language}}"   
-        @if(isset($usuario))
-            {{ $usuario->language == $language ? 'selected="selected"' : '' }} 
-        @endif> 
-        {{ trans(  'usuario.'.$language ) }}
-        </option>                  
-        @endforeach
-    </select>    
-</div>
+
+
+
+
+
+
+
+
 </div>
 
 
@@ -132,10 +188,10 @@
 </script>
 @stop
 
-<!-- <div class="box-footer">
-    <a class="btn btn-primary" href="{{ route('usuario.index') }}"> {{ trans('geral.voltar') }}</a>
-    <button type="submit" class="btn btn-primary pull-right">{{ trans('geral.confirmar') }}</button>
-</div> -->
+<div class="box-footer">
+    <a class="btn btn-primary" href="{{ route('usuario.index') }}"><i class="fa fa-chevron-left"> {{ trans('geral.voltar') }}</i> </a>
+    <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-check-circle"> {{ trans('geral.confirmar') }}</i></button>
+</div>
 
 
 

@@ -168,16 +168,40 @@
 </div>
 
 
+
+
+<div class="box-footer">
+    <a class="btn btn-primary" href="{{ route('usuario.index') }}"><i class="fa fa-chevron-left"> {{ trans('geral.voltar') }}</i> </a>
+    <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-check-circle"> {{ trans('geral.confirmar') }}</i></button>
+</div>
+
+
+
+
+
+</div>
+</div>
+</div>
+
 @section('js')
 
 <script type="text/javascript">
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
 
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+
+            var reader = new FileReader();
+            
             reader.onload = function (e) {
                 //$('#profile-img-tag').attr('src', e.target.result);
+                //
+                
+                //alert( e.target.result);
+                
+                console.log(e.target.result);
                 $('#avatar').attr('src', e.target.result);
+                
             }
             reader.readAsDataURL(input.files[0]);
         }
@@ -187,14 +211,3 @@
     });
 </script>
 @stop
-
-<div class="box-footer">
-    <a class="btn btn-primary" href="{{ route('usuario.index') }}"><i class="fa fa-chevron-left"> {{ trans('geral.voltar') }}</i> </a>
-    <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-check-circle"> {{ trans('geral.confirmar') }}</i></button>
-</div>
-
-
-
-</div>
-</div>
-</div>

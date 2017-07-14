@@ -12,13 +12,18 @@ class User extends Authenticatable
     use LaratrustUserTrait;    
     use Notifiable;
 
+    protected $dates = [
+        'created_at',
+        'updated_at'
+    ];       
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','avatar','language','skin'
+        'name', 'email', 'password','avatar','language','skin','created_at'
     ];
 
     /**
@@ -51,4 +56,6 @@ class User extends Authenticatable
             return $permissoes;
         }
     }  
+
+ 
 }

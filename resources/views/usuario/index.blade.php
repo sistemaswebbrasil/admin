@@ -35,12 +35,12 @@
 
   </div>
 
-<div class="box-header">
+  <div class="box-header">
     <a class="btn btn-success pull-right" href="{{ route('usuario.create') }}"><i class="fa fa-plus"> {{ trans('geral.novo') }}</i></a>
 </div>
+<div class="box-body">
 
-  <!-- /.box-header -->
-  <div class="box-body">
+
     <table class="table table-bordered table-striped">
         <tr>
             <th>{{ trans('usuario.id') }}</th>
@@ -69,44 +69,36 @@
     </tr>
     @endforeach
     </table>
+    </div>
+
     {!! $usuarios->render() !!}
-</div>
-<!-- /.box-body -->
-<!-- <div class="box-footer clearfix">
-  <ul class="pagination pagination-sm no-margin pull-right">
-    <li><a href="#">«</a></li>
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">»</a></li>
-</ul>
-</div> -->
-</div>
+
+
+
+
+
+</div>    
 
 <div class="modal fade" id="modal-default" style="display: none;">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">{{ trans('usuario.mostrar',[ 'name' => $usuario->name ]) }}</h4>
-              </div>
-              <div class="modal-body">                
-                @include('usuario.show')
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">{{ trans('geral.sair') }}</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-
-@endsection          
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span></button>
+        <h4 class="modal-title">{{ trans('usuario.mostrar',[ 'name' => $usuario->name ]) }}</h4>
+      </div>
+      <div class="modal-body">                
+        @include('usuario.show')
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">{{ trans('geral.sair') }}</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 
 
 
-
-
-
+@endsection

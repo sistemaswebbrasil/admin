@@ -40,10 +40,8 @@
         <strong><i class="fa fa-file-text-o margin-r-5"></i> {{ trans('usuario.created_at') }}</strong>
         <!-- <p>{{ $usuario->created_at }}</p> -->
         </p>
-        <?php \Carbon\Carbon::setLocale('hr');?>
-        {{ Lang::setLocale('pt-br') }}  
-        {{ date('l j F Y H:i:s', strtotime($usuario->created_at)) }}  
-        {{Date::now()->format('l j F Y H:i:s')}}
+          {{ $usuario->created_at }}
+        
         </p>
     </div>
     <div class="col-md-6">

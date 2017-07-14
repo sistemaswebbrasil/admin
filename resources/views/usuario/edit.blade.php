@@ -26,6 +26,7 @@
 	</div>
 	{!! Form::model($usuario, ['method' => 'PATCH', 'route' =>  ['usuario.update', $usuario->id], 'files' => true]) !!}    
 	 @include('usuario.partials.form')
+	 @section('scripts')
 </div>
 {!! Form::close() !!}
 @endsection

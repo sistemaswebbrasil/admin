@@ -149,6 +149,7 @@ class UsuarioController extends Controller
         $usuario->update($params);        
         if ($id == Auth::user()->id){
             \Session::put('locale', $request->input('language'));
+            \Carbon\Carbon::setLocale($this->app->getLocale());
         }
 
         // 'skin' => 'red',
@@ -203,8 +204,9 @@ class UsuarioController extends Controller
         \Session::put('locale', $request->locale);
 
         $usuario = App\User::find(Auth::user()->id);
-        $usuario->language = $request->locale;
+        $usuario->language = $request->locale;        
         $usuario->save();
+        \Carbon\Carbon::setLocale($this->app->getLocale());
 
         return redirect()->back();
     }   

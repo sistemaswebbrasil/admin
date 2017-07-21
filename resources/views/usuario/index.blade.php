@@ -28,7 +28,7 @@
       <h3 class="box-title">{{ trans('usuario.listar') }}</h3>
 
 
-
+   
 
 <!-- <a class="btn btn-success pull-right" href="{{ route('usuario.create') }}"><i class="fa fa-plus"> {{ trans('geral.novo') }}</i></a> -->
 

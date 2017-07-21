@@ -2,20 +2,19 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
-use Illuminate\Support\Facades\Log;
 
 class User extends Authenticatable
 {
-    use LaratrustUserTrait;    
+    use LaratrustUserTrait;
     use Notifiable;
 
     protected $dates = [
         'created_at',
-        'updated_at'
-    ];       
+        'updated_at',
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -23,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','avatar','language','skin','created_at'
+        'name', 'email', 'password', 'avatar', 'language', 'skin', 'created_at',
     ];
 
     /**
@@ -35,9 +34,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function roles(){        
-         return $this->belongsToMany('App\Model\Role');         
-    }   
+    public function roles()
+    {
+        return $this->belongsToMany('App\Model\Role');
+    }
 
     public function permissions()
     {
@@ -46,8 +46,8 @@ class User extends Authenticatable
 
     public function getRoleListAttribute()
     {
-        return $this->roles->pluck('id','name')->toArray();
-    }        
+        return $this->roles->pluck('id', 'name')->toArray();
+    }
     public function getPermissionListAttribute()
     {
         $roles = $this->Roles()->get();
@@ -55,7 +55,5 @@ class User extends Authenticatable
             $permissoes = $role->permissions->pluck('name')->toArray();
             return $permissoes;
         }
-    }  
-
- 
+    }
 }

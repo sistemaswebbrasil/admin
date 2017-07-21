@@ -1,13 +1,13 @@
-@extends('adminlte::master')
+
 
 <div class="row">
     <div class="col-md-3">
       <div class="box box-primary">
         <div class="box-body box-profile">
             @if (!empty($usuario->avatar))
-            <img class="profile-user-img img-responsive img-circle" src={{ $usuario->avatar }} id='avatar' width="200px" > 
+            <img class="profile-user-img img-responsive img-circle" src={{ $usuario->avatar }} id='avatar' width="200px" >
             @else
-            <img class="profile-user-img img-responsive img-circle" src='/usuarios/usuario.jpg' id='avatar' width="200px" > 
+            <img class="profile-user-img img-responsive img-circle" src='/usuarios/usuario.jpg' id='avatar' width="200px" >
             @endif
             <h3 class="profile-username text-center">{{ $usuario->name }}</h3>
             <p class="text-muted text-center">{{ $usuario->email }}</p>
@@ -24,7 +24,7 @@
   </div>
   <div class="box-body">
       <strong><i class="fa fa-book margin-r-5"></i> {{ trans('usuario.language') }}</strong>
-      <p class="text-muted">        
+      <p class="text-muted">
         {{ trans(  'usuario.'.$usuario->language ) }}
     </p>
     <hr>
@@ -40,13 +40,19 @@
         <strong><i class="fa fa-file-text-o margin-r-5"></i> {{ trans('usuario.created_at') }}</strong>
         <!-- <p>{{ $usuario->created_at }}</p> -->
         </p>
-          {{ $usuario->created_at }}
-        
+          {{ $usuario->created_at->diffForHumans() }}
+
         </p>
     </div>
     <div class="col-md-6">
       <strong><i class="fa fa-file-text-o margin-r-5"></i> {{ trans('usuario.updated_at') }}</strong>
-      </p>{{ date('l j F Y H:i:s', strtotime($usuario->updated_at)) }}  </p>
+      </p>
+      <!-- {{ date('l j F Y H:i:s', strtotime($usuario->updated_at)) }} -->
+      <!-- {{ $usuario->updated_at }}</br> -->
+      <!-- {{ $usuario->updated_at->format('d/m/Y') }} -->
+      {{ $usuario->updated_at->format('l j F Y  H:i:s') }}
+      {{ Date::now()->format('l j F Y H:i:s') }}
+      </p>
   </div>
 </div>
 </div>

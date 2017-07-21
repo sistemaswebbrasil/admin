@@ -11,7 +11,7 @@ return [
     | the validator class. Some of these rules have multiple versions such
     | as the size rules. Feel free to tweak each of these messages here.
     |
-    */
+     */
 
     'accepted'             => ':attribute deve ser aceito.',
     'active_url'           => ':attribute não é uma URL válida.',
@@ -40,7 +40,7 @@ return [
     'distinct'             => ':attribute tem um valor duplicado.',
     'email'                => ':attribute deve ser um endereço de e-mail válido.',
     'exists'               => ':attribute selecionado é inválido.',
-    'file'                 => ':attribute deve ser um arquivo.',    
+    'file'                 => ':attribute deve ser um arquivo.',
     'filled'               => ':attribute é um campo obrigatório.',
     'image'                => ':attribute deve ser uma imagem.',
     'in'                   => ':attribute é inválido.',
@@ -64,7 +64,7 @@ return [
     ],
     'not_in'               => 'O :attribute selecionado é inválido.',
     'numeric'              => ':attribute deve ser um número.',
-    'present'              => 'O campo :attribute deve ser presente.',    
+    'present'              => 'O campo :attribute deve ser presente.',
     'regex'                => 'O formato de :attribute é inválido.',
     'required'             => 'O campo :attribute é obrigatório.',
     'required_if'          => 'O campo :attribute é obrigatório quando :other é :value.',
@@ -83,7 +83,7 @@ return [
     'string'               => ':attribute deve ser uma string',
     'timezone'             => ':attribute deve ser uma timezone válida.',
     'unique'               => ':attribute já está em uso.',
-    'uploaded'             => ':attribute falhou ao ser enviado.',    
+    'uploaded'             => ':attribute falhou ao ser enviado.',
     'url'                  => 'O formato de :attribute é inválido.',
 
     /*
@@ -95,11 +95,16 @@ return [
     | convention "attribute.rule" to name the lines. This makes it quick to
     | specify a specific custom language line for a given attribute rule.
     |
-    */
+     */
 
-    'custom' => [
+    'custom'               => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
+        ],
+        'password'       => 'localized username',
+
+        'attributes'     => [
+            'password' => 'localized username',
         ],
     ],
 
@@ -112,8 +117,28 @@ return [
     | with something more reader friendly such as E-Mail Address instead
     | of "email". This simply helps us make messages a little cleaner.
     |
-    */
+     */
 
-    'attributes' => [],
+    'attributes'           => [
+        'id'                    => 'ID',
+        'name'                  => 'Nome',
+        'email'                 => 'Email',
+        'password'              => 'Senha',
+        'trocarsenha'           => 'Trocar Senha',
+        'avatar'                => 'Foto',
+        'remember_token'        => 'Lembrar Usuário',
+        'created_at'            => 'Data de Criação',
+        'updated_at'            => 'Data de Atualização',
+        'roles'                 => 'Funções',
+        'criar'                 => 'Criar novo Usuário',
+        'editar'                => 'Editar Usuário :id',
+        'listar'                => 'Listar Usuários',
+        'language'              => 'Idioma',
+        'pt-br'                 => 'Português',
+        'en'                    => 'Inglês',
+        'perfil'                => 'Perfil Usuário(a) :name',
+        'mostrar'               => 'Usuário(a) :name',
+        'password_confirmation' => 'Confirmação da Senha',
+    ],
 
 ];

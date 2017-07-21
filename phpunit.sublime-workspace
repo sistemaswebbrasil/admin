@@ -1,0 +1,679 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"json_",
+				"json_encode"
+			],
+			[
+				"Class",
+				"class"
+			],
+			[
+				"per",
+				"permission"
+			],
+			[
+				"pe",
+				"permission"
+			],
+			[
+				"Js",
+				"JSON"
+			],
+			[
+				"logi",
+				"login"
+			],
+			[
+				"de",
+				"default"
+			],
+			[
+				"b",
+				"button\tTag"
+			],
+			[
+				"ba",
+				"background-color"
+			],
+			[
+				"th",
+				"thead\tTag"
+			],
+			[
+				"typeahead",
+				"typeahead-github-template"
+			],
+			[
+				"aja",
+				"ajaxFindCountry"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 132.0,
+		"last_filter": "Package Control: ins",
+		"selected_items":
+		[
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/seacweb/web/sc/tabelas_novas/insereGrifos.sql",
+		"/home/seacweb/Documentos/Elba",
+		"/home/seacweb/web/sc/view_produtosvendidos.sql",
+		"/home/seacweb/web/sc/view_todos_cartoes.sql",
+		"/home/seacweb/web/sc/tabelas_novas/ca_artigo_esboco.sql",
+		"/home/seacweb/web/sc/tabelas_novas/alterar_menu.sql",
+		"/home/seacweb/Área de Trabalho/Clientes/gaze/atualiza_custo.sql",
+		"/home/seacweb/web/sc/view_ca_rl_total_motivo.sql",
+		"/home/seacweb/web/sc/view_ca_rl_total_origem.sql",
+		"/home/seacweb/web/sc/view_ca_rl_total_responsavel.sql",
+		"/home/seacweb/web/sc/view_ca_rl_total_concluido.sql",
+		"/home/seacweb/web/sc/view_ca_rl_total_solicitante.sql",
+		"/home/seacweb/web/sc/view_ca_rl_total_status.sql",
+		"/home/seacweb/web/sc/view_contasreceber.sql",
+		"/home/seacweb/web/sc/desenvolvimento.php",
+		"/var/www/html/laravel/admin/resources/views/usuario/partials/form.blade.php",
+		"/home/seacweb/teste.ss.php",
+		"/home/seacweb/teste.php",
+		"/var/www/html/laravel/admin/readme.md",
+		"/var/www/html/laravel/admin/resources/views/usuario/edit.blade.php",
+		"/var/www/html/laravel/admin/resources/views/vendor/adminlte/partials/menu-usuario.blade.php",
+		"/home/seacweb/web/sc/exporta_importa/Modulos_ok/lib/exatalib.php",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_subgrupos.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_bairros_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_bancos_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_cartoes_adepositar.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_cartoes_depositados.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_cartoes_todos.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_centros_custo_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_cfop_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_cheque_todos.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_cliente_compras.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_condominos.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_contabilistas_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_controles.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_convenio_icms_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_cores.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_departamentos_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_empresa_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_estados_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_grupos.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_historicos_padroes_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_item_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_layout.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_localizacoes.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_marcas.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_movcaixa.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_movcaixa_detcliente.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_movcaixa_itens.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_movcaixa_prodvend.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_municipios_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_municipios_gerencial2.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_ncm_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_paises_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_portadores_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_produtos.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_produtos_bairros.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_produtos_modal.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_profissionais.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_profissionais_treinamentos.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_setores_email_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_setores_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_situacao_tributaria_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_transportadores_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_unidades.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid_teste/apl_Modulos_1_grid_view_contasreceber.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_subgrupos.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_bairros_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_bancos_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_cartoes_adepositar.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_cartoes_depositados.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_cartoes_todos.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_centros_custo_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_cfop_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_cheque_todos.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_cliente_compras.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_condominos.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_contabilistas_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_controles.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_convenio_icms_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_cores.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_departamentos_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_empresa_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_estados_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_grupos.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_historicos_padroes_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_item_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_layout.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_localizacoes.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_marcas.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_movcaixa.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_movcaixa_detcliente.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_movcaixa_itens.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_movcaixa_prodvend.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_municipios_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_municipios_gerencial2.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_ncm_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_paises_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_portadores_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_produtos.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_produtos_bairros.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_produtos_modal.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_profissionais.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_profissionais_treinamentos.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_setores_email_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_setores_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_situacao_tributaria_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_transportadores_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_unidades.bkp",
+		"/home/seacweb/web/sc/exporta_importa/modulos_grid/apl_Modulos_1_grid_view_contasreceber.bkp",
+		"/home/seacweb/web/sc/exporta_importa/Modulos_grid_teste/apl_Modulos_1_grid_profissoes_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/201707101819_export_Modulos/apl_Modulos_1_grid_profissoes_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/Modulos_grid_teste/aplevt_Modulos_1_grid_situacao_tributaria_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/Modulos_grid_teste/apl_Modulos_1_grid_cartoes_depositados.bkp",
+		"/home/seacweb/web/sc/exporta_importa/Modulos_grid_teste/aplevt_Modulos_1_grid_bairros_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/Modulos_grid_teste/aplevt_Modulos_1_grid_bancos_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/Modulos_grid_teste/aplevt_Modulos_1_grid_cartoes_adepositar.bkp",
+		"/home/seacweb/web/sc/exporta_importa/Modulos_grid_teste/aplevt_Modulos_1_grid_cartoes_depositados.bkp",
+		"/home/seacweb/web/sc/exporta_importa/Modulos_grid_teste/aplevt_Modulos_1_grid_cartoes_todos.bkp",
+		"/home/seacweb/web/sc/exporta_importa/Modulos_grid_teste/aplevt_Modulos_1_grid_centros_custo_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/Modulos_grid_teste/aplevt_Modulos_1_grid_cheque_todos.bkp",
+		"/home/seacweb/web/sc/exporta_importa/Modulos_grid_teste/aplevt_Modulos_1_grid_colaboradores.bkp",
+		"/home/seacweb/web/sc/exporta_importa/Modulos_grid_teste/aplevt_Modulos_1_grid_contabilistas_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/Modulos_grid_teste/aplevt_Modulos_1_grid_controles.bkp",
+		"/home/seacweb/web/sc/exporta_importa/Modulos_grid_teste/aplevt_Modulos_1_grid_convenio_icms_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/Modulos_grid_teste/aplevt_Modulos_1_grid_cores.bkp",
+		"/home/seacweb/web/sc/exporta_importa/Modulos_grid_teste/aplevt_Modulos_1_grid_departamentos_gerencial.bkp",
+		"/home/seacweb/web/sc/exporta_importa/Modulos_grid_teste/aplevt_Modulos_1_grid_empresa_gerencial.bkp"
+	],
+	"find":
+	{
+		"height": 21.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			"/var/www/html/laravel/admin/resources",
+			"<open folders>",
+			"<open files>",
+			"open file",
+			"<open folders>",
+			"/home/seacweb/laravel/adminlte-teste/resources/views",
+			"/home/seacweb/vue/laravel-vue-admin",
+			"/var/www/html/laravel/admin-spa/resources/assets/js",
+			"/var/www/html/laravel/admin-spa/resources",
+			"/home/seacweb/vue/laravel-vue-admin",
+			"/home/seacweb/vue/laravel-vue-admin/resources",
+			"/home/seacweb/vue/login/src",
+			"/home/seacweb/vue/vue-element-admin/src",
+			"/home/seacweb/vue/vue-admin/src",
+			"/home/seacweb/vue/vue-element-admin/src",
+			"/home/seacweb/vue/vue-element-admin",
+			"/home/seacweb/vue/vue-element-admin/src",
+			"/home/seacweb/vue/menu/src",
+			"/home/seacweb/vue/menu",
+			"/home/seacweb/vue/vue-element-admin/src",
+			"/home/seacweb/vue/vue-admin",
+			"/home/seacweb/vue/vue-admin/client",
+			"/home/seacweb/vue/vue-admin",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"('glyphicon','",
+			"'glyphicon'",
+			"glyphicon ",
+			"\">",
+			"</span> </li> ",
+			"\" aria-hidden=\"true\"></span> <span class=\"",
+			"<li> <span class=\"",
+			"pd_custo_final",
+			" $app = $this->Ini->nm_cod_apl;   ",
+			"onApplicationInitGrid",
+			"#avatar",
+			"$('.dropdown-toggle').dropdown();",
+			"cLogo",
+			"fav",
+			"\"libraries_prj\";a:0:{}s:13:\"libraries_usr\";a:0:{}s:10:\"attributes\";a:0:{}s:8:\"ligacoes\";",
+			"\"libraries_prj\";a:0:{}s:13:\"libraries_usr\";a:1:{i:0;s:27:\"exata?#?desenvolvimento.php\";}s:10:\"attributes\";a:0:{}s:8:\"ligacoes\";",
+			"\"libraries_prj\";a:0:{}s:13:\"libraries_usr\";a:0:{}s:10:\"attributes\";a:0:{}s:8:\"ligacoes\";",
+			"libraries_prj",
+			"desenvolvimento",
+			"desenv",
+			"s:315:\"/*********************************************************************************************\n * Zera o tempo de inatividade da sessão , nas grids o melhor local é no onHeader\n *********************************************************************************************\n*/\nzerartempo();\n\n\nAjusta_Modal();\";",
+			"ajusta_modal",
+			"header",
+			"redimensionar",
+			"164:\"/*\n * Redimenciona a tabela do grid dependendo da resolução da tela\n */\nredimensionar();\n\n/*\n * Zera o tempo de inatividade da sessão\n */\nzerartempo();\n\";}i:1;",
+			"redimensionar",
+			"146:\"/*\n * Redimenciona a tabela do grid dependendo da resolução da tela\n * Só funciona bem no evento onApplicationInit\n */\n\nredimensionar();\n\";}i:1;",
+			"redimensionar()",
+			"s:144:\"/*\n * Redimenciona a tabela do grid dependendo da resolução da tela\n * Só funciona bem no evento onApplicationInit\n */\n\nredimensionar();\";}i:1;",
+			"init",
+			"redimensionar",
+			"Ajusta_Modal();",
+			"redimensionar();",
+			"Ajusta_Modal();",
+			"redimensionar();",
+			"/*********************************************************************************************\n * Zera o tempo de inatividade da sessão , nas grids o melhor local é no onHeader\n *********************************************************************************************\n*/\nzerartempo();",
+			"redimensionar();",
+			"/*\n * Redimenciona a tabela do grid dependendo da resolução da tela\n * Só funciona bem no evento onApplicationInit\n */",
+			"redimensionar();",
+			"redim",
+			"grid",
+			"qt",
+			"$reglinhas",
+			"redimen",
+			"bluewoo",
+			"locale",
+			"update",
+			"changeLocale",
+			"lang",
+			"to",
+			"tog",
+			"togl",
+			"dro",
+			"permission",
+			"include",
+			"redimensionar",
+			"redimensionar;",
+			"redimensionar_des();",
+			";a:1:{i:0;s:27:\"exata?#?desenvolvimento.php\";",
+			"libraries_sys",
+			"desenvolvimento.php",
+			"s:10:\"ISO-8859-1\";",
+			"redimensionar();",
+			"redimensionar_des();",
+			"var{",
+			"mediumblob",
+			"varchar(10)",
+			"enum('F','T')",
+			"bigint(10) AI PK",
+			"double(5,2)",
+			"tinyint(1)",
+			"double(5,0)",
+			"double(8,0)",
+			"char(25)",
+			"double(4,0)",
+			"double(6,0)",
+			"char(60)",
+			"double(1,0)",
+			"char(20)",
+			"\tchar(18)",
+			"ADD `",
+			"fu_orc",
+			"100px",
+			"240px",
+			"_dev",
+			".'.'.request()->file('avatar')",
+			"->getClientOriginalExtension()",
+			"inpu",
+			"usuario",
+			"en",
+			"jqu",
+			"sect",
+			"3",
+			"        ]);                        \n\n        DB::table('permissions')->insert(",
+			"|",
+			"ctt",
+			"selec",
+			"teste",
+			"log",
+			"can",
+			"label",
+			"icon",
+			"pluck",
+			"txtMenu",
+			"$txtSubMenu",
+			"txtSubMenu",
+			"push",
+			"if",
+			"permission",
+			"menuacesso",
+			"permission",
+			"Permission",
+			"user_type",
+			"permissions",
+			"role",
+			"permission",
+			"role",
+			"Role",
+			"role",
+			"usuario",
+			"usuarios",
+			"usuario",
+			"usuarios",
+			"User",
+			"usuario",
+			"usuarios",
+			"User",
+			"Usuario"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"('glyphicon','glyphicon ",
+			"('glyphicon'",
+			"'glyphicon','",
+			" ",
+			"",
+			"pd_valor_custo",
+			"\"libraries_prj\";a:0:{}s:13:\"libraries_usr\";a:1:{i:0;s:27:\"exata?#?desenvolvimento.php\";}s:10:\"attributes\";a:0:{}s:8:\"ligacoes\";",
+			"s:15:\"onHeaderGrid();\";",
+			"24:\"onApplicationInitGrid();\";}i:1;",
+			"s:24:\"onApplicationInitGrid();\";}i:1;",
+			"onHeaderGrid();",
+			"onApplicationInitGrid();",
+			"redimensionar();",
+			"onHeaderGrid();",
+			"onApplicationInitGrid();",
+			"",
+			"usuarios",
+			"redimensionar();",
+			";",
+			"s:0:\"\";",
+			"redimensionar();",
+			"",
+			"{width: 200px;}",
+			"#id_sc_field_",
+			"200px",
+			"220px",
+			"",
+			"1",
+			",",
+			"",
+			",",
+			"arrayMenu",
+			"$ArraySubMenu",
+			"menuacesso",
+			"MenuAcesso",
+			"permission",
+			"Permission",
+			"permission",
+			"role",
+			"roles",
+			"role",
+			"permission",
+			"permissions",
+			"Permission",
+			"role",
+			"roles",
+			"Role",
+			"usuario",
+			"$usuario",
+			"usuario",
+			"User",
+			"usuario",
+			"user",
+			"usuarios",
+			"",
+			"User",
+			"",
+			"RUA",
+			"2",
+			"",
+			"user",
+			"login",
+			"user",
+			"",
+			"user",
+			"",
+			"rememberMe",
+			"password",
+			"user",
+			"email",
+			"",
+			"logar",
+			"",
+			"timeStr",
+			"",
+			"articleTableAPI",
+			"",
+			"timeStr",
+			"",
+			"clientId",
+			"redirectUri",
+			"",
+			"email",
+			"",
+			"Rhino",
+			"",
+			"){",
+			"if  ",
+			" ",
+			"",
+			"Rhino",
+			"",
+			" ",
+			" <li><a h",
+			" </li>",
+			" ",
+			"",
+			"`",
+			"'' as ",
+			"'' as  `",
+			"s",
+			"s\n",
+			",",
+			"'' as ",
+			"`  ,",
+			"   '' as `",
+			"` ,",
+			"  '' as `",
+			" '' as `",
+			" '' as '",
+			"` ,",
+			"  '' as `",
+			"` ,",
+			",",
+			"",
+			"` ,",
+			"'' as `sg",
+			"'' as ",
+			"`,",
+			"",
+			"'' as",
+			",",
+			"as "
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 21.0
+	},
+	"input":
+	{
+		"height": 29.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 88.0
+	},
+	"pinned_build_system": "",
+	"project": "phpunit.sublime-project",
+	"replace":
+	{
+		"height": 38.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"read",
+				"readme.md"
+			],
+			[
+				"usuario/ed",
+				"resources/views/usuario/edit.blade.php"
+			],
+			[
+				"menu-u",
+				"resources/views/vendor/adminlte/partials/menu-usuario.blade.php"
+			],
+			[
+				"aplevt_modulos_1_grid_profiss",
+				"Modulos_ok/aplevt_Modulos_1_grid_profissionais.bkp"
+			],
+			[
+				"grid_profissona",
+				"Modulos_teste/aplevt_Modulos_1_grid_profissionais.bkp"
+			],
+			[
+				"menua",
+				"app/Model/MenuAcesso.php"
+			],
+			[
+				"edit.bla",
+				"resources/views/menuacesso/edit.blade.php"
+			],
+			[
+				"role",
+				"app/Model/Role.php"
+			],
+			[
+				"menu",
+				"app/Model/MenuAcesso.php"
+			],
+			[
+				"admin",
+				"config/adminlte.php"
+			],
+			[
+				"config/adm",
+				"config/adminlte.php"
+			],
+			[
+				"",
+				"resources/views/menuacesso/edit.blade.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 295.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

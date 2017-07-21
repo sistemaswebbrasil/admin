@@ -2,28 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\User;
-use App\Model\Role;
-use Illuminate\Support\Facades\Storage;
-use Auth;
-use Image;
 use App;
-
-
+use App\Http\Controllers\Controller;
+use App\Model\Role;
+use App\User;
+use Auth;
+use Illuminate\Http\Request;
+use Jenssegers\Date\Date;
+use Session;
 
 class UsuarioController extends Controller
 {
-
     /**
      * Insere o controle de autenticação no controller
      */
     public function __construct()
     {
         $this->middleware('auth');
+        Date::setLocale('pt');
     }
-    
+
     /**
      * Exibe uma lista
      *
@@ -31,8 +29,10 @@ class UsuarioController extends Controller
      */
     public function index(Request $request)
     {
-        $usuarios = User::orderBy('id','DESC')->paginate(5);
-        return view('usuario.index',compact('usuarios'))
+        // Date::setLocale('pt');
+        echo Date::now()->format('l j F Y H:i:s'); // zondag 28 april 2013 21:58:16
+        $usuarios = User::orderBy('id', 'DESC')->paginate(5);
+        return view('usuario.index', compact('usuarios'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -43,11 +43,11 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        $roles =  Role::pluck('display_name', 'id');        
-        $titulo = 'Criar novo usuário' ;        
+        $roles     = Role::pluck('display_name', 'id');
+        $titulo    = 'Criar novo usuário';
         $languages = \Config::get('app.locales');
-        $skins = ['blue','black','purple','yellow','red','green','blue-light','purple-light','purple-light'];
-        return view('usuario.create',compact('roles','titulo','languages','skin'));
+        $skins     = \Config::get('adminlte.skins');
+        return view('usuario.create', compact('roles', 'titulo', 'languages', 'skins'));
     }
 
     /**
@@ -56,31 +56,33 @@ class UsuarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'email',
-            'avatar' => 'mimes:jpeg,png,jpg,gif,svg',
-            'password' => 'required',
+            'name'                  => 'required',
+            //'name'                  => 'required',
+            //trans('usuario.email')  => 'email',
+            'email'                 => 'email',
+            'avatar'                => 'mimes:jpeg,png,jpg,gif,svg',
+            'password'              => 'required',
             'password_confirmation' => 'required|same:password',
         ]);
-        
+
         $params = $request->except(['avatar']); //$request->all();
-        $user = User::create($params); //($request->all());
-        User::find($user);        
-        $roles =$request->input('roles');         
+        $user   = User::create($params); //($request->all());
+        User::find($user);
+        $roles = $request->input('roles');
         $user->roles()->attach($roles);
 
-        if (request()->hasFile('avatar')) {           
-            $nomeArquivo = 'usuario_'.str_pad($user->id, 10, "0", STR_PAD_LEFT);
-            $request->file('avatar')->move(public_path().'/usuarios/',$nomeArquivo);
-            $arquivo = '/usuarios/'.$nomeArquivo ;            
-            $user->update(['avatar' => $arquivo]);                   
+        if (request()->hasFile('avatar')) {
+            $nomeArquivo = 'usuario_' . str_pad($user->id, 10, "0", STR_PAD_LEFT);
+            $request->file('avatar')->move(public_path() . '/usuarios/', $nomeArquivo);
+            $arquivo = '/usuarios/' . $nomeArquivo;
+            $user->update(['avatar' => $arquivo]);
         }
         return redirect()->route('usuario.index')
-                        ->with('success','User created successfully');
+            ->with('success', trans('geral.criadosucesso'));
     }
-
 
     /**
      * Mostra a informação selecionada
@@ -90,8 +92,9 @@ class UsuarioController extends Controller
      */
     public function show($id)
     {
+        Date::setLocale('pt');
         $usuario = User::find($id);
-        return view('usuario.show',compact('usuario'));
+        return view('usuario.show', compact('usuario'));
     }
 
     /**
@@ -102,13 +105,14 @@ class UsuarioController extends Controller
      */
     public function edit($id)
     {
-        $usuario = User::find($id);
-        $roles =  Role::pluck('display_name', 'id');
-        $titulo = 'Editar o Usuário '.$id ;
+        $usuario   = User::find($id);
+        $roles     = Role::pluck('display_name', 'id');
+        $titulo    = 'Editar o Usuário ' . $id;
         $languages = \Config::get('app.locales');
-        $skins = ['blue','black','purple','yellow','red','green','blue-light','purple-light','purple-light'];
+        $skins     = ['blue', 'black', 'purple', 'yellow', 'red', 'green'
+            , 'blue-light', 'purple-light', 'purple-light'];
 
-        return view('usuario.edit',compact('usuario','roles','titulo','languages','skins'));
+        return view('usuario.edit', compact('usuario', 'roles', 'titulo', 'languages', 'skins'));
     }
 
     /**
@@ -122,42 +126,48 @@ class UsuarioController extends Controller
     {
         //$request->user()->id
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'email',
-            'avatar' => 'mimes:jpeg,png,jpg,gif,svg',
-            'new_password' => 'same:password_confirmation',
+            'name'                  => 'required',
+            'email'                 => 'email',
+            'avatar'                => 'mimes:jpeg,png,jpg,gif,svg',
+            'new_password'          => 'same:password_confirmation',
             'password_confirmation' => 'same:new_password',
-        ]);              
+        ]);
 
         $usuario = User::find($id);
-        $params = $request->all();//$request->except(['avatar']); //$request->all();
+        $params  = $request->all(); //$request->except(['avatar']); //$request->all();
 
-        if (request()->hasFile('avatar')) {           
-            $nomeArquivo = 'usuario_'.str_pad($id, 10, "0", STR_PAD_LEFT);
-            $request->file('avatar')->move(public_path().'/usuarios/',$nomeArquivo);
-            $arquivo = '/usuarios/'.$nomeArquivo ;
+        if (request()->hasFile('avatar')) {
+            $nomeArquivo = 'usuario_' . str_pad($id, 10, "0", STR_PAD_LEFT);
+            $request->file('avatar')->move(public_path() . '/usuarios/', $nomeArquivo);
+            $arquivo          = '/usuarios/' . $nomeArquivo;
             $params['avatar'] = $arquivo;
         }
 
-        if  (!empty($request->input('new_password')) ){            
-            $params['password'] =  bcrypt($request->input('new_password'));
-            $usuario->update($params);        
-            return redirect()->route('home')->with('success','Usuário e Senha alterada com sucesso');
+        if (!empty($request->input('new_password'))) {
+            $params['password'] = bcrypt($request->input('new_password'));
+            $usuario->update($params);
+            return redirect()->route('home')->with('success', trans('geral.usuariosenhasucesso'));
         }
 
-        
-        $usuario->update($params);        
-        if ($id == Auth::user()->id){
-            \Session::put('locale', $request->input('language'));
-            \Carbon\Carbon::setLocale($this->app->getLocale());
+        $usuario->update($params);
+        if ($id == Auth::user()->id) {
+            $locale = $request->input('language');
+            //Session::put('locale', $request->input('language'));
+            App::setLocale($locale);
+            Session::put('locale', $locale);
+            if ($locale == 'pt-br') {
+                $locale == 'pt';
+            }
+            Date::setLocale($locale);
+            //Date::setLocale('pt');
+
+            // \Carbon\Carbon::setLocale($this->app->getLocale());
         }
 
         // 'skin' => 'red',
         // $languages = \Config::get('app.locales');
-        //\Adminlte::skin(red);
 
-
-        return redirect()->route('usuario.index')->with('success','User updated successfully');
+        return redirect()->route('usuario.index')->with('success', trans('geral.atualizadosucesso'));
     }
 
     /**
@@ -170,46 +180,41 @@ class UsuarioController extends Controller
     {
         User::find($id)->delete();
 
-        $arquivo = public_path().'/usuarios/usuario_'.str_pad($id, 10, "0", STR_PAD_LEFT);
+        $arquivo = public_path() . '/usuarios/usuario_' . str_pad($id, 10, "0", STR_PAD_LEFT);
 
-        if (\File::exists($arquivo))
+        if (\File::exists($arquivo)) {
             unlink($arquivo);
+        }
 
         return redirect()->route('usuario.index')
-                        ->with('success','User deleted successfully');
-    }  
-
-
-    public function profile(){
-        $usuario = Auth::user();
-
-        $languages = \Config::get('app.locales');
-        $skins = ['blue','black','purple','yellow','red','green','blue-light','purple-light','purple-light'];
-        //\Config::get('app.locales');
-
-        return view('usuario.profile',compact('usuario','languages','skins'));
-
-        // return view('usuario/profile', array('usuario' => Auth::user()) );
+            ->with('success', 'User deleted successfully');
     }
 
-    /**
-     * Change session locale
-     * @param  Request $request
-     * @return Response
-     */
+    public function profile()
+    {
+        $usuario   = Auth::user();
+        $languages = \Config::get('app.locales');
+        $skins     = \Config::get('adminlte.skins');
+        return view('usuario.profile', compact('usuario', 'languages', 'skins'));
+    }
+
+/**
+ * Change session locale
+ * @param  Request $request
+ * @return Response
+ */
     public function changeLocale(Request $request)
     {
         $this->validate($request, ['locale' => 'required|in:pt-br,en']);
 
         \Session::put('locale', $request->locale);
+        Date::setLocale($request->locale);
 
-        $usuario = App\User::find(Auth::user()->id);
-        $usuario->language = $request->locale;        
+        $usuario           = App\User::find(Auth::user()->id);
+        $usuario->language = $request->locale;
         $usuario->save();
-        \Carbon\Carbon::setLocale($this->app->getLocale());
+        // \Carbon\Carbon::setLocale($this->app->getLocale());
 
         return redirect()->back();
-    }   
-
-
+    }
 }

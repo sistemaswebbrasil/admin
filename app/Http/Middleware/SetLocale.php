@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App;
+use Carbon\Carbon;
 use Closure;
 use Config;
 use Session;
@@ -11,7 +12,7 @@ class SetLocale
 {
     /**
      *
-     * Handle an incoming request.
+     * Redefine as linguagens usadas por diferentes partes do projeto
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
@@ -27,6 +28,14 @@ class SetLocale
         }
 
         App::setLocale($locale);
+        Carbon::setLocale(env('LOCALE', $locale));
+        date_default_timezone_set('America/Sao_Paulo');
+
+        if ($locale == 'pt-br') {
+            setlocale(LC_TIME, 'pt_BR.utf8');
+        } elseif ($locale == 'en') {
+            setlocale(LC_TIME, 'en.utf8');
+        }
         return $next($request);
     }
 }

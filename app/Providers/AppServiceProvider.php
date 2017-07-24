@@ -3,11 +3,11 @@
 namespace App\Providers;
 
 use App\Model\MenuAcesso;
+// use Carbon\Carbon;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Jenssegers\Date\Date;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
 
 class AppServiceProvider extends ServiceProvider
@@ -32,8 +32,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot(Dispatcher $events)
     {
         //Carbon::setLocale(env('LOCALE', 'en'));
-        // Carbon::setLocale(env('LOCALE', 'pt'));
-        Date::setLocale('pt');
+        //Carbon::setLocale(env('LOCALE', 'pt-br'));
+        // Date::setLocale('pt');
+        //
+        //setlocale(LC_TIME, 'pt_BR.utf8');
+        //setlocale(LC_TIME, 'pt_BR.utf8');
+
+        // setlocale(LC_TIME, config('app.locale'));
         $this->cadastrarRotas();
 
         /**

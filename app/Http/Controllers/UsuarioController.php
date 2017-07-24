@@ -8,7 +8,6 @@ use App\Model\Role;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
-use Jenssegers\Date\Date;
 use Session;
 
 class UsuarioController extends Controller
@@ -19,7 +18,8 @@ class UsuarioController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        Date::setLocale('pt');
+        // Date::setLocale('pt');
+        // Date::setLocale(LC_TIME, 'pt-BR');
     }
 
     /**
@@ -29,8 +29,36 @@ class UsuarioController extends Controller
      */
     public function index(Request $request)
     {
-        // Date::setLocale('pt');
-        echo Date::now()->format('l j F Y H:i:s'); // zondag 28 april 2013 21:58:16
+
+        // setlocale(LC_TIME, 'nl_NL.utf8');
+        //setlocale(LC_TIME, 'pt_BR.utf8');
+        //var_dump(Carbon::now()->addMonth()->formatLocalized('%d %B %Y'));
+        //
+
+        // $locale = $request->input('language');
+        //Session::put('locale', $request->input('language'));
+
+        // App::setLocale(LC_TIME, 'German');
+        // Date::setLocale(LC_TIME, 'German');
+        // Session::put('locale', $locale);
+
+        // if ($locale == 'pt-br') {
+        //     $locale == 'pt';
+        // }
+        // setlocale(LC_TIME, $locale . '.utf8');
+        // setlocale(LC_TIME, 'pt-BR.utf8');
+
+        // 'pt_BR.utf8');
+
+        //Date::setLocale($locale);
+        //Date::setLocale('pt');
+
+        // \Carbon\Carbon::setLocale($this->app->getLocale());
+
+        // App::setLocale('pt-br');
+        // Session::put('locale', 'pt-br');
+        // setlocale(LC_TIME, config('app.locale'));
+
         $usuarios = User::orderBy('id', 'DESC')->paginate(5);
         return view('usuario.index', compact('usuarios'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
@@ -92,7 +120,8 @@ class UsuarioController extends Controller
      */
     public function show($id)
     {
-        Date::setLocale('pt');
+        // Date::setLocale('pt');
+        // Date::setLocale(LC_TIME, 'German');
         $usuario = User::find($id);
         return view('usuario.show', compact('usuario'));
     }
@@ -152,13 +181,22 @@ class UsuarioController extends Controller
         $usuario->update($params);
         if ($id == Auth::user()->id) {
             $locale = $request->input('language');
-            //Session::put('locale', $request->input('language'));
             App::setLocale($locale);
             Session::put('locale', $locale);
-            if ($locale == 'pt-br') {
-                $locale == 'pt';
-            }
-            Date::setLocale($locale);
+            //Session::put('locale', $request->input('language'));
+
+            // App::setLocale(LC_TIME, 'German');
+            // Date::setLocale(LC_TIME, 'German');
+            // Session::put('locale', $locale);
+
+            // if ($locale == 'pt-br') {
+            //     $locale == 'pt';
+            // }
+            // setlocale(LC_TIME, $locale . '.utf8');
+            // setlocale(LC_TIME, 'pt-BR.utf8');
+            // 'pt_BR.utf8');
+
+            //Date::setLocale($locale);
             //Date::setLocale('pt');
 
             // \Carbon\Carbon::setLocale($this->app->getLocale());
@@ -196,25 +234,5 @@ class UsuarioController extends Controller
         $languages = \Config::get('app.locales');
         $skins     = \Config::get('adminlte.skins');
         return view('usuario.profile', compact('usuario', 'languages', 'skins'));
-    }
-
-/**
- * Change session locale
- * @param  Request $request
- * @return Response
- */
-    public function changeLocale(Request $request)
-    {
-        $this->validate($request, ['locale' => 'required|in:pt-br,en']);
-
-        \Session::put('locale', $request->locale);
-        Date::setLocale($request->locale);
-
-        $usuario           = App\User::find(Auth::user()->id);
-        $usuario->language = $request->locale;
-        $usuario->save();
-        // \Carbon\Carbon::setLocale($this->app->getLocale());
-
-        return redirect()->back();
     }
 }

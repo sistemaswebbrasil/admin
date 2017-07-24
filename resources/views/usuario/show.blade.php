@@ -47,11 +47,7 @@
     <div class="col-md-6">
       <strong><i class="fa fa-file-text-o margin-r-5"></i> {{ trans('usuario.updated_at') }}</strong>
       </p>
-      <!-- {{ date('l j F Y H:i:s', strtotime($usuario->updated_at)) }} -->
-      <!-- {{ $usuario->updated_at }}</br> -->
-      <!-- {{ $usuario->updated_at->format('d/m/Y') }} -->
-      {{ $usuario->updated_at->format('l j F Y  H:i:s') }}
-      {{ Date::now()->format('l j F Y H:i:s') }}
+      {{ $usuario->updated_at->formatLocalized('%d %B %Y') }}
       </p>
   </div>
 </div>

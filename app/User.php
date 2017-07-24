@@ -16,6 +16,17 @@ class User extends Authenticatable
         'updated_at',
     ];
 
+    // //public function getCreatedAtAttribute($date)
+    // public function getUpdatedAtttribute($date)
+    // {
+    //     return new Date($date);
+    // }
+
+    // public function getCreatedAtAtttribute($date)
+    // {
+    //     return new Date($date);
+    // }
+
     /**
      * The attributes that are mass assignable.
      *

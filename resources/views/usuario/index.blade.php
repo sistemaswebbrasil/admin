@@ -75,16 +75,16 @@
                     {{ $usuario->updated_at->diffForHumans()  }}
                 </td>
                 <td>
-                    <a class="btn btn-info" data-target="#modal-default" data-toggle="modal" href="#" title="{{" trans('geral.mostrar')="" }}="">
+                    <a class="btn btn-info" data-target="#modal-default" data-toggle="modal" href="#" title="{{ trans('geral.mostrardetalhes') }}" data-id="{{ $usuario->id }}">
                         <i class="fa fa-eye">
                         </i>
                     </a>
-                    <a class="btn btn-primary" href="{{ route('usuario.edit',$usuario->id) }}" title="{{" trans('geral.editar')="" }}="">
+                    <a class="btn btn-primary" href="{{ route('usuario.edit',$usuario->id) }}" title="{{ trans('geral.editar') }}"">
                         <i class="fa fa-edit">
                         </i>
                     </a>
                     {!! Form::open(['method' => 'DELETE','route' => ['usuario.destroy', $usuario->id],'style'=>'display:inline']) !!}
-                    <button class="btn btn-danger" title="{{" trans('geral.excluir')="" }}="">
+                    <button class="btn btn-danger" title="{{ trans('geral.excluir') }}" >
                         <i class="fa fa-close">
                         </i>
                     </button>
@@ -106,7 +106,7 @@
                     </span>
                 </button>
                 <h4 class="modal-title">
-                    {{ trans('usuario.mostrar',[ 'name' => $usuario->name ]) }}
+                    {{ trans('geral.mostrardetalhes',[ 'name' => $usuario->name ]) }}
                 </h4>
             </div>
             <div class="modal-body">
@@ -121,3 +121,17 @@
     </div>
 </div>
 @endsection
+
+@section('js')
+<script type="text/javascript">
+$(function() {
+    $('#modal-default').on("show.bs.modal", function (e) {
+        var id = $(e.relatedTarget).data('id');
+        $.get('/usuario/' + id, function( data ) {
+        console.log(data);
+          $(".modal-body").html(data);
+        });
+    });
+});
+</script>
+@stop

@@ -139,6 +139,15 @@ return [
         'perfil'                => 'Perfil Usuário(a) :name',
         'mostrar'               => 'Usuário(a) :name',
         'password_confirmation' => 'Confirmação da Senha',
+        'display_name'          => 'Apelido',
+        'description'           => 'Descrição',
+        'created_at'            => 'Data de Criação',
+        'updated_at'            => 'Data de Atualização',
+        'permissions'           => 'Permissões',
+        'novafuncao'            => 'Nova Função',
+        'editarfuncao'          => 'Editar Função',
+        'listarfuncao'          => 'Listar Funções',
+        'mostrar'               => 'Detalhes :name',
     ],
 
 ];

@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Permission;
-
-
+use App\Model\Role;
+use Illuminate\Http\Request;
 
 class PermissionController extends Controller
 {
 
-    
     /**
      * Insere o controle de autenticação no controller
      */
@@ -27,8 +25,8 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        $permissions = Permission::orderBy('id','DESC')->paginate(5);
-        return view('permission.index',compact('permissions'))
+        $permissions = Permission::orderBy('id', 'DESC')->paginate(5);
+        return view('permission.index', compact('permissions'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -51,13 +49,13 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',            
+            'name'         => 'required',
             'display_name' => 'required',
         ]);
 
         Permission::create($request->all());
         return redirect()->route('permission.index')
-                        ->with('success','Permission created successfully');
+            ->with('success', 'Permission created successfully');
     }
 
     /**
@@ -69,7 +67,7 @@ class PermissionController extends Controller
     public function show($id)
     {
         $permission = Permission::find($id);
-        return view('permission.show',compact('permission'));
+        return view('permission.show', compact('permission'));
     }
 
     /**
@@ -81,7 +79,7 @@ class PermissionController extends Controller
     public function edit($id)
     {
         $permission = Permission::find($id);
-        return view('permission.edit',compact('permission'));
+        return view('permission.edit', compact('permission'));
     }
 
     /**
@@ -94,13 +92,13 @@ class PermissionController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name'  => 'required',
             'email' => 'email',
         ]);
 
         Permission::find($id)->update($request->all());
         return redirect()->route('permission.index')
-                        ->with('success','Permission updated successfully');
+            ->with('success', 'Permission updated successfully');
     }
 
     /**
@@ -113,6 +111,6 @@ class PermissionController extends Controller
     {
         Permission::find($id)->delete();
         return redirect()->route('permission.index')
-                        ->with('success','Permission deleted successfully');
+            ->with('success', 'Permission deleted successfully');
     }
 }

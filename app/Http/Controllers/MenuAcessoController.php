@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\MenuAcesso;
-
-
+use Datatables;
+use Illuminate\Http\Request;
 
 class MenuAcessoController extends Controller
 {
 
-    
     /**
      * Insere o controle de autenticação no controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -27,10 +25,29 @@ class MenuAcessoController extends Controller
      */
     public function index(Request $request)
     {
-        $menuacessos = MenuAcesso::orderBy('id','DESC')->paginate(5);
-        return view('menuacesso.index',compact('menuacessos'))
+        $menuacessos = MenuAcesso::orderBy('id', 'DESC')->paginate(5);
+        return view('menuacesso.index', compact('menuacessos'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
+
+    /**
+     * Exibe uma lista
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function grid(Request $request)
+    {
+        // $perPage = 5;
+        // $query   = MenuAcesso::orderBy('id', 'asc');
+        // return response()->json(
+        //     $query->paginate($perPage)
+        // );
+
+        //return Datatables::of(MenuAcesso::orderBy('id', 'asc'))->make(true);
+        //
+        return Datatables::of(MenuAcesso::all())->make(true);
+        // return Datatables::of(MenuAcesso::query())->make(true);
+    } //
 
     /**
      * Exibe o formulário
@@ -39,9 +56,8 @@ class MenuAcessoController extends Controller
      */
     public function create()
     {
-        $menus =  MenuAcesso::pluck('text', 'id');
-        return view('menuacesso.create',compact('menus'));
-
+        $menus = MenuAcesso::pluck('text', 'id');
+        return view('menuacesso.create', compact('menus'));
     }
 
     /**
@@ -53,13 +69,13 @@ class MenuAcessoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'text' => 'required',            
-            'url' => 'required',
+            'text' => 'required',
+            'url'  => 'required',
         ]);
 
         MenuAcesso::create($request->all());
         return redirect()->route('menuacesso.index')
-                        ->with('success','MenuAcesso created successfully');
+            ->with('success', 'MenuAcesso created successfully');
     }
 
     /**
@@ -71,7 +87,7 @@ class MenuAcessoController extends Controller
     public function show($id)
     {
         $menuacesso = MenuAcesso::find($id);
-        return view('menuacesso.show',compact('menuacesso'));
+        return view('menuacesso.show', compact('menuacesso'));
     }
 
     /**
@@ -83,17 +99,13 @@ class MenuAcessoController extends Controller
     public function edit($id)
     {
         $menuacesso = MenuAcesso::find($id);
-        $menus =  MenuAcesso::where('id', '<>', $id)->pluck('text','id');        
-        $menus->prepend('Selecione',0);
-        $icones = ['file','user','lock','share'];
-        $collection = collect([['value' => 'red'],['value' => 'yellow'],['value' => 'aqua'],]);
-        $iconesCores = $collection->pluck('value','value');
+        $menus      = MenuAcesso::where('id', '<>', $id)->pluck('text', 'id');
+        $menus->prepend('Selecione', 0);
+        $icones      = ['file', 'user', 'lock', 'share'];
+        $collection  = collect([['value' => 'red'], ['value' => 'yellow'], ['value' => 'aqua']]);
+        $iconesCores = $collection->pluck('value', 'value');
 
-        
-
-
-
-        return view('menuacesso.edit',compact('menuacesso','menus','icones','iconesCores'));
+        return view('menuacesso.edit', compact('menuacesso', 'menus', 'icones', 'iconesCores'));
     }
 
     /**
@@ -107,12 +119,12 @@ class MenuAcessoController extends Controller
     {
         $this->validate($request, [
             'text' => 'required',
-            'url' => 'required',
+            'url'  => 'required',
         ]);
 
         MenuAcesso::find($id)->update($request->all());
         return redirect()->route('menuacesso.index')
-                        ->with('success','MenuAcesso updated successfully');
+            ->with('success', 'MenuAcesso updated successfully');
     }
 
     /**
@@ -125,6 +137,6 @@ class MenuAcessoController extends Controller
     {
         MenuAcesso::find($id)->delete();
         return redirect()->route('menuacesso.index')
-                        ->with('success','MenuAcesso deleted successfully');
+            ->with('success', 'MenuAcesso deleted successfully');
     }
 }

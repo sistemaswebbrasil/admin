@@ -75,7 +75,8 @@ class UsuarioController extends Controller
         $titulo    = 'Criar novo usuário';
         $languages = \Config::get('app.locales');
         $skins     = \Config::get('adminlte.skins');
-        return view('usuario.create', compact('roles', 'titulo', 'languages', 'skins'));
+        $usuario   = new User();
+        return view('usuario.create', compact('roles', 'titulo', 'languages', 'skins', 'usuario'));
     }
 
     /**
@@ -122,6 +123,7 @@ class UsuarioController extends Controller
     {
         // Date::setLocale('pt');
         // Date::setLocale(LC_TIME, 'German');
+
         $usuario = User::find($id);
         return view('usuario.show', compact('usuario'));
     }

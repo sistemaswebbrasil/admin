@@ -3,6 +3,7 @@
 @section('content_header')
 @stop
 @section('content')
+
 @if ($message = Session::get('success'))
 <div class="alert alert-success alert-dismissible">
     <button aria-hidden="true" class="close" data-dismiss="alert" type="button">
@@ -30,6 +31,21 @@
             @endforeach
         </ul>
 </div>
+
+<div class="alert alert-success alert-dismissible hidden">
+    <button aria-hidden="true" class="close" type="button">
+        ×
+    </button>
+    <h4>
+        <i class="icon fa fa-ban">
+        </i>
+        {{ trans('geral.sucesso') }}
+    </h4>
+    <p>
+        {{ $message }}
+    </p>
+</div>
+
 
 
 
@@ -122,6 +138,8 @@
         @section('js')
         <script type="text/javascript">
             $(document).ready(function() {
+                var token = $(this).data("token");
+
                 var table = $('#tabela').DataTable( {
                     "processing": true,
                     "serverSide": true,
@@ -163,17 +181,25 @@
                     var id = $(this).attr('data-id');
                      if ( confirm( "{{ trans('geral.desejaexcluir') }}" ) ) {
                          $.ajax({
-                             url: '/menuacesso/' + id,
-                             type: 'DELETE',
-                             success: function(result) {
-                                 // Do something with the result
-                                 alert(JSON.stringify(result));
-                                 alert('ok');
+                             url: '/menuacesso/'+ id,
+                             data: {
+                                "id": id,
+                                "_method": 'DELETE',
+                                "_token": "{{ csrf_token() }}"
                              },
-                             error: function(result) {
+                             type: 'POST',
+                             success: function(result) {
+                                   $(".alert-danger").addClass('hidden');
                                    $(".alert-danger").removeClass('hidden');
                                    $(".alert-danger #msgerro").remove();
                                    $(".alert-danger ul").after('<ul id="msgerro"><li>{{ trans("geral.erroaoexcluir") }}</li></ul>');
+
+                             },
+                             error: function(result) {
+                                   $(".alert-success").removeClass('hidden');
+
+                                   $(".alert-success #msgsucesso").remove();
+                                   $(".alert-success ul").after('<ul id="msgsucesso"><li>{{ trans("geral.excluido") }}</li></ul>');
                              }
                          });
                      }

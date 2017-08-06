@@ -54,5 +54,11 @@ return [
     'erroaoexcluir'         => 'Não foi possível excluir o registro!',
     'excluido'              => 'Registro excluído com sucesso!',
     'falha'                 => 'Falha na execução!',
+    'listarmenuacesso'      => 'Items Menu de Acesso',
+    'icon'                  => 'Icone',
+    'icon_color'            => 'Cor do Ícone',
+    'label'                 => 'Label',
+    'permission'            => 'Permissão',
+    'target'                => 'Destino',
 
 ];

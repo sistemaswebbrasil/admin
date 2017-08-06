@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Model\CriaNovaPermissao;
+use App\Model\Permission;
 use App\Model\Role;
-use App\Model\Role\Permission;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -66,7 +66,7 @@ class RoleController extends Controller
         $permissions = $request->input('permissions');
         $role->permissions()->attach($permissions);
 
-        return redirect()->route('role.index')->with('success', 'Role created successfully');
+        return redirect()->route('role.index')->with('success', trans('geral.criadosucesso'));
     }
 
     /**
@@ -118,7 +118,7 @@ class RoleController extends Controller
         $permissions = $request->input('permissions');
         $role->permissions()->sync($permissions);
         return redirect()->route('role.index')
-            ->with('success', 'Role updated successfully');
+            ->with('success', trans('geral.atualizadosucesso'));
     }
 
     /**
@@ -130,7 +130,6 @@ class RoleController extends Controller
     public function destroy($id)
     {
         Role::find($id)->delete();
-        return redirect()->route('role.index')
-            ->with('success', 'Role deleted successfully');
+        return redirect()->route('role.index')->with('success', trans('geral.excluido'));
     }
 }

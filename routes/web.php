@@ -25,7 +25,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Route::group(['middleware' => ['ability:admin,listar-funcoes']], function() {
 //Route::group(function() {
-Route::resource('role', 'RoleController');
+
+Route::group(['middleware' => ['ability:admin,listar-funcoes']], function () {
+    Route::resource('role', 'RoleController');
+});
 
 // Route::get('/role', 'RoleController@index')->name('role.index');
 // Route::get('/role/create',['middleware' => ['ability:criar-funcao']], 'RoleController@create')->name('role.create');

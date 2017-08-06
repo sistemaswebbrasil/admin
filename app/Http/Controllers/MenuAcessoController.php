@@ -25,7 +25,7 @@ class MenuAcessoController extends Controller
      */
     public function index(Request $request)
     {
-        $menuacessos = MenuAcesso::orderBy('id', 'DESC')->paginate(5);
+        $menuacessos = MenuAcesso::orderBy('text', 'ASC')->paginate(5);
         return view('menuacesso.index', compact('menuacessos'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -45,7 +45,7 @@ class MenuAcessoController extends Controller
 
         //return Datatables::of(MenuAcesso::orderBy('id', 'asc'))->make(true);
         //
-        return Datatables::of(MenuAcesso::all())->make(true);
+        return Datatables::of(MenuAcesso::orderBy('text', 'ASC'))->make(true);
         // return Datatables::of(MenuAcesso::query())->make(true);
     } //
 
@@ -135,7 +135,8 @@ class MenuAcessoController extends Controller
      */
     public function destroy($id)
     {
-        MenuAcesso::find($id)->delete();
+        // MenuAcesso::find($id)->delete();
+        MenuAcesso::destroy($id);
         return redirect()->route('menuacesso.index')
             ->with('success', 'MenuAcesso deleted successfully');
     }

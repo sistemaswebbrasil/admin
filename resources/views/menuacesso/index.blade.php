@@ -4,6 +4,105 @@
 @stop
 @section('content')
 
+
+
+        @section('js')
+        <script type="text/javascript">
+
+            $(document).ready(function() {
+                var token = $(this).data("token");
+                var tabela = $('#tabela').DataTable( {
+                    pageResize: true,
+                    "processing": true,
+                    serverSide : true,
+                    "pageLength": '1',
+                    // "deferLoading": 0, // here
+
+                    ajax: '{!! route("menuacesso.ajax" ) !!}',
+                    columns: [
+                        { data: 'id', name: 'id' },
+                        { data: 'text', name: 'text' },
+                        { data: 'url', name: 'url' },
+                        { data: 'created_at', name: 'created_at' },
+                        { data: 'updated_at', name: 'updated_at' },
+                        {
+                            data: null,
+                            "targets": -1,
+                            className: "center",
+                            "bSortable": false,
+                            "render": function (data, type, full, meta) {
+                                var mostrar = '<a data-target="#modal-default" data-toggle="modal" id="mostrar" data-id="'+data.id+'" class="btn btn-info" href="#" title="{{ trans("geral.mostrardetalhes") }}"><i class="fa fa-eye"></i></a> ';
+                                var editar = '<a id="editar" class="btn btn-primary" href="menuacesso/'+data.id+'/edit" title="{!! trans("geral.editar") !!}"><i class="fa fa-edit"></i></a> ';
+                                var excluir = '<a id="excluir" data-id="'+data.id+'" class="btn btn-danger" href="#" title="{!! trans("geral.excluir") !!}"><i class="fa fa-close"></i></a> ';
+                                return mostrar+editar+excluir;
+                            }
+                        }
+                    ]
+                } );
+
+                var altura = window.innerHeight - $("#tabela").offset().top ;
+                console.log(altura);
+                $(document).on( 'init.dt', function ( e, settings ) {
+                    $('#resize_wrapper').css('height', altura );
+                });
+                new $.fn.dataTable.PageResize( tabela );
+
+
+                $('#modal-default').on("show.bs.modal", function (e) {
+                    var id = $(e.relatedTarget).data('id');
+                    $.get('/menuacesso/' + id, function( data ) {
+                    console.log(data);
+                      $(".modal-body").html(data);
+                    });
+                } );
+
+                $('#tabela tbody').on( 'click', 'a#excluir', function () {
+                    var id = $(this).attr('data-id');
+                    var row = $(this).closest('tr');
+
+                     if ( confirm( "{{ trans('geral.desejaexcluir') }}" ) ) {
+                         $.ajax({
+
+                             url: '/menuacesso/'+ id,
+                             data: {
+                                "id": id,
+                                "_method": 'DELETE',
+                                "_token": "{{ csrf_token() }}"
+                             },
+                             type: 'POST',
+                             success: function(result) {
+                                console.log(row);
+                                row.remove();
+
+                                   $(".alert-success").addClass('hidden');
+                                   $(".alert-success").removeClass('hidden');
+                                   $(".alert-success #msg").remove();
+                                   $(".alert-success p").after('<p id="msg" >{{ trans("geral.excluido") }}</p>');
+                             },
+                             error: function(result) {
+                                   $(".alert-danger").addClass('hidden');
+                                   $(".alert-danger").removeClass('hidden');
+                                   $(".alert-danger #msg").remove();
+                                   $(".alert-danger ul").after('<ul id="msg"><li>{{ trans("geral.erroaoexcluir") }}</li></ul>');
+                             }
+                         });
+                     }
+                } );
+
+                $('.alert .close').on('click', function(e) {
+                    e.preventDefault();
+                    $(".alert #msg").remove();
+
+                    $(".alert").addClass('hidden');
+                });
+
+                    } );
+        </script>
+        @stop
+
+
+
+
 @if ($message = Session::get('success'))
 <div class="alert alert-success alert-dismissible">
     <button aria-hidden="true" class="close" data-dismiss="alert" type="button">
@@ -19,19 +118,24 @@
     </p>
 </div>
 @endif
-
-
-<div class="alert alert-danger alert-dismissible hidden" >
-    <button type="button" class="close"  aria-hidden="true">×</button>
+<div class="alert alert-danger alert-dismissible hidden">
+    <button aria-hidden="true" class="close" type="button">
+        ×
+    </button>
     <!-- data-dismiss="alert" -->
-    <h4><i class="icon fa fa-ban"></i> {{ trans('geral.falha') }} </h4>
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+    <h4>
+        <i class="icon fa fa-ban">
+        </i>
+        {{ trans('geral.falha') }}
+    </h4>
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>
+            {{ $error }}
+        </li>
+        @endforeach
+    </ul>
 </div>
-
 <div class="alert alert-success alert-dismissible hidden">
     <button aria-hidden="true" class="close" type="button">
         ×
@@ -45,11 +149,6 @@
         {{ $message }}
     </p>
 </div>
-
-
-
-
-
 <div class="box">
     <div class="box-header with-border">
         <h3 class="box-title">
@@ -64,7 +163,8 @@
         </a>
     </div>
     <div class="box-body">
-        <table cellspacing="0" class="table table-bordered table-striped" id="tabela"  width="100%">
+    <div id="resize_wrapper">
+        <table cellspacing="0" class="pageResize table table-bordered table-striped " id="tabela" width="100%">
             <thead>
                 <tr>
                     <th>
@@ -88,7 +188,12 @@
                 </tr>
             </thead>
         </table>
-        <div class="modal fade modal-default" id="modal-default" style="display: none;">
+        <!-- <div id="resize_handle">Drag to resize</div> -->
+    </div>
+
+
+
+        <div class="modal fade modal-default " id="modal-default" style="display: none;">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -135,122 +240,6 @@
                 </div>
             </div>
         </div>
-        @section('js')
-        <script type="text/javascript">
-            $(document).ready(function() {
-                var token = $(this).data("token");
-
-                var table = $('#tabela').DataTable( {
-                    "processing": true,
-                    "serverSide": true,
-                    ajax: '{!! route("menuacesso.ajax" ) !!}',
-                    columns: [
-                        { data: 'id', name: 'id' },
-                        { data: 'text', name: 'text' },
-                        { data: 'url', name: 'url' },
-                        { data: 'created_at', name: 'created_at' },
-                        { data: 'updated_at', name: 'updated_at' },
-
-                        {
-                            data: null,
-                            "targets": -1,
-                            className: "center",
-                            "bSortable": false,
-
-
-                            "render": function (data, type, full, meta) {
-                                var mostrar = '<a data-target="#modal-default" data-toggle="modal" id="mostrar" data-id="'+data.id+'" class="btn btn-info" href="#" title="{{ trans("geral.mostrardetalhes") }}"><i class="fa fa-eye"></i></a> ';
-                                var editar = '<a id="editar" class="btn btn-primary" href="menuacesso/'+data.id+'/edit" title="{!! trans("geral.editar") !!}"><i class="fa fa-edit"></i></a> ';
-                                var excluir = '<a id="excluir" data-id="'+data.id+'" class="btn btn-danger" href="#" title="{!! trans("geral.excluir") !!}"><i class="fa fa-close"></i></a> ';
-                                return mostrar+editar+excluir;
-                            }
-                        }
-
-                    ]
-                } );
-
-                $('#modal-default').on("show.bs.modal", function (e) {
-                    var id = $(e.relatedTarget).data('id');
-                    $.get('/menuacesso/' + id, function( data ) {
-                    console.log(data);
-                      $(".modal-body").html(data);
-                    });
-                } );
-
-                $('#tabela').on( 'click', '#excluir', function () {
-                    var id = $(this).attr('data-id');
-                     if ( confirm( "{{ trans('geral.desejaexcluir') }}" ) ) {
-                         $.ajax({
-                             url: '/menuacesso/'+ id,
-                             data: {
-                                "id": id,
-                                "_method": 'DELETE',
-                                "_token": "{{ csrf_token() }}"
-                             },
-                             type: 'POST',
-                             success: function(result) {
-                                   $(".alert-danger").addClass('hidden');
-                                   $(".alert-danger").removeClass('hidden');
-                                   $(".alert-danger #msgerro").remove();
-                                   $(".alert-danger ul").after('<ul id="msgerro"><li>{{ trans("geral.erroaoexcluir") }}</li></ul>');
-
-                             },
-                             error: function(result) {
-                                   $(".alert-success").removeClass('hidden');
-
-                                   $(".alert-success #msgsucesso").remove();
-                                   $(".alert-success ul").after('<ul id="msgsucesso"><li>{{ trans("geral.excluido") }}</li></ul>');
-                             }
-                         });
-                     }
-
-                } );
-
-                $('.alert .close').on('click', function(e) {
-                    // alert('Fecha');
-                    // $(this).parent().addClass('hidden');
-                    e.preventDefault();
-
-                    $(".alert-danger").addClass('hidden');
-                });
-
-                // Delete a record
-                // $('#tabela').on('click', 'a#mostrar', function (e) {
-                // $('#tabela').on('click', 'a#excluirs', function (e) {
-                //     // e.preventDefault();
-
-                //     var id = $(e.relatedTarget).data('id');
-                //     alert(id);
-
-                //     if ( confirm( "{{ trans('geral.desejaexcluir') }}" ) ) {
-                //         $.ajax({
-                //             url: '/menuacesso/' + id,
-                //             type: 'DELETE',
-                //             success: function(result) {
-                //                 // Do something with the result
-                //                 alert('ok');
-                //             },
-                //             error: function(result) {
-                //                 // alert(result);
-                //                 console.log(result);
-                //             }
-                //         });
-                //     }
-
-                // } );
-
-
-
-
-
-
-
-
-
-
-                    } );
-        </script>
-        @stop
     </div>
 </div>
 @endsection

@@ -135,9 +135,14 @@ class MenuAcessoController extends Controller
      */
     public function destroy($id)
     {
-        // MenuAcesso::find($id)->delete();
-        MenuAcesso::destroy($id);
-        return redirect()->route('menuacesso.index')
-            ->with('success', 'MenuAcesso deleted successfully');
+        MenuAcesso::find($id)->delete();
+        // MenuAcesso::destroy($id);
+        //
+
+        $response["message"] = trans('geral.excluido');
+
+        return \Response::json($response);
+
+        // return redirect()->route('menuacesso.index')->with('success', 'MenuAcesso deleted successfully');
     }
 }

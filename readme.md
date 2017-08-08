@@ -32,6 +32,10 @@ git commit -m "Ainda apanhando"
 
 git push origin master
 
+#git push origin master
+
+git add * && git commit -m "Ajustes" && git push origin master
+
 #Atualiza o repositorio local com as atualizações dos externos
 git pull
 

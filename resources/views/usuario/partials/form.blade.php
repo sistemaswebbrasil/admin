@@ -119,7 +119,7 @@
 
 
 <div class="form-group">
-    @if(isset($usuario))
+    @if(isset($usuario->id))
     <strong>{{ trans('usuario.trocarsenha') }}:</strong>
     <div class="form-group has-feedback {{ $errors->has('new_password') ? 'has-error' : '' }}">
         <input type="text" style="display:none;">

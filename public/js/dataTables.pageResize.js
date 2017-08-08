@@ -39,6 +39,10 @@
 
 var PageResize = function ( dt )
 {
+
+
+	// console.log('PageResize' ); 
+
 	var table = dt.table();
 
 	this.s = {
@@ -72,22 +76,44 @@ PageResize.prototype = {
 		var availableHeight = settings.host.height();
 		var scrolling = t.header().parentNode !== t.body().parentNode;
 
+
+		// console.log('availableHeight '+ availableHeight ); 
+
+
 		// Subtract the height of the header, footer and the elements
 		// surrounding the table
 		if ( ! scrolling ) {
+			// console.log('settings.header.height '+ settings.header.height() ); 
+			// console.log('settings.footer.height '+ settings.footer.height() ); 
+
+
 			availableHeight -= settings.header.height();
 			availableHeight -= settings.footer.height();
 		}
 		availableHeight -= offsetTop;
 		availableHeight -= settings.container.height() - ( offsetTop + settings.table.height() );
 
+
+		// console.log('availableHeight final: '+ availableHeight ); 
+		// console.log('rowHeight final: '+ rowHeight ); 
+
+		/**
+		 * [drawRows variavel responsável pela quantidades de linhas a serem exibidas.]
+		 * @type {[type]}
+		 */
 		var drawRows = Math.floor( availableHeight / rowHeight );
+
+		console.log('Linhas a ser desenhadas: '+ drawRows ); 
+
 
 		if ( drawRows !== Infinity && drawRows !== -Infinity && 
 			 ! isNaN( drawRows )   && drawRows > 0 &&
 			 drawRows !== dt.page.len()
 		) {
-			dt.page.len( drawRows ).draw();
+			/**
+			 * Adiciona a propriedade de números de linhas a tabela 
+			 */
+			 dt.page.len( drawRows ).draw();
 		}
 	},
 
@@ -96,6 +122,10 @@ PageResize.prototype = {
 		// create an empty HTML document using an <object> which will issue a
 		// resize event inside itself when the document resizes. Since it is
 		// 100% x 100% that will occur whenever the host element is resized.
+
+
+		// console.log('_attach' ); 
+
 		var that = this;
 		var obj = $('<object/>')
 			.css( {
@@ -108,12 +138,26 @@ PageResize.prototype = {
 			} )
 			.attr( 'type', 'text/html' );
 
+
+		// console.log(obj ); 
+
 		obj[0].onload = function () {
 			var body = this.contentDocument.body;
 			var height = body.offsetHeight;
 
+
+			// console.log('body: '+ body ); 
+			console.log('body.offsetHeight: '+ body.offsetHeight ); 
+			console.log('body.clientHeight: '+ body.clientHeight ); 
+
+
+			console.log(this.contentDocument.defaultView ); 
+
+			// this.contentDocument.defaultView.onresize = function () {
 			this.contentDocument.defaultView.onresize = function () {
 				var newHeight = body.clientHeight || body.offsetHeight;
+
+				console.log('newHeight: '+ newHeight ); 				
 
 				if ( newHeight !== height ) {
 					height = newHeight;

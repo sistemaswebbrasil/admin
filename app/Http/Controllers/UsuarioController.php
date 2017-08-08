@@ -97,8 +97,10 @@ class UsuarioController extends Controller
             'password_confirmation' => 'required|same:password',
         ]);
 
-        $params = $request->except(['avatar']); //$request->all();
-        $user   = User::create($params); //($request->all());
+        $params             = $request->except(['avatar']); //$request->all();
+        $params['password'] = bcrypt($request->input('password'));
+
+        $user = User::create($params); //($request->all());
         User::find($user);
         $roles = $request->input('roles');
         $user->roles()->attach($roles);

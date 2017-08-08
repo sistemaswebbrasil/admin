@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Model\MenuAcesso;
+use App\Model\Permission;
 use Datatables;
 use Illuminate\Http\Request;
 
@@ -104,22 +105,25 @@ class MenuAcessoController extends Controller
         $icones      = ['file', 'user', 'lock', 'share'];
         $collection  = collect([['value' => 'red'], ['value' => 'yellow'], ['value' => 'aqua']]);
         $iconesCores = $collection->pluck('value', 'value');
+        $permissions = Permission::all();
 
-        return view('menuacesso.edit', compact('menuacesso', 'menus', 'icones', 'iconesCores'));
+        return view('menuacesso.edit', compact('menuacesso', 'menus', 'icones', 'iconesCores', 'permissions'));
     }
 
-    /**
-     * Atualiza os dados no banco
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+/**
+ * Atualiza os dados no banco
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @param  int  $id
+ * @return \Illuminate\Http\Response
+ */
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'text' => 'required',
-            'url'  => 'required',
+            'text'       => 'required',
+            'url'        => 'required',
+            'icon'       => 'required',
+            'permission' => 'required',
         ]);
 
         MenuAcesso::find($id)->update($request->all());
@@ -127,12 +131,12 @@ class MenuAcessoController extends Controller
             ->with('success', 'MenuAcesso updated successfully');
     }
 
-    /**
-     * Exclui os dados do banco de dados
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+/**
+ * Exclui os dados do banco de dados
+ *
+ * @param  int  $id
+ * @return \Illuminate\Http\Response
+ */
     public function destroy($id)
     {
         MenuAcesso::find($id)->delete();

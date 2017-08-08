@@ -1,21 +1,20 @@
 @extends('adminlte::page')
 @section('title',  trans('geral.listarmenuacesso') )
-@section('content_header')
-@stop
+
 @section('content')
 
 
 
         @section('js')
-        <script type="text/javascript">
 
+        <script type="text/javascript">
             $(document).ready(function() {
                 var token = $(this).data("token");
                 var tabela = $('#tabela').DataTable( {
                     pageResize: true,
                     "processing": true,
                     serverSide : true,
-                    "pageLength": '1',
+                    // "pageLength": '1',
                     // "deferLoading": 0, // here
 
                     ajax: '{!! route("menuacesso.ajax" ) !!}',
@@ -40,7 +39,7 @@
                     ]
                 } );
 
-                var altura = window.innerHeight - $("#tabela").offset().top ;
+                var altura = document.documentElement.clientHeight - $("#tabela").offset().top ;
                 console.log(altura);
                 $(document).on( 'init.dt', function ( e, settings ) {
                     $('#resize_wrapper').css('height', altura );

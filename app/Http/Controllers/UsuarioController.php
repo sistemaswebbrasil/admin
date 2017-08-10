@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Role;
 use App\User;
 use Auth;
+use Datatables;
 use Illuminate\Http\Request;
 use Session;
 
@@ -29,39 +30,29 @@ class UsuarioController extends Controller
      */
     public function index(Request $request)
     {
-
-        // setlocale(LC_TIME, 'nl_NL.utf8');
-        //setlocale(LC_TIME, 'pt_BR.utf8');
-        //var_dump(Carbon::now()->addMonth()->formatLocalized('%d %B %Y'));
-        //
-
-        // $locale = $request->input('language');
-        //Session::put('locale', $request->input('language'));
-
-        // App::setLocale(LC_TIME, 'German');
-        // Date::setLocale(LC_TIME, 'German');
-        // Session::put('locale', $locale);
-
-        // if ($locale == 'pt-br') {
-        //     $locale == 'pt';
-        // }
-        // setlocale(LC_TIME, $locale . '.utf8');
-        // setlocale(LC_TIME, 'pt-BR.utf8');
-
-        // 'pt_BR.utf8');
-
-        //Date::setLocale($locale);
-        //Date::setLocale('pt');
-
-        // \Carbon\Carbon::setLocale($this->app->getLocale());
-
-        // App::setLocale('pt-br');
-        // Session::put('locale', 'pt-br');
-        // setlocale(LC_TIME, config('app.locale'));
-
         $usuarios = User::orderBy('id', 'DESC')->paginate(5);
         return view('usuario.index', compact('usuarios'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
+    }
+
+    /**
+     * Exibe uma lista
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function grid(Request $request)
+    {
+        $usuarios = User::select(['id', 'name', 'email', 'created_at', 'updated_at']);
+        return Datatables::of($usuarios)
+            ->editColumn('created_at', function ($user) {
+                return $user->created_at ? $user->updated_at->format('d/m/y') : '';
+            })
+            ->editColumn('updated_at', function ($user) {
+                if ($user->updated_at != null) {
+                    return $user->updated_at->diffForHumans();
+                }
+            })
+            ->make(true);
     }
 
     /**

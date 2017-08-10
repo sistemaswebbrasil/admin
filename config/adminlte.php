@@ -13,7 +13,7 @@ return [
     |
      */
 
-    'title'            => 'AdminLTE 2',
+    'title'            => 'AdminSistema',
 
     'title_prefix'     => '',
 
@@ -46,8 +46,7 @@ return [
      */
 
     'skin'             => 'purple-light',
-    'skins'            => ['blue', 'black', 'purple', 'yellow', 'red', 'green'
-        , 'blue-light', 'black-light', 'purple-light', 'yellow-light', 'red-light', 'green-light'],
+    'skins'            => ['blue', 'black', 'purple', 'yellow', 'red', 'green', 'blue-light', 'black-light', 'purple-light', 'yellow-light', 'red-light', 'green-light'],
     // 'skin' => 'red',
     // 'skin' => Auth::user()->skin ,
 
@@ -122,7 +121,7 @@ return [
         //     'text'        => 'Pages',
         //     'url'         => 'admin/pages',
         //     'icon'        => 'file',
-        //     'label'       => 4,
+        //     'label'       => 'Teste',
         //     'label_color' => 'success',
         // ],
         // 'Contas',

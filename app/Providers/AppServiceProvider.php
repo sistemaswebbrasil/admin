@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Model\MenuAcesso;
+
 // use Carbon\Carbon;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\DB;
@@ -49,15 +50,14 @@ class AppServiceProvider extends ServiceProvider
             /**
              * Select * from menuacesso where  parent = 0 or parent = ''
              */
-            $items = DB::table('menuacesso')
-                ->where('parent', 0)
-                ->get();
+            $items = DB::table('menuacesso')->where('parent', 0)->where('deleted_at', null)->get();
+
             foreach ($items as $item) {
                 /**
                  * Agora dentro dos itens principais de menu verifico a primeira camada de filhos
                  * select * from menuacesso where parent = 1 and parent > 0
                  */
-                $subItems = DB::table('menuacesso')->where('parent', '=', $item->id)->where('parent', '>', '0')->get();
+                $subItems = DB::table('menuacesso')->where('parent', '=', $item->id)->where('parent', '>', '0')->where('deleted_at', null)->get();
                 /**
                  * Se encontrado o subitem será verificado mais 2 niveis de filhos criando uma hierarquia , senão irá gerar o item de menu imediatamente
                  */
@@ -76,42 +76,54 @@ class AppServiceProvider extends ServiceProvider
                                 if (count($subItems3) > 0) {
                                     foreach ($subItems3 as $subItem3) {
                                         $ArraySubMenu3 = [
-                                            'text'       => $subItem3->text,
-                                            'url'        => $subItem3->url,
-                                            'icon'       => $subItem3->icon,
-                                            'icon_color' => $subItem3->icon_color,
-                                            'can'        => $subItem3->permission,
+                                            'text'        => $subItem3->text,
+                                            'url'         => $subItem3->url,
+                                            'icon'        => $subItem3->icon,
+                                            'icon_color'  => $subItem3->icon_color,
+                                            'can'         => $subItem3->permission,
+                                            'target'      => $subItem3->target,
+                                            'label'       => $subItem3->label,
+                                            'label_color' => $subItem3->label_color,
                                         ];
                                         array_push($arrayTMP3, $ArraySubMenu3);
                                     }
 
                                     $ArraySubMenu2 = [
-                                        'text'       => $subItem2->text,
-                                        'url'        => $subItem2->url,
-                                        'icon'       => $subItem2->icon,
-                                        'icon_color' => $subItem2->icon_color,
-                                        'can'        => $subItem2->permission,
-                                        'submenu'    => $arrayTMP3,
+                                        'text'        => $subItem2->text,
+                                        'url'         => $subItem2->url,
+                                        'icon'        => $subItem2->icon,
+                                        'icon_color'  => $subItem2->icon_color,
+                                        'can'         => $subItem2->permission,
+                                        'target'      => $subItem2->target,
+                                        'label'       => $subItem2->label,
+                                        'label_color' => $subItem2->label_color,
+                                        'submenu'     => $arrayTMP3,
                                     ];
                                     array_push($arrayTMP2, $ArraySubMenu2);
                                 } else {
                                     $ArraySubMenu2 = [
-                                        'text'       => $subItem2->text,
-                                        'url'        => $subItem2->url,
-                                        'icon'       => $subItem2->icon,
-                                        'icon_color' => $subItem2->icon_color,
-                                        'can'        => $subItem2->permission,
+                                        'text'        => $subItem2->text,
+                                        'url'         => $subItem2->url,
+                                        'icon'        => $subItem2->icon,
+                                        'icon_color'  => $subItem2->icon_color,
+                                        'can'         => $subItem2->permission,
+                                        'target'      => $subItem2->target,
+                                        'label'       => $subItem2->label,
+                                        'label_color' => $subItem2->label_color,
                                     ];
                                     array_push($arrayTMP2, $ArraySubMenu2);
                                 }
                             }
                             $ArraySubMenu = [
-                                'text'       => $subItem->text,
-                                'url'        => $subItem->url,
-                                'icon'       => $subItem->icon,
-                                'icon_color' => $subItem->icon_color,
-                                'can'        => $subItem->permission,
-                                'submenu'    => $arrayTMP2,
+                                'text'        => $subItem->text,
+                                'url'         => $subItem->url,
+                                'icon'        => $subItem->icon,
+                                'icon_color'  => $subItem->icon_color,
+                                'can'         => $subItem->permission,
+                                'target'      => $subItem->target,
+                                'label'       => $subItem->label,
+                                'label_color' => $subItem->label_color,
+                                'submenu'     => $arrayTMP2,
                             ];
                             array_push($arrayTMP, $ArraySubMenu);
                         } else {
@@ -122,31 +134,40 @@ class AppServiceProvider extends ServiceProvider
                              *  junta o arrayTMP e o submenu atual
                              */
                             $ArraySubMenu = [
-                                'text'       => $subItem->text,
-                                'url'        => $subItem->url,
-                                'icon'       => $subItem->icon,
-                                'icon_color' => $subItem->icon_color,
-                                'can'        => $subItem->permission,
+                                'text'        => $subItem->text,
+                                'url'         => $subItem->url,
+                                'icon'        => $subItem->icon,
+                                'icon_color'  => $subItem->icon_color,
+                                'can'         => $subItem->permission,
+                                'target'      => $subItem->target,
+                                'label'       => $subItem->label,
+                                'label_color' => $subItem->label_color,
                             ];
                             array_push($arrayTMP, $ArraySubMenu);
                         }
                     }
                     $arrayMenu = [
-                        'text'       => $item->text,
-                        'url'        => $item->url,
-                        'icon'       => $item->icon,
-                        'icon_color' => $item->icon_color,
-                        'can'        => $item->permission,
-                        'submenu'    => $arrayTMP,
+                        'text'        => $item->text,
+                        'url'         => $item->url,
+                        'icon'        => $item->icon,
+                        'icon_color'  => $item->icon_color,
+                        'can'         => $item->permission,
+                        'target'      => $item->target,
+                        'label'       => $item->label,
+                        'label_color' => $item->label_color,
+                        'submenu'     => $arrayTMP,
                     ];
                     $event->menu->add($arrayMenu);
                 } else {
                     $arrayMenu = [
-                        'text'       => $item->text,
-                        'url'        => $item->url,
-                        'icon'       => $item->icon,
-                        'icon_color' => $item->icon_color,
-                        'can'        => $item->permission,
+                        'text'        => $item->text,
+                        'url'         => $item->url,
+                        'icon'        => $item->icon,
+                        'icon_color'  => $item->icon_color,
+                        'can'         => $item->permission,
+                        'target'      => $item->target,
+                        'label'       => $item->label,
+                        'label_color' => $item->label_color,
                     ];
                     /**
                      * Este comando é que adiciona finalmente o item de menu

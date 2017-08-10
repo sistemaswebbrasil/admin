@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Model\CriaNovaPermissao;
 use App\Model\Permission;
 use App\Model\Role;
+use Datatables;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -35,6 +36,26 @@ class RoleController extends Controller
         $roles = Role::orderBy('id', 'DESC')->paginate(5);
         return view('role.index', compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
+    }
+
+    /**
+     * Exibe uma lista
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function grid(Request $request)
+    {
+        $roles = Role::select(['id', 'name', 'display_name', 'created_at', 'updated_at']);
+        return Datatables::of($roles)
+            ->editColumn('created_at', function ($roles) {
+                return $roles->created_at ? $roles->updated_at->format('d/m/y') : '';
+            })
+            ->editColumn('updated_at', function ($roles) {
+                if ($roles->updated_at != null) {
+                    return $roles->updated_at->diffForHumans();
+                }
+            })
+            ->make(true);
     }
 
     /**

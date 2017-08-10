@@ -1,12 +1,11 @@
 @extends('adminlte::master')
 
 @section('adminlte_css')
-    <link rel="stylesheet"
-          href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . Auth::user()->skin . '.min.css')}} ">
+    <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . Auth::user()->skin . '.min.css')}} ">
     @stack('css')
     @yield('css')
 @stop
-<!-- {{ Auth::user()->skin }}  -->
+
 @section('body_class', 'skin-' . Auth::user()->skin . ' sidebar-mini ' . (config('adminlte.layout') ? [
     'boxed' => 'layout-boxed',
     'fixed' => 'fixed',
@@ -54,25 +53,19 @@
                 </a>
             @endif
 
-
-
-<!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top" role="navigation">
-          <!-- Navbar Right Menu -->
-          <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-              <!-- User Account: style can be found in dropdown.less -->
-              @include('vendor.adminlte.partials.menu-usuario')
-            </ul>
-          </div>
-        </nav>            
-           
-
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            @include('vendor.adminlte.partials.menu-usuario')
+                        </li>
+                    </ul>
+                </div>
                 @if(config('adminlte.layout') == 'top-nav')
                 </div>
                 @endif
             </nav>
         </header>
+
 
         @if(config('adminlte.layout') != 'top-nav')
         <!-- Left side column. contains the logo and sidebar -->

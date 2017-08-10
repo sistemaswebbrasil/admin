@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Model\Permission;
 use App\Model\Role;
+use Datatables;
 use Illuminate\Http\Request;
 
 class PermissionController extends Controller
@@ -28,6 +29,26 @@ class PermissionController extends Controller
         $permissions = Permission::orderBy('id', 'DESC')->paginate(5);
         return view('permission.index', compact('permissions'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
+    }
+
+    /**
+     * Exibe uma lista
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function grid(Request $request)
+    {
+        $permissions = Permission::select(['id', 'name', 'display_name', 'created_at', 'updated_at']);
+        return Datatables::of($permissions)
+            ->editColumn('created_at', function ($permission) {
+                return $permission->created_at ? $permission->updated_at->format('d/m/y') : '';
+            })
+            ->editColumn('updated_at', function ($permission) {
+                if ($permission->updated_at != null) {
+                    return $permission->updated_at->diffForHumans();
+                }
+            })
+            ->make(true);
     }
 
     /**

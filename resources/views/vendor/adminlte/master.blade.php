@@ -41,12 +41,16 @@
 @yield('body')
 
 <script src="{{ asset('vendor/adminlte/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
 <script src="{{ asset('vendor/adminlte/bootstrap/js/bootstrap.min.js') }}"></script>
+
 @if(config('adminlte.plugins.datatables'))
     <!-- DataTables -->
 
 <!--     <script src="//cdn.datatables.net/v/bs/dt-1.10.13/datatables.min.js"></script> -->
+
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.15/sorting/datetime-moment.js"></script>
 
 
 <!--     <script src="https://cdn.datatables.net/plug-ins/1.10.15/features/pageResize/dataTables.pageResize.min.js"></script> -->

@@ -57,7 +57,7 @@ class User extends Authenticatable
 
     public function getRoleListAttribute()
     {
-        return $this->roles->pluck('id', 'name')->toArray();
+        return $this->roles->pluck('name')->toArray();
     }
     public function getPermissionListAttribute()
     {

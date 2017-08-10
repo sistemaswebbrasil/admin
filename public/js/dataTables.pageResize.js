@@ -65,6 +65,7 @@ var PageResize = function ( dt )
 };
 
 
+
 PageResize.prototype = {
 	_size: function ()
 	{
@@ -103,7 +104,7 @@ PageResize.prototype = {
 		 */
 		var drawRows = Math.floor( availableHeight / rowHeight );
 
-		console.log('Linhas a ser desenhadas: '+ drawRows ); 
+		// console.log('Linhas a ser desenhadas: '+ drawRows ); 
 
 
 		if ( drawRows !== Infinity && drawRows !== -Infinity && 
@@ -144,29 +145,25 @@ PageResize.prototype = {
 		obj[0].onload = function () {
 			var body = this.contentDocument.body;
 			var height = body.offsetHeight;
-
-
-			// console.log('body: '+ body ); 
-			console.log('body.offsetHeight: '+ body.offsetHeight ); 
-			console.log('body.clientHeight: '+ body.clientHeight ); 
-
-
-			console.log(this.contentDocument.defaultView ); 
-
-			// this.contentDocument.defaultView.onresize = function () {
-			this.contentDocument.defaultView.onresize = function () {
+				
+			this.contentDocument.defaultView.onresize 	= function () { 				
 				var newHeight = body.clientHeight || body.offsetHeight;
-
-				console.log('newHeight: '+ newHeight ); 				
-
 				if ( newHeight !== height ) {
-					height = newHeight;
-
+					height = newHeight;	
 					that._size();
 				}
-			};
-		};
 
+			};			
+				
+			this.contentDocument.defaultView.onpageshow= function () {				
+				var newHeight = body.clientHeight || body.offsetHeight;
+				if ( newHeight !== height ) {
+					height = newHeight;
+					that._size();
+				}				
+			};				
+			
+		};
 		obj
 			.appendTo( this.s.host )
 			.attr( 'data', 'about:blank' );

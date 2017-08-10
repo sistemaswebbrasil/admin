@@ -38,17 +38,20 @@ class MenuAcessoController extends Controller
      */
     public function grid(Request $request)
     {
-        // $perPage = 5;
-        // $query   = MenuAcesso::orderBy('id', 'asc');
-        // return response()->json(
-        //     $query->paginate($perPage)
-        // );
+        $menuacessos = MenuAcesso::select(['id', 'text', 'url', 'created_at', 'updated_at']);
+        return Datatables::of($menuacessos)
+            ->editColumn('created_at', function ($menuacesso) {
+                return $menuacesso->created_at ? $menuacesso->updated_at->format('d/m/y') : '';
+            })
+            ->editColumn('updated_at', function ($menuacesso) {
+                if ($menuacesso->updated_at != null) {
+                    return $menuacesso->updated_at->diffForHumans();
+                }
+            })
+            ->make(true);
+    }
 
-        //return Datatables::of(MenuAcesso::orderBy('id', 'asc'))->make(true);
-        //
-        return Datatables::of(MenuAcesso::orderBy('text', 'ASC'))->make(true);
-        // return Datatables::of(MenuAcesso::query())->make(true);
-    } //
+    //return $user->created_at ? with(new Carbon($user->created_at))->format('m/d/Y') : '';
 
     /**
      * Exibe o formulário
@@ -57,8 +60,17 @@ class MenuAcessoController extends Controller
      */
     public function create()
     {
-        $menus = MenuAcesso::pluck('text', 'id');
-        return view('menuacesso.create', compact('menus'));
+        $menus      = MenuAcesso::pluck('text', 'id');
+        $menuacesso = new MenuAcesso;
+        $icones     = ['file', 'user', 'lock', 'share'];
+
+        $collection   = collect([['value' => 'red'], ['value' => 'yellow'], ['value' => 'aqua']]);
+        $iconesCores  = $collection->pluck('value', 'value');
+        $permissions  = Permission::all();
+        $label_colors = ['success', 'info', 'warning', 'danger'];
+        $targets      = ['_self', '_blank'];
+
+        return view('menuacesso.create', compact('menus', 'menuacesso', 'icones', 'iconesCores', 'permissions', 'label_colors', 'targets'));
     }
 
     /**
@@ -71,7 +83,6 @@ class MenuAcessoController extends Controller
     {
         $this->validate($request, [
             'text' => 'required',
-            'url'  => 'required',
         ]);
 
         MenuAcesso::create($request->all());
@@ -102,12 +113,14 @@ class MenuAcessoController extends Controller
         $menuacesso = MenuAcesso::find($id);
         $menus      = MenuAcesso::where('id', '<>', $id)->pluck('text', 'id');
         $menus->prepend('Selecione', 0);
-        $icones      = ['file', 'user', 'lock', 'share'];
-        $collection  = collect([['value' => 'red'], ['value' => 'yellow'], ['value' => 'aqua']]);
-        $iconesCores = $collection->pluck('value', 'value');
-        $permissions = Permission::all();
+        $icones       = ['file', 'user', 'lock', 'share'];
+        $collection   = collect([['value' => 'red'], ['value' => 'yellow'], ['value' => 'aqua']]);
+        $iconesCores  = $collection->pluck('value', 'value');
+        $permissions  = Permission::all();
+        $label_colors = ['success', 'info', 'warning', 'danger'];
+        $targets      = ['_self', '_blank'];
 
-        return view('menuacesso.edit', compact('menuacesso', 'menus', 'icones', 'iconesCores', 'permissions'));
+        return view('menuacesso.edit', compact('menuacesso', 'menus', 'icones', 'iconesCores', 'permissions', 'label_colors', 'targets'));
     }
 
 /**
@@ -120,10 +133,10 @@ class MenuAcessoController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'text'       => 'required',
-            'url'        => 'required',
-            'icon'       => 'required',
-            'permission' => 'required',
+            'text' => 'required',
+            // 'url'  => 'required',
+            // 'icon' => 'required',
+            // 'permission' => 'required',
         ]);
 
         MenuAcesso::find($id)->update($request->all());

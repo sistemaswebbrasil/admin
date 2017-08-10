@@ -17,5 +17,4 @@ class MenuAcesso extends Model
     ];
 
     protected $dates = ['deleted_at'];
-
 }

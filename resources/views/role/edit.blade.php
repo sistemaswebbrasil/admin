@@ -10,7 +10,7 @@
 
 <div class="box box-primary">
     <div class="box-header with-border">
-        <h3 class="box-title">{{ trans('geral.novafuncao') }}</h3>
+        <h3 class="box-title">{{ trans('geral.editarfuncao') }}</h3>
     </div>
     {!! Form::model($role, ['method' => 'PATCH','route' => ['role.update', $role->id]]) !!}
     @include('role.partials.form')

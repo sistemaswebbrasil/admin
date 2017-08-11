@@ -23,6 +23,7 @@ Route::group(['middleware' => ['ability:admin,listar-funcoes']], function () {
 Route::group(['middleware' => ['ability:admin,listar-permissoes']], function () {
     Route::resource('permission', 'PermissionController');
     Route::get('api/permission', 'PermissionController@grid')->name('permission.ajax');
+    Route::get('api/gerar', 'PermissionController@gerar')->name('permission.gerar.ajax');
 });
 
 Route::group(['middleware' => ['ability:admin,listar-usuarios']], function () {

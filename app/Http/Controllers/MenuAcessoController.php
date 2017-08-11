@@ -26,6 +26,14 @@ class MenuAcessoController extends Controller
      */
     public function index(Request $request)
     {
+        // Auth->can('update');
+        // \Auth::user()->can('sfsdf');
+
+        // $action_name = Router>getCurrentRoute()->getName();
+        // $this->authorize($request);
+
+        // $this->authorize('update');
+
         $menuacessos = MenuAcesso::orderBy('text', 'ASC')->paginate(5);
         return view('menuacesso.index', compact('menuacessos'))
             ->with('i', ($request->input('page', 1) - 1) * 5);

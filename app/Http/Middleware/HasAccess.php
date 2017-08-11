@@ -4,6 +4,8 @@ namespace App\Http\Middleware;
 
 use App\User;
 use Closure;
+
+// use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Router;
 
 class HasAccess
@@ -16,10 +18,12 @@ class HasAccess
     {
         $this->router = $router;
         $this->user   = $user;
+
     }
 
     /**
-     * Handle an incoming request.
+     * Capturo todas as reequisições feitas e verifico se usuário está
+     * autorizado a acessá-las.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
@@ -27,14 +31,14 @@ class HasAccess
      */
     public function handle($request, Closure $next)
     {
-        // $action_name = $this->router->getRoutes()->match($request)->getActionName();
-        $action_name = $this->router->getCurrentRoute()->getName();
-        // Log::info('$action_name: ' . print_r($action_name, true));
-        // dd($action_name);
-
-        // $this->authorize($action_name);
-        $this->user->can('updateasaa');
-
+        $action_name = $this->router->currentRouteName();
+        if (!$this->user->can($action_name)) {
+            /**
+             * [$permissoesCad Permissões já cadastras no banco]
+             * @var [type]
+             */
+            // app(Gate::class)->authorize($action_name);
+        }
         return $next($request);
     }
 }

@@ -34,14 +34,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         $gate->before(function ($user, $ability) {
             if ($user) {
-
                 $roles      = $user->getRoleListAttribute();
                 $permissoes = $user->getPermissionListAttribute();
 
                 $this->contador += 1;
                 if ($this->contador == 1) {
                     // echo "" > '/app/storage/logs/laravel.log';
-                    file_put_contents("/var/www/html/laravel/admin/storage/logs/laravel.log", "");
+                    // file_put_contents("/var/www/html/laravel/admin/storage/logs/laravel.log", "");
                     Log::info('Usuário: ' . print_r($user->name, true));
                     Log::info('Permissoes: ' . print_r($permissoes, true));
                     Log::info('Funções: ' . print_r($roles, true));

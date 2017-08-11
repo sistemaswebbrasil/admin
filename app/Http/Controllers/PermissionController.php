@@ -7,6 +7,8 @@ use App\Model\Permission;
 use App\Model\Role;
 use Datatables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
 
 class PermissionController extends Controller
 {
@@ -49,6 +51,30 @@ class PermissionController extends Controller
                 }
             })
             ->make(true);
+    }
+
+    // Route::get('api/gerar', 'PermissionController@gerar')->name('permission.gerar.ajax');
+
+    /**
+     * Gerar as permissões de apps novos que ainda não consta na tabela permission
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function gerar(Request $request)
+    {
+        $routes = Route::getRoutes();
+
+        foreach ($routes as $value) {
+            //echo $value->getPath();
+            // Log::info('URI :' . print_r($value->uri(), true));
+            Log::info('getName :' . print_r($value->getName(), true));
+            // Log::info('getPrefix :' . print_r($value->getPrefix(), true));
+            // Log::info('getActionMethod :' . print_r($value->getActionMethod(), true));
+        };
+
+        return response()->json([
+            'status' => 'ok',
+        ]);
     }
 
     /**

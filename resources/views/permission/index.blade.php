@@ -5,6 +5,36 @@
 @section('content')
         @section('js')
         <script type="text/javascript">
+
+        function gerarPermissoes(){
+             $.ajax({
+
+                 url: '{!! route("permission.gerar.ajax" ) !!}',
+                 data: {
+                    "_token": "{{ csrf_token() }}"
+                 },
+                 type: 'GET',
+                 success: function(result) {
+                    // row.remove();
+                    tabela.row( $(this).parents('tr') ).remove().draw(false);
+
+                       $(".alert-success").addClass('hidden');
+                       $(".alert-success").removeClass('hidden');
+                       $(".alert-success #msg").remove();
+                       $(".alert-success p").after('<p id="msg" >'+result+'</p>');
+                 },
+                 error: function(result) {
+                       $(".alert-danger").addClass('hidden');
+                       $(".alert-danger").removeClass('hidden');
+                       $(".alert-danger #msg").remove();
+                       $(".alert-danger ul").after('<ul id="msg"><li>{{ trans("geral.errogerar") }}</li></ul>');
+                 }
+             });
+        }
+
+
+
+
             $(document).ready(function() {
                 var token = $(this).data("token");
 
@@ -185,7 +215,15 @@
                 {{ trans('geral.novo') }}
             </i>
         </a>
+
+        <a class="btn btn-info pull-right" data-target="#modal-gerar" data-toggle="modal"  href="#">
+            <i class="fa fa-plus">
+                {{ trans('geral.gerarpermissoespendentes') }}
+            </i>
+        </a>
     </div>
+
+
     <div class="box-body">
     <div id="resize_wrapper">
         <table cellspacing="0" class="pageResize table table-bordered table-striped " id="tabela" width="100%">
@@ -235,6 +273,63 @@
                             {{ trans('geral.sair') }}
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade modal-default " id="modal-gerar" style="display: none;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                            <span aria-hidden="true">
+                                ×
+                            </span>
+                        </button>
+                        <h4 class="modal-title">
+                            {{ trans('geral.gerarpermissoespendentes') }}
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+
+
+
+
+
+    <div class="col-md-3">
+          <div class="box box-success">
+            <div class="box-header with-border">
+              <h3 class="box-title"><i class="fa fa-info"></i> {{ trans('geral.nota') }}</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+              <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              {{ trans('geral.gerarpermissoespendentesinfo') }}
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default pull-right" data-dismiss="modal" type="button">
+                            {{ trans('geral.sair') }}
+                        </button>
+
+                        <button class="btn btn-info pull-right" href="#" onclick="gerarPermissoes();" type="button">
+                            {{ trans('geral.confirmar') }}
+                        </button>
+                    </div>
+
+
                 </div>
             </div>
         </div>

@@ -39,7 +39,7 @@
                             }
 
                     },
-                    // "pageLength": '1',
+                    "pageLength": '1',
                     // "deferLoading": 0, // here
 
                     ajax: '{!! route("usuario.ajax" ) !!}',
@@ -97,8 +97,8 @@
                              },
                              type: 'POST',
                              success: function(result) {
-                                console.log(row);
-                                row.remove();
+                                // row.remove();
+                                tabela.row( $(this).parents('tr') ).remove().draw(false);
 
                                    $(".alert-success").addClass('hidden');
                                    $(".alert-success").removeClass('hidden');

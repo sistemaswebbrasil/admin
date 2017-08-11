@@ -9,6 +9,7 @@ use App\User;
 use Auth;
 use Datatables;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Session;
 
 class UsuarioController extends Controller
@@ -18,7 +19,7 @@ class UsuarioController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
         // Date::setLocale('pt');
         // Date::setLocale(LC_TIME, 'pt-BR');
     }
@@ -30,6 +31,9 @@ class UsuarioController extends Controller
      */
     public function index(Request $request)
     {
+
+        // $this->authorize( Route::getCurrentRoute()->getActionName());
+
         $usuarios = User::orderBy('id', 'DESC')->paginate(5);
         return view('usuario.index', compact('usuarios'))
             ->with('i', ($request->input('page', 1) - 1) * 5);

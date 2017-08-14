@@ -7,6 +7,8 @@
         <script type="text/javascript">
 
         function gerarPermissoes(){
+            // $(".box-info").addClass('hidden');
+            // $("#modal-gerar .box-info").removeClass('hidden');
              $.ajax({
 
                  url: '{!! route("permission.gerar.ajax" ) !!}',
@@ -15,22 +17,48 @@
                  },
                  type: 'GET',
                  success: function(result) {
-                    // row.remove();
-                    tabela.row( $(this).parents('tr') ).remove().draw(false);
+                    $("#modal-gerar .box-success").removeClass('hidden');
+                    $(".box-success p").after('<p id="msg" >'+result.status+'</p>');
 
-                       $(".alert-success").addClass('hidden');
-                       $(".alert-success").removeClass('hidden');
-                       $(".alert-success #msg").remove();
-                       $(".alert-success p").after('<p id="msg" >'+result+'</p>');
+                    $("#msg").remove();
+
+                $("#modal-gerar .modal-body .box-info").after(
+                    '<div id="msg" class="alert alert-success "><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon glyphicon glyphicon-ok"></i>{{ trans("geral.sucesso") }}</h4>'+result.status+'</div>'
+                    );
+
+
+                 // $(".box-success").addClass('hidden');
+                       // $(".box-success").removeClass('hidden');
+                       // $(".box-success #msg").remove();
+                       // $(".box-success").css('display','none');
+                       // $(".box-success p").after('<p id="msg" >'+result.status+'</p>');
                  },
                  error: function(result) {
-                       $(".alert-danger").addClass('hidden');
-                       $(".alert-danger").removeClass('hidden');
-                       $(".alert-danger #msg").remove();
-                       $(".alert-danger ul").after('<ul id="msg"><li>{{ trans("geral.errogerar") }}</li></ul>');
-                 }
-             });
+                       // $(".alert-danger").addClass('hidden');
+                       // $(".alert-danger").removeClass('hidden');
+                       // $(".alert-danger #msg").remove();
+                       // $(".alert-danger ul").after('<ul id="msg"><li>{{ trans("geral.errogerar") }}</li></ul>');
+
+                 $("#msgerro").remove();
+
+
+            // $("#modal-gerar .box-info").addClass('hidden');
+
+                $("#modal-gerar .modal-body .box-info").after(
+                    '<div id="msgerro" class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-ban"></i>{{ trans("geral.erro") }}</h4>{{ trans("geral.erroinserir") }}</div>'
+                    );
+
+              }
+          });
         }
+
+
+                // $('.box .close').on('click', function(e) {
+                //     e.preventDefault();
+                //     $(".msgs #msg").remove();
+
+                //     $(".alert").addClass('hidden');
+                // });
 
 
 
@@ -88,7 +116,13 @@
                             "bSearchable": false,
 
                             "render": function (data, type, full, meta) {
-                                var mostrar = '<a data-target="#modal-default" data-toggle="modal" id="mostrar" data-id="'+data.id+'" class="btn btn-info" href="#" title="{{ trans("geral.mostrardetalhes") }}"><i class="fa fa-eye"></i></a> ';
+                                var mostrar = '<a data-target="#modal-default" data-toggle="modal" id="mostrar" data-id="'+data.id+'" class="btn btn-info" href="#modal-default" title="{{ trans("geral.mostrardetalhes") }}"><i class="fa fa-eye"></i></a> ';
+
+
+
+
+
+
                                 var editar = '<a id="editar" class="btn btn-primary" href="permission/'+data.id+'/edit" title="{!! trans("geral.editar") !!}"><i class="fa fa-edit"></i></a> ';
                                 var excluir = '<a id="excluir" data-id="'+data.id+'" class="btn btn-danger" href="#" title="{!! trans("geral.excluir") !!}"><i class="fa fa-close"></i></a> ';
                                 return mostrar+editar+excluir;
@@ -107,9 +141,14 @@
                 $('#modal-default').on("show.bs.modal", function (e) {
                     var id = $(e.relatedTarget).data('id');
                     $.get('/permission/' + id, function( data ) {
-                    console.log(data);
-                      $(".modal-body").html(data);
+
+                      $("#modal-default .modal-body").html(data);
                     });
+                } );
+
+                $('#modal-gerar').on("show.bs.modal", function (e) {
+                    $("#modal-gerar .box-info").addClass('hidden');
+                    $("#modal-gerar .box-info").removeClass('hidden');
                 } );
 
                 $('#tabela tbody').on( 'click', 'a#excluir', function () {
@@ -148,6 +187,13 @@
                 $('.alert .close').on('click', function(e) {
                     e.preventDefault();
                     $(".alert #msg").remove();
+
+                    $(".alert").addClass('hidden');
+                });
+
+                $('.box .close').on('click', function(e) {
+                    e.preventDefault();
+                    $(".msgs #msg").remove();
 
                     $(".alert").addClass('hidden');
                 });
@@ -216,7 +262,7 @@
             </i>
         </a>
 
-        <a class="btn btn-info pull-right" data-target="#modal-gerar" data-toggle="modal"  href="#">
+        <a class="btn btn-info pull-right" id='modal-gerars' data-toggle="modal"  href="#modal-gerar">
             <i class="fa fa-plus">
                 {{ trans('geral.gerarpermissoespendentes') }}
             </i>
@@ -252,7 +298,7 @@
         </table>
         <!-- <div id="resize_handle">Drag to resize</div> -->
     </div>
-        <div class="modal fade modal-default " id="modal-default" style="display: none;">
+        <div class="modal fade modal-default " id="modal-default" role="dialog" tabindex="-1" style="display: none;">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -277,7 +323,7 @@
             </div>
         </div>
 
-        <div class="modal fade modal-default " id="modal-gerar" style="display: none;">
+        <div class="modal fade modal-gerar " id="modal-gerar" role="dialog" tabindex="-2" style="display: none;">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -291,31 +337,38 @@
                         </h4>
                     </div>
                     <div class="modal-body">
+                    <p></p>
 
 
 
 
 
-    <div class="col-md-3">
-          <div class="box box-success">
-            <div class="box-header with-border">
-              <h3 class="box-title"><i class="fa fa-info"></i> {{ trans('geral.nota') }}</h3>
 
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              <div class="alert box box-info ">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-info"></i> {{ trans('geral.nota') }}</h3>
+
+
+                </div>
+                <div class="box-body">
+                    <p>{{ trans('geral.gerarpermissoespendentesinfo') }}</p>
+
+                </div>
               </div>
-              <!-- /.box-tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              {{ trans('geral.gerarpermissoespendentesinfo') }}
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
 
+<!--                       <div class="alert box box-success hidden msgs">
+                        <div class="box-header with-border">
+                          <h3 class="box-title"><i class="fa fa-info"></i> {{ trans('geral.sucesso') }}</h3>
 
+                          <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool close"  ><i class="fa fa-times"></i></button>
+                          </div>
+                        </div>
+                        <div class="box-body">
+                            <p></p>
+
+                        </div>
+                      </div> -->
 
 
                     </div>
@@ -334,5 +387,23 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 @endsection

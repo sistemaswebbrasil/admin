@@ -62,18 +62,36 @@ class PermissionController extends Controller
      */
     public function gerar(Request $request)
     {
-        $routes = Route::getRoutes();
+        $routes   = Route::getRoutes();
+        $contador = 0;
 
         foreach ($routes as $value) {
             //echo $value->getPath();
             // Log::info('URI :' . print_r($value->uri(), true));
+            //
+
+            if (!empty($value->getName())) {
+                $permissaoExiste = Permission::where(['name' => $value->getName()])->count();
+                // DB::table('permission')->where('name', '=', $value->getName() )->get();
+                if ($permissaoExiste == 0) {
+                    // Permission::create($params); //($request->all());
+
+                    $permission = Permission::create([
+                        'name'         => $value->getName(),
+                        'display_name' => $value->getName(),
+                        'description'  => 'Permissão Gerada Apartir do Botão Atualizar Permissões',
+                    ]);
+                    $contador += 1;
+                }
+            }
+
             Log::info('getName :' . print_r($value->getName(), true));
             // Log::info('getPrefix :' . print_r($value->getPrefix(), true));
             // Log::info('getActionMethod :' . print_r($value->getActionMethod(), true));
         };
 
         return response()->json([
-            'status' => 'ok',
+            'status' => $contador . ' novas permissões cadastradas ! ',
         ]);
     }
 

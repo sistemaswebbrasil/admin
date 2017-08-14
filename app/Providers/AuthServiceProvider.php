@@ -51,12 +51,15 @@ class AuthServiceProvider extends ServiceProvider
 
                 if ((in_array($ability, $roles))
                     || (in_array($ability, $permissoes))
-                    || (empty($ability))) {
+                    || (empty($ability))
+                    || (in_array('admin', $roles))
+                ) {
                     Log::info('AUTORIZADO:Encontrado a habilidade nescessaria');
                     return true;
                 }
                 Log::info('NEGADO:Usuário não autorizado');
-                return false;
+                abort(403, trans('geral.acessonegadopagina', ['name' => $ability]));
+                // return false;
             }
         });
     }

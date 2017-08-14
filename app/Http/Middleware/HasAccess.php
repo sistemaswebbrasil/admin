@@ -4,9 +4,13 @@ namespace App\Http\Middleware;
 
 use App\User;
 use Closure;
+use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Log;
+
+// use Illuminate\Routing\Router;
 
 // use Illuminate\Support\Facades\Route;
-use Illuminate\Routing\Router;
 
 class HasAccess
 {
@@ -18,7 +22,6 @@ class HasAccess
     {
         $this->router = $router;
         $this->user   = $user;
-
     }
 
     /**
@@ -37,7 +40,20 @@ class HasAccess
              * [$permissoesCad Permissões já cadastras no banco]
              * @var [type]
              */
-            // app(Gate::class)->authorize($action_name);
+
+            Log::info('****TESTE ' . $action_name);
+// password.request  register
+            if (
+                ($action_name == 'login') ||
+                ($action_name == 'password.request') ||
+                ($action_name == 'register') ||
+                ($action_name == 'logout') ||
+                (empty($action_name))
+            ) {
+                return $next($request);
+            }
+
+            app(Gate::class)->authorize($action_name);
         }
         return $next($request);
     }

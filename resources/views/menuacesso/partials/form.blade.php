@@ -123,7 +123,7 @@
 
 
         <div class="form-group">
-            <div class="form-group has-feedback {{ $errors->has('permission') ? 'has-error' : '' }}">
+            <div class="form-group has-feedback {{ $errors->has('label_color') ? 'has-error' : '' }}">
                 <strong>{{ trans('geral.label_color') }}:</strong>
              <select class="form-control" name="label_color">
                 <option value="">{{ trans('geral.selecione') }}</option>
@@ -134,10 +134,10 @@
                    </option>
                 @endforeach
               </select>
-                @if ($errors->has('permission'))
+                @if ($errors->has('label_color'))
                 <span class="help-block">
                     <strong>
-                        {{ $errors->first('permission') }}
+                        {{ $errors->first('label_color') }}
                     </strong>
                 </span>
                 @endif
@@ -163,7 +163,7 @@
 
 
 
-        <div class="form-group">
+<!--         <div class="form-group">
             <div class="form-group has-feedback {{ $errors->has('permission') ? 'has-error' : '' }}">
                 <strong>{{ trans('geral.permission') }}:</strong>
              <select class="form-control" name="permission">
@@ -183,7 +183,7 @@
                 </span>
                 @endif
             </div>
-        </div>
+        </div> -->
 
             </div>
         </div>

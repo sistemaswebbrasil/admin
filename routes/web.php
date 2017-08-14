@@ -37,3 +37,6 @@ Route::group(['middleware' => ['ability:admin,listar-itens-menu-acesso']], funct
     Route::resource('menuacesso', 'MenuAcessoController');
     Route::get('api/menuacesso', 'MenuAcessoController@grid')->name('menuacesso.ajax');
 });
+
+Route::resource('logerro', 'LogErroController');
+Route::get('api/logerro', 'LogErroController@grid')->name('logerro.ajax');

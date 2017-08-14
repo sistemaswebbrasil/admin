@@ -97,5 +97,22 @@ return [
     'acessonegadopagina'           => 'É necessário a seguinte  permisão para acessar esta página : :name',
     'naoexiste'                    => 'Não Existe',
     'paginanaoexiste'              => 'A página requisitada não existe',
+    'listarlogerro'                => 'Listar Log de Erro',
+
+    'cl_codigo'                    => 'Cód.Cliente',
+    'cl_nome'                      => 'Cliente',
+    'usuario'                      => 'Usuário',
+    'data'                         => 'Data',
+    'hora'                         => 'Hora',
+    'estacao'                      => 'Estação',
+    'loja'                         => 'Loja',
+    'acao'                         => 'Estação',
+    'versao'                       => 'Versão',
+    'ip'                           => 'IP',
+    'sistema'                      => 'Sistema',
+    'sql_rowid'                    => 'Excluído',
+    'sql_deleted'                  => 'ID',
+    'total'                        => 'Total',
+    'total_lidos'                  => 'Total Lidos',
 
 ];

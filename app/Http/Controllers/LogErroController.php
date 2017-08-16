@@ -27,12 +27,6 @@ class LogErroController extends Controller
      */
     public function grid(Request $request)
     {
-        // $logerros = LogErro::on('mysql-macae')->select(['cl_codigo', 'cl_nome', 'usuario', 'data', 'hora', 'estacao', 'ip', 'sistema', 'sql_rowid']);
-
-// $reserves = DB::table('reserves')->selectRaw('*, count(*)')->groupBy('day');
-
-        // $logerros = LogErro::on('mysql-macae')->select(['cl_codigo', 'cl_nome', 'count(*)'])->groupBy('cl_codigo');
-
         $logerros = DB::connection('mysql-macae')->table("suporte_log_erros_clientes")
             ->select(DB::raw("    cl_codigo,
     cl_nome,
@@ -42,8 +36,6 @@ class LogErroController extends Controller
             ->groupBy(DB::raw("cl_codigo"))
             ->get();
 
-        //$user = User::on('user-shard1')->first()->create(array('name' => 'John'));
-
         return Datatables::of($logerros)->make(true);
     }
 
@@ -52,19 +44,12 @@ class LogErroController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function grids(Request $request)
+    public function griddetalhe(Request $request, $id)
     {
-        $roles = Role::select(['id', 'name', 'display_name', 'created_at', 'updated_at']);
-        return Datatables::of($roles)
-            ->editColumn('created_at', function ($roles) {
-                return $roles->created_at ? $roles->updated_at->format('d/m/y') : '';
-            })
-            ->editColumn('updated_at', function ($roles) {
-                if ($roles->updated_at != null) {
-                    return $roles->updated_at->diffForHumans();
-                }
-            })
-            ->make(true);
+        $logerros = DB::connection('mysql-macae')
+            ->select('select ip,usuario,estacao,data,hora,sistema,lido,erro from suporte_log_erros_clientes where cl_codigo = ? and sql_deleted = \'F\' ', [$id]);
+
+        return Datatables::of($logerros)->make(true);
     }
 
     /**
@@ -105,8 +90,7 @@ class LogErroController extends Controller
         if (!empty($id)) {
             // dd($id);
             // var_dump('asasas');
-            $logerro = LogErro::find($id);
-            return view('logerro.show', compact('logerro'));
+            return view('logerro.show', compact('id'));
         }
     }
 

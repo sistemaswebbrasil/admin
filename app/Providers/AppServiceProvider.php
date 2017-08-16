@@ -32,13 +32,6 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(Dispatcher $events)
     {
-        //Carbon::setLocale(env('LOCALE', 'en'));
-        //Carbon::setLocale(env('LOCALE', 'pt-br'));
-        // Date::setLocale('pt');
-        //
-        //setlocale(LC_TIME, 'pt_BR.utf8');
-        //setlocale(LC_TIME, 'pt_BR.utf8');
-
         // setlocale(LC_TIME, config('app.locale'));
         $this->cadastrarRotas();
 

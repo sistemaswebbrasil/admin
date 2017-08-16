@@ -15,25 +15,12 @@ use Session;
 class UsuarioController extends Controller
 {
     /**
-     * Insere o controle de autenticação no controller
-     */
-    public function __construct()
-    {
-        // $this->middleware('auth');
-        // Date::setLocale('pt');
-        // Date::setLocale(LC_TIME, 'pt-BR');
-    }
-
-    /**
      * Exibe uma lista
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-
-        // $this->authorize( Route::getCurrentRoute()->getActionName());
-
         $usuarios = User::orderBy('id', 'DESC')->paginate(5);
         return view('usuario.index', compact('usuarios'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
@@ -118,9 +105,6 @@ class UsuarioController extends Controller
      */
     public function show($id)
     {
-        // Date::setLocale('pt');
-        // Date::setLocale(LC_TIME, 'German');
-
         $usuario = User::find($id);
         return view('usuario.show', compact('usuario'));
     }
@@ -182,28 +166,7 @@ class UsuarioController extends Controller
             $locale = $request->input('language');
             App::setLocale($locale);
             Session::put('locale', $locale);
-            //Session::put('locale', $request->input('language'));
-
-            // App::setLocale(LC_TIME, 'German');
-            // Date::setLocale(LC_TIME, 'German');
-            // Session::put('locale', $locale);
-
-            // if ($locale == 'pt-br') {
-            //     $locale == 'pt';
-            // }
-            // setlocale(LC_TIME, $locale . '.utf8');
-            // setlocale(LC_TIME, 'pt-BR.utf8');
-            // 'pt_BR.utf8');
-
-            //Date::setLocale($locale);
-            //Date::setLocale('pt');
-
-            // \Carbon\Carbon::setLocale($this->app->getLocale());
         }
-
-        // 'skin' => 'red',
-        // $languages = \Config::get('app.locales');
-
         return redirect()->route('usuario.index')->with('success', trans('geral.atualizadosucesso'));
     }
 

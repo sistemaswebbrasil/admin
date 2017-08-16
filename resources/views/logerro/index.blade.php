@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title',  trans('geral.listarfuncao') )
+@section('title',  trans('geral.listarerrosclientes') )
 
 @section('content')
         @section('js')
@@ -16,7 +16,6 @@
                     "order": [[ 2, "asc" ]],
 
                     "language": {
-                        // "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Portuguese-Brasil.json"
                             "sEmptyTable": "{{ trans('geral.sEmptyTable') }}",
                             "sInfo": "{{ trans('geral.sInfo') }}",
                             "sInfoEmpty": "{{ trans('geral.sInfoEmpty') }}",
@@ -41,8 +40,6 @@
 
                     },
                     "pageLength": '1',
-                    // "deferLoading": 0, // here
-
                     ajax: '{!! route("logerro.ajax" ) !!}',
 
                     columns: [
@@ -59,7 +56,7 @@
                             "bSearchable": false,
 
                             "render": function (data, type, full, meta) {
-                                var mostrar = '<a data-target="#modal-default" data-toggle="modal" id="mostrar" data-id="'+data.id+'" class="btn btn-info" href="#" title="{{ trans("geral.mostrardetalhes") }}"><i class="fa fa-eye"></i></a> ';
+                                var mostrar = '<a data-target="#modal-default" data-toggle="modal" id="mostrar" data-id="'+data.cl_codigo+'" class="btn btn-info" href="#" title="{{ trans("geral.mostrardetalhes") }}"><i class="fa fa-eye"></i></a> ';
                                 var excluir = '<a id="excluir" data-id="'+data.id+'" class="btn btn-danger" href="#" title="{!! trans("geral.excluir") !!}"><i class="fa fa-close"></i></a> ';
                                 return mostrar+excluir;
                             }
@@ -75,8 +72,8 @@
                 new $.fn.dataTable.PageResize( tabela );
 
                 $('#modal-default').on("show.bs.modal", function (e) {
-                    var id = $(e.relatedTarget).data('id');
-                    $.get('/role/' + id, function( data ) {
+                    var cl_codigo = $(e.relatedTarget).data('id');
+                    $.get('/logerro/' + cl_codigo, function( data ) {
                     console.log(data);
                       $(".modal-body").html(data);
                     });
@@ -88,8 +85,8 @@
 
                      if ( confirm( "{{ trans('geral.desejaexcluir') }}" ) ) {
                          $.ajax({
-
-                             url: '/role/'+ id,
+                            // '{!! route("logerro.ajax" ) !!}',
+                             url: '/logerro/'+ id,
                              data: {
                                 "id": id,
                                 "_method": 'DELETE',
@@ -176,7 +173,7 @@
 <div class="box">
     <div class="box-header with-border">
         <h3 class="box-title">
-            {{ trans('geral.listarfuncao') }}
+            {{ trans('geral.listarerrosclientes') }}
         </h3>
     </div>
     <div class="box-header">
@@ -225,7 +222,6 @@
                         </h4>
                     </div>
                     <div class="modal-body">
-
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-default pull-right" data-dismiss="modal" type="button">

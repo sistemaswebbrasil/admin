@@ -16,10 +16,10 @@
             <a href="{{ url(config('adminlte.dashboard_url', 'home')) }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
 
 
-		<div class="alert alert-danger alert-dismissible">
-			<h4><i class="icon fa fa-ban"></i>Página não existe</h4>
-			{{ $exception->getMessage() }}
-		</div>
+        <div class="alert alert-danger alert-dismissible">
+            <h4><i class="icon fa fa-ban"></i>Página não encontrada , verifique o endereço digitado !</h4>
+            {{ $exception->getMessage() }}
+        </div>
         </div>
     </div>
 @stop

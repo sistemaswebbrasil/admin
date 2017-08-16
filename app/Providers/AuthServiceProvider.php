@@ -30,6 +30,11 @@ class AuthServiceProvider extends ServiceProvider
         $this->verificarSeAutorizado($gate);
     }
 
+    /**
+     * [verificarSeAutorizado Verifico se existe permissão do usuário atual acessar o conteúdo]
+     * @param  [type] $gate [description]
+     * @return [type]       [description]
+     */
     protected function verificarSeAutorizado($gate)
     {
         $gate->before(function ($user, $ability) {
@@ -39,7 +44,6 @@ class AuthServiceProvider extends ServiceProvider
 
                 $this->contador += 1;
                 if ($this->contador == 1) {
-                    // echo "" > '/app/storage/logs/laravel.log';
                     // file_put_contents("/var/www/html/laravel/admin/storage/logs/laravel.log", "");
                     Log::info('Usuário: ' . print_r($user->name, true));
                     Log::info('Permissoes: ' . print_r($permissoes, true));
@@ -51,7 +55,7 @@ class AuthServiceProvider extends ServiceProvider
 
                 if ((in_array($ability, $roles))
                     || (in_array($ability, $permissoes))
-                    || (empty($ability))
+                    || (empty(trim($ability)))
                     || (in_array('admin', $roles))
                 ) {
                     Log::info('AUTORIZADO:Encontrado a habilidade nescessaria');
@@ -59,7 +63,7 @@ class AuthServiceProvider extends ServiceProvider
                 }
                 Log::info('NEGADO:Usuário não autorizado');
                 abort(403, trans('geral.acessonegadopagina', ['name' => $ability]));
-                // return false;
+                return false;
             }
         });
     }

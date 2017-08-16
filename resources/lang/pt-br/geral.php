@@ -1,5 +1,5 @@
 <?php
-//{{ trans('geral.editar') }}
+//Ex de uso: {{ trans('geral.editar') }}
 return [
     'confirmar'                    => 'Confirmar',
     'editar'                       => 'Editar',
@@ -55,6 +55,8 @@ return [
     'excluido'                     => 'Registro excluído com sucesso!',
     'falha'                        => 'Falha na execução!',
     'listarmenuacesso'             => 'Items Menu de Acesso',
+    'novomenuacesso'               => 'Novo Item de Menu de Acesso',
+    'editarmenuacesso'             => 'Editar Item de Menu de Acesso',
     'icon'                         => 'Icone',
     'icon_color'                   => 'Cor do Ícone',
     'label'                        => 'Etiqueta',
@@ -114,5 +116,9 @@ return [
     'sql_deleted'                  => 'ID',
     'total'                        => 'Total',
     'total_lidos'                  => 'Total Lidos',
+    'cormenu'                      => 'Cor do Menu',
+    'lingua'                       => 'Idioma',
+    'listarerrosclientes'          => 'Listar Erros por Clientes',
+    'listarerrosdetalhados'          => 'Lista detalhada de erros',
 
 ];

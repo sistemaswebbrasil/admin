@@ -6,12 +6,11 @@ use App\User;
 use Closure;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Log;
 
-// use Illuminate\Routing\Router;
-
-// use Illuminate\Support\Facades\Route;
-
+/**
+ * Capturo todas as requisições e forço o sistema verificar
+ * as permissões que serão capturadas em App\Providers\AuthServiceProvider.
+ */
 class HasAccess
 {
 
@@ -40,11 +39,7 @@ class HasAccess
              * [$permissoesCad Permissões já cadastras no banco]
              * @var [type]
              */
-
-            Log::info('****TESTE ' . $action_name);
-// password.request  register
-            if (
-                ($action_name == 'login') ||
+            if (($action_name == 'login') ||
                 ($action_name == 'password.request') ||
                 ($action_name == 'register') ||
                 ($action_name == 'logout') ||

@@ -1,27 +1,26 @@
-##Projeto simples com Laravel 5.4 , Laratrust e AdminLte
+## Projeto simples com Laravel 5.4 e AdminLte
 
-##Projeto de início de estudos no Laravel
-##Permissão projeto dentro do apache
+## Permissão projeto dentro do apache
 
 sudo chmod 777 -R /var/www/html/laravel/admin
 
 sudo chgrp -R www-data /var/www/html/laravel/admin
 
-##Rodar a aplicação com live reload
+## Rodar a aplicação com live reload
 
 npm run watch
 
-##Correção erro Error: watch app ENOSPC
+## Correção erro Error: watch app ENOSPC
 
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
 
-##Limpar o cache de uma view
+## Limpar o cache de uma view
 
 php artisan view:clear
 
 
-##Comandos para atualizar o repositório
+## Comandos para atualizar o repositório
 
 git add *
 
@@ -31,26 +30,26 @@ git push origin master
 
 git add * && git commit -m "Ajustes" && git push origin master
 
-#Atualiza o repositorio local com as atualizações dos externos
+## Atualiza o repositorio local com as atualizações dos externos
 git pull
 
-#git pull error: The following untracked working tree files would be overwritten by merge:
+## git pull error: The following untracked working tree files would be overwritten by merge:
 
 git clean  -d  -fx ""
 
-#quando o pull falha por ter arquivos locais não atualizados
+## quando o pull falha por ter arquivos locais não atualizados
 git stash save --keep-index
 git stash drop
 
 
-##production.ERROR: RuntimeException: The only supported ciphers are AES-128-CBC and AES-256-CBC with the  correct key lengths.
+## Solução erro production.ERROR: RuntimeException: The only supported ciphers are AES-128-CBC and AES-256-CBC with the  correct key lengths.
 
 php artisan key:generate
 
 php artisan config:clear
 
 
-##Exemplo Virtual Host
+## Exemplo Virtual Host
 <VirtualHost *:80>
     ServerAdmin admin@sistemaswebbrasil.com
     ServerName admin.com

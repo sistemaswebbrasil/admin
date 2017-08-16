@@ -1,8 +1,6 @@
 ##Projeto simples com Laravel 5.4 , Laratrust e AdminLte
 
 ##Projeto de início de estudos no Laravel
-
-*Erro na ultima importação
 ##Permissão projeto dentro do apache
 
 sudo chmod 777 -R /var/www/html/laravel/admin
@@ -17,9 +15,8 @@ npm run watch
 
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
-##Importado o projeto Entrust https://github.com/Zizaco/entrust para autorização
 
-##Limpar o cache deu uma view
+##Limpar o cache de uma view
 
 php artisan view:clear
 
@@ -31,8 +28,6 @@ git add *
 git commit -m "Ainda apanhando"
 
 git push origin master
-
-#git push origin master
 
 git add * && git commit -m "Ajustes" && git push origin master
 
@@ -54,15 +49,8 @@ php artisan key:generate
 
 php artisan config:clear
 
-##
-chromium-browser --disable-web-security --user-data-dir
 
-// Don't enforce the same-origin policy. (Used by people testing their sites.)
-const wchar_t kDisableWebSecurity[] = L"disable-web-security";
-
-chromium-browser --disable-web-security
-
-##
+##Exemplo Virtual Host
 <VirtualHost *:80>
     ServerAdmin admin@sistemaswebbrasil.com
     ServerName admin.com
@@ -82,15 +70,13 @@ chromium-browser --disable-web-security
     CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 
-##
-Exemplo debugar sql:
+## Exemplo debugar sql:
     $debug = DB::table('menuacesso')            
     ->where('parent', 0,'')            
     ->orWhere('parent', 0,'')            
     ->toSql();      
     Log::info($debug);      
 
-##
-Exemplo Log:
+## Exemplo Log:
 Log::info('Quantidade de Itens encontrados: '.count($subItems));
 Log::info('Menu Final: '.print_r( $arrayMenu,true));---> Exibe formatado como array pulando linhas

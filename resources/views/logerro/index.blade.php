@@ -4,8 +4,8 @@
 
 @section('content')
         @section('js')
-        <script type="text/javascript">
-            $(document).ready(function() {
+<script type="text/javascript">
+    $(document).ready(function() {
                 var token = $(this).data("token");
 
                 var tabela = $('#tabela').DataTable( {
@@ -13,7 +13,7 @@
                     "processing": true,
                     serverSide : true,
                     "sSearch": "Pesquisar",
-                    "order": [[ 2, "asc" ]],
+                    "order": [[ 3, "desc" ]],
 
                     "language": {
                             "sEmptyTable": "{{ trans('geral.sEmptyTable') }}",
@@ -65,7 +65,7 @@
                 } );
 
                 var altura = document.documentElement.clientHeight - $("#tabela").offset().top - 55 ;
-                console.log(altura);
+                // console.log(altura);
                 $(document).on( 'init.dt', function ( e, settings ) {
                     $('#resize_wrapper').css('height', altura );
                 });
@@ -73,11 +73,42 @@
 
                 $('#modal-default').on("show.bs.modal", function (e) {
                     var cl_codigo = $(e.relatedTarget).data('id');
-                    $.get('/logerro/' + cl_codigo, function( data ) {
-                    console.log(data);
-                      $(".modal-body").html(data);
-                    });
+
+
+                        $('#tabeladetanlhe').DataTable({
+                            deferRender: true,
+                            responsive: true,
+                            processing : true,
+                             serverSide : true,
+                            'bPaginate': true,
+                            'bInfo': true,
+                            "pageLength": '5',
+                            ajax: '/api/logerrodetalhe/'+ cl_codigo ,
+
+                            columns: [
+                                { data: 'ip' },
+                                { data: 'usuario' },
+                                { data: 'estacao' },
+                                { data: 'data' },
+                                { data: 'hora' },
+                                { data: 'sistema' },
+                                { data: 'lido' }
+                            ],
+                            "language": {
+                                "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Portuguese-Brasil.json"
+                            },
+                          });
+
+                    // $.get('/logerro/' + cl_codigo, function( data ) {
+                    // // console.log(data);
+                    //   $(".modal-body").html(data);
+                    // });
                 } );
+
+
+                $('#modal-default').on('hidden.bs.modal', function () {
+                    $('#tabeladetanlhe').dataTable().fnDestroy();
+                });
 
                 $('#tabela tbody').on( 'click', 'a#excluir', function () {
                     var id = $(this).attr('data-id');
@@ -119,9 +150,10 @@
                     $(".alert").addClass('hidden');
                 });
 
+
                     } );
-        </script>
-        @stop
+</script>
+@endsection
 
 
 @if ($message = Session::get('success'))
@@ -177,39 +209,39 @@
         </h3>
     </div>
     <div class="box-header">
-        <a class="btn btn-success pull-right" href="{{ route('role.create') }}">
+        <a class="btn btn-info pull-right" href="{{ route('logerro.grafico') }}">
             <i class="fa fa-plus">
-                {{ trans('geral.novo') }}
+                {{ trans('geral.graficos') }}
             </i>
         </a>
     </div>
     <div class="box-body">
-    <div id="resize_wrapper">
-        <table cellspacing="0" class="pageResize table table-bordered table-striped " id="tabela" width="100%">
-            <thead>
-                <tr>
-                    <th>
-                        {{ trans('geral.cl_codigo') }}
-                    </th>
-                    <th>
-                        {{ trans('geral.cl_nome') }}
-                    </th>
-                    <th>
-                        {{ trans('geral.total') }}
-                    </th>
-                    <th>
-                        {{ trans('geral.total_lidos') }}
-                    </th>
-                    <th style="min-width:130px">
-                        {{ trans('geral.acao') }}
-                    </th>
-                </tr>
-            </thead>
-        </table>
-        <!-- <div id="resize_handle">Drag to resize</div> -->
-    </div>
-        <div class="modal fade modal-default " id="modal-default" style="display: none;">
-            <div class="modal-dialog modal-lg">
+        <div id="resize_wrapper">
+            <table cellspacing="0" class="pageResize table table-bordered table-striped table-responsive" id="tabela" width="100%">
+                <thead>
+                    <tr>
+                        <th>
+                            {{ trans('geral.cl_codigo') }}
+                        </th>
+                        <th>
+                            {{ trans('geral.cl_nome') }}
+                        </th>
+                        <th>
+                            {{ trans('geral.total') }}
+                        </th>
+                        <th>
+                            {{ trans('geral.total_lidos') }}
+                        </th>
+                        <th style="min-width:130px">
+                            {{ trans('geral.acao') }}
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+            <!-- <div id="resize_handle">Drag to resize</div> -->
+        </div>
+        <div class="modal fade modal-default " id="modal-default" style="display: none;width: '80%' ">
+            <div class="modal-dialog modal-lg" style="width: '80%'; ">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button aria-label="Close" class="close" data-dismiss="modal" type="button">
@@ -222,15 +254,48 @@
                         </h4>
                     </div>
                     <div class="modal-body">
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-default pull-right" data-dismiss="modal" type="button">
-                            {{ trans('geral.sair') }}
-                        </button>
+                        <div class="box">
+                            <div class="box-body">
+                                <div id="resize_wrapper">
+                                    <table cellspacing="0" class="table table-bordered table-striped table-responsive" id="tabeladetanlhe" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    {{ trans('geral.ip') }}
+                                                </th>
+                                                <th>
+                                                    {{ trans('geral.usuario') }}
+                                                </th>
+                                                <th>
+                                                    {{ trans('geral.estacao') }}
+                                                </th>
+                                                <th>
+                                                    {{ trans('geral.data') }}
+                                                </th>
+                                                <th>
+                                                    {{ trans('geral.hora') }}
+                                                </th>
+                                                <th>
+                                                    {{ trans('geral.sistema') }}
+                                                </th>
+                                                <th>
+                                                    {{ trans('geral.lido') }}
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default pull-right" data-dismiss="modal" type="button">
+                                {{ trans('geral.sair') }}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @endsection
 </div>
-@endsection

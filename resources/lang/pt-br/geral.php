@@ -119,6 +119,12 @@ return [
     'cormenu'                      => 'Cor do Menu',
     'lingua'                       => 'Idioma',
     'listarerrosclientes'          => 'Listar Erros por Clientes',
-    'listarerrosdetalhados'          => 'Lista detalhada de erros',
+    'listarerrosdetalhados'        => 'Lista detalhada de erros',
+    'graficos'                     => 'Gráficos',
+    'errosapp'                     => 'Log de Erro por Aplicativos',
+    'erroscli'                     => 'Log de Erro por Clientes',
+    'erros'                        => 'Erros',
+    'erroslidos'                   => 'Erros lidos',
+    'atendsol'                     => 'Total de Atendimentos por Solicitantes',
 
 ];

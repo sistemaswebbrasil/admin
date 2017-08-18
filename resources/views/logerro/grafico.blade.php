@@ -1,69 +1,6 @@
 @extends('adminlte::page')
 @section('title', trans('geral.graficos')  )
 @section('content')
-
-
-
-
-<div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">{{ trans('geral.atendimentosabertos ') }}</span>
-              <span class="info-box-number">{{ $atendimentostotal->total }}<small>%</small></span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Likes</span>
-              <span class="info-box-number">{{ $errostotal->total }}</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-
-        <!-- fix for small devices only -->
-        <div class="clearfix visible-sm-block"></div>
-
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Sales</span>
-              <span class="info-box-number">760</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">New Members</span>
-              <span class="info-box-number">2,000</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-      </div>
-
 <div class="row">
     <div class="col-md-6">
         <div class="box box-primary">
@@ -140,7 +77,7 @@
         <div class="box box-danger">
             <div class="box-header with-border">
                 <h3 class="box-title">
-                    {{ trans('geral.atendsol') }}
+                    {{ trans('geral.erroscli') }}
                 </h3>
                 <div class="box-tools pull-right">
                     <button class="btn btn-box-tool" data-widget="collapse" type="button">
@@ -155,7 +92,7 @@
             </div>
             <div class="box-body">
                 <div class="chart">
-                    <canvas id="pie_atendimentos">
+                    <canvas id="pie_errocli">
                     </canvas>
                 </div>
             </div>
@@ -224,25 +161,6 @@
             }
         };
 
-        var atendimentos = {
-            type: 'pie',
-            data: {
-                datasets: [{
-                    data: {!! $atendtotal !!},
-                    backgroundColor: palette(['tol-rainbow','sequential-cbf'], {!! $atendtotal !!}.length ).map(function(hex) {
-                        return '#' + hex;
-                    }),
-                    label: 'Dataset 1'
-                }],
-                labels: {!! $atendsolicitante !!}// ["Red","Orange","Yellow","Green","Blue"]
-            },
-            options: {
-                responsive: true
-            }
-        };
-
-
-
         window.onload = function() {
             console.log({!! $errosapplido !!});
             console.log({!! $errosapp !!});
@@ -253,9 +171,6 @@
 
             var ctxcli = document.getElementById("pie_errocli").getContext("2d");
             window.myPie = new Chart(ctxcli, errosclientes);
-
-            var ctxcli = document.getElementById("pie_atendimentos").getContext("2d");
-            window.myPie = new Chart(ctxcli, atendimentos);
         };
 </script>
 @stop

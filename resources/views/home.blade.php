@@ -12,7 +12,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">{{ trans('geral.atendimentosabertos ') }}</span>
-              <span class="info-box-number">{{ $atendimentostotal->total }}<small>%</small></span>
+              <span class="info-box-number">{{ $atendimentostotal->total }}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -24,7 +24,7 @@
             <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Likes</span>
+              <span class="info-box-text">{{ trans('geral.errosnaolidos ') }}</span>
               <span class="info-box-number">{{ $errostotal->total }}</span>
             </div>
             <!-- /.info-box-content -->
@@ -117,7 +117,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">
-                    {{ trans('geral.errosapp') }}
+                    {{ trans('geral.historico') }}
                 </h3>
                 <div class="box-tools pull-right">
                     <button class="btn btn-box-tool" data-widget="collapse" type="button">
@@ -132,7 +132,7 @@
             </div>
             <div class="box-body">
                 <div class="chart">
-                    <canvas id="bar_erroapp">
+                    <canvas id="line_histerroatend">
                     </canvas>
                 </div>
             </div>
@@ -179,6 +179,10 @@
         blue: 'rgb(54, 162, 235)',
         purple: 'rgb(153, 102, 255)',
         grey: 'rgb(201, 203, 207)'
+    };
+
+    window.randomScalingFactor = function() {
+    return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100);
     };
 
 
@@ -237,11 +241,59 @@
                 labels: {!! $atendsolicitante !!}// ["Red","Orange","Yellow","Green","Blue"]
             },
             options: {
-                responsive: true
+                responsive: true,
+                     legend: {
+                        display: false
+                     },
             }
         };
 
-
+        var histerroatend = {
+            type: 'line',
+            data: {
+                labels: {!! $atendperiododata !!},
+                datasets: [{
+                    label: '{!! trans('geral.erros') !!}',
+                    backgroundColor: window.chartColors.red,
+                    borderColor: window.chartColors.red,
+                    data: {!! $errosperiodototal !!},
+                    fill: false,
+                }, {
+                    label: '{!! trans('geral.atendimentos') !!}',
+                    fill: false,
+                    backgroundColor: window.chartColors.blue,
+                    borderColor: window.chartColors.blue,
+                    data:{!! $atendperiodototal !!},
+                }]
+            },
+            options: {
+                responsive: true,
+                title:{
+                    display:true,
+                    text:'Chart.js Line Chart'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Month'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true
+                    }]
+                }
+            }
+        };
 
         window.onload = function() {
             console.log({!! $errosapplido !!});
@@ -256,6 +308,9 @@
 
             var ctxcli = document.getElementById("pie_atendimentos").getContext("2d");
             window.myPie = new Chart(ctxcli, atendimentos);
+
+            var ctxhist = document.getElementById("line_histerroatend").getContext("2d");
+            window.myLine = new Chart(ctxhist, histerroatend);
         };
 </script>
 @stop

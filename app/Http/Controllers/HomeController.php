@@ -52,8 +52,50 @@ class HomeController extends Controller
         $errosapp     = array_column($logerrosApp, 'total');
         $errosapplido = array_column($logerrosApp, 'total_lido');
         $errosappsis  = array_column($logerrosApp, 'sistema');
-
         Log::info($errosappsis);
+
+// SELECT
+        //    month(data)
+        // FROM
+        //    suporte_log_erros_clientes
+        // group by
+
+// year(data),month(data)
+        // order by
+        // data desc
+
+        $errosperiodo = DB::connection('mysql-macae')->table("suporte_log_erros_clientes")
+            ->select(DB::raw("concat( (year(data)) ,'-', (month(data)) ) as data,
+                count(*) as total"))
+            ->orderBy('data', 'desc')
+            ->groupBy(DB::raw("year(data),month(data)"))
+            ->get()->toArray();
+
+        $errosperiodototal = array_column($errosperiodo, 'total');
+        $errosperiododata  = array_column($errosperiodo, 'data');
+        Log::info($errosperiodo);
+
+// SELECT
+        //    month(rl_data),
+        //    count(*)
+        // FROM
+        //    relacionamentos
+        // group by
+
+// year(rl_data),month(rl_data)
+        // order by
+        // rl_data desc
+
+        $atendperiodo = DB::connection('mysql-macae')->table("relacionamentos")
+            ->select(DB::raw("concat( (year(rl_data)) ,'-', (month(rl_data)) ) as data,
+                count(*) as total"))
+            ->orderBy('rl_data', 'desc')
+            ->groupBy(DB::raw("year(rl_data),month(rl_data)"))
+            ->get()->toArray();
+
+        $atendperiodototal = array_column($atendperiodo, 'total');
+        $atendperiododata  = array_column($atendperiodo, 'data');
+        Log::info($errosperiodo);
 
         $atendimentosArray = DB::connection('mysql-macae')->table("relacionamentos")
             ->select(DB::raw("rl_nome AS solicitante,count(*) AS total "))
@@ -77,21 +119,18 @@ class HomeController extends Controller
             ->where('lido', '<>', 'S')
             ->first();
 
-        // $errostotal = array_column($errosTotalArray, 'total');
-
-        //select count(*) from relacionamentos where sql_deleted = 'F' and rl_concluido = 0
-        //select count(*) from suporte_log_erros_clientes where sql_deleted = 'F' and lido = 'S'
-
         return view('home', compact('errostotal', 'atendimentostotal'))
             ->with('logerros', json_encode($logerrosArray, JSON_NUMERIC_CHECK))
             ->with('clientes', json_encode($clientes, JSON_NUMERIC_CHECK))
             ->with('errosapp', json_encode($errosapp, JSON_NUMERIC_CHECK))
             ->with('errosapplido', json_encode($errosapplido, JSON_NUMERIC_CHECK))
             ->with('errosappsis', json_encode($errosappsis, JSON_NUMERIC_CHECK))
-
             ->with('atendtotal', json_encode($atendtotal, JSON_NUMERIC_CHECK))
-
-            ->with('atendsolicitante', json_encode($atendsolicitante, JSON_NUMERIC_CHECK));
+            ->with('atendsolicitante', json_encode($atendsolicitante, JSON_NUMERIC_CHECK))
+            ->with('errosperiodototal', json_encode($errosperiodototal, JSON_NUMERIC_CHECK))
+            ->with('errosperiododata', json_encode($errosperiododata, JSON_NUMERIC_CHECK))
+            ->with('atendperiodototal', json_encode($atendperiodototal, JSON_NUMERIC_CHECK))
+            ->with('atendperiododata', json_encode($atendperiododata, JSON_NUMERIC_CHECK));
 
         // return view('logerro.grafico');
     }

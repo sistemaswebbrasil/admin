@@ -8,6 +8,7 @@ use App\Model\MenuAcesso;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
 
@@ -32,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(Dispatcher $events)
     {
+        //Para as migrations funcionarem no Maria DB
+        Schema::defaultStringLength(191);
         // setlocale(LC_TIME, config('app.locale'));
         $this->cadastrarRotas();
 

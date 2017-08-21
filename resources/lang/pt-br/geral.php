@@ -108,7 +108,6 @@ return [
     'hora'                         => 'Hora',
     'estacao'                      => 'Estação',
     'loja'                         => 'Loja',
-    'acao'                         => 'Estação',
     'versao'                       => 'Versão',
     'ip'                           => 'IP',
     'sistema'                      => 'Sistema',
@@ -126,5 +125,9 @@ return [
     'erros'                        => 'Erros',
     'erroslidos'                   => 'Erros lidos',
     'atendsol'                     => 'Total de Atendimentos por Solicitantes',
+    'atendimentosabertos '         => 'Atendimentos em Aberto',
+    'errosnaolidos '               => 'Erros Não Lidos',
+    'historico'                    => 'Histórico',
+    'atendimentos'                 => 'Atendimentos',
 
 ];

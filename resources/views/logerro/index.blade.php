@@ -3,9 +3,15 @@
 @section('title',  trans('geral.listarerrosclientes') )
 
 @section('content')
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
         @section('js')
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
+        $('[data-toggle="popover"]').popover();
+        $( document ).tooltip();
                 var token = $(this).data("token");
 
                 var tabela = $('#tabela').DataTable( {
@@ -47,7 +53,6 @@
                         { data: 'cl_nome', name: 'cl_nome' },
                         { data: 'total', name: 'total' },
                         { data: 'total_lidos', name: 'total_lidos' },
-
                         {
                             data: null,
                             "targets": -1,
@@ -57,8 +62,8 @@
 
                             "render": function (data, type, full, meta) {
                                 var mostrar = '<a data-target="#modal-default" data-toggle="modal" id="mostrar" data-id="'+data.cl_codigo+'" class="btn btn-info" href="#" title="{{ trans("geral.mostrardetalhes") }}"><i class="fa fa-eye"></i></a> ';
-                                var excluir = '<a id="excluir" data-id="'+data.id+'" class="btn btn-danger" href="#" title="{!! trans("geral.excluir") !!}"><i class="fa fa-close"></i></a> ';
-                                return mostrar+excluir;
+
+                                return mostrar;
                             }
                         }
                     ]
@@ -72,10 +77,11 @@
                 new $.fn.dataTable.PageResize( tabela );
 
                 $('#modal-default').on("show.bs.modal", function (e) {
+
                     var cl_codigo = $(e.relatedTarget).data('id');
 
 
-                        $('#tabeladetanlhe').DataTable({
+                        var table =$('#tabeladetanlhe').DataTable({
                             deferRender: true,
                             responsive: true,
                             processing : true,
@@ -90,14 +96,68 @@
                                 { data: 'usuario' },
                                 { data: 'estacao' },
                                 { data: 'data' },
-                                { data: 'hora' },
                                 { data: 'sistema' },
-                                { data: 'lido' }
+
+            { data: 'erro', render: function (data, type, row) {
+
+// erros = explode(chr(13),{erro});
+var erros = data.split(String.fromCharCode(13));
+
+if (erros[6]){
+    erros = erros[6].replace('   Descricao do Erro: ','');
+
+
+
+
+return '<a href="#" title="'+data+'">'+cutString(erros)+'</a>';
+
+
+
+
+
+    // return cutString(erros);//erros;
+}else{
+    return 'Erro';
+}
+
+
+
+
+
+            } },
+
+
+
+// { data: 'erro' },
+
                             ],
                             "language": {
                                 "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Portuguese-Brasil.json"
                             },
                           });
+
+
+
+    $('#tabeladetanlhe tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+
+        if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
+        }
+    } );
+
+
+
+
+
 
                     // $.get('/logerro/' + cl_codigo, function( data ) {
                     // // console.log(data);
@@ -110,38 +170,7 @@
                     $('#tabeladetanlhe').dataTable().fnDestroy();
                 });
 
-                $('#tabela tbody').on( 'click', 'a#excluir', function () {
-                    var id = $(this).attr('data-id');
-                    var row = $(this).closest('tr');
 
-                     if ( confirm( "{{ trans('geral.desejaexcluir') }}" ) ) {
-                         $.ajax({
-                            // '{!! route("logerro.ajax" ) !!}',
-                             url: '/logerro/'+ id,
-                             data: {
-                                "id": id,
-                                "_method": 'DELETE',
-                                "_token": "{{ csrf_token() }}"
-                             },
-                             type: 'POST',
-                             success: function(result) {
-                                // row.remove();
-                                tabela.row( $(this).parents('tr') ).remove().draw(false);
-
-                                   $(".alert-success").addClass('hidden');
-                                   $(".alert-success").removeClass('hidden');
-                                   $(".alert-success #msg").remove();
-                                   $(".alert-success p").after('<p id="msg" >{{ trans("geral.excluido") }}</p>');
-                             },
-                             error: function(result) {
-                                   $(".alert-danger").addClass('hidden');
-                                   $(".alert-danger").removeClass('hidden');
-                                   $(".alert-danger #msg").remove();
-                                   $(".alert-danger ul").after('<ul id="msg"><li>{{ trans("geral.erroaoexcluir") }}</li></ul>');
-                             }
-                         });
-                     }
-                } );
 
                 $('.alert .close').on('click', function(e) {
                     e.preventDefault();
@@ -152,6 +181,36 @@
 
 
                     } );
+
+
+
+/* Formatting function for row details - modify as you need */
+function format ( d ) {
+    // `d` is the original data object for the row
+    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+        '<tr>'+
+            '<td>Erro:</td>'+
+            '<td>d.erro</td>'+
+        '</tr>'+
+    '</table>';
+}
+
+
+        function cutString(text){
+            var wordsToCut = 8;
+            var wordsArray = text.split(" ");
+            if(wordsArray.length>wordsToCut){
+                var strShort = "";
+                for(i = 0; i < wordsToCut; i++){
+                    strShort += wordsArray[i] + " ";
+                }
+                return strShort+"...";
+            }else{
+                return text;
+            }
+         };
+
+
 </script>
 @endsection
 
@@ -209,15 +268,11 @@
         </h3>
     </div>
     <div class="box-header">
-        <a class="btn btn-info pull-right" href="{{ route('logerro.grafico') }}">
-            <i class="fa fa-plus">
-                {{ trans('geral.graficos') }}
-            </i>
-        </a>
+
     </div>
     <div class="box-body">
         <div id="resize_wrapper">
-            <table cellspacing="0" class="pageResize table table-bordered table-striped table-responsive" id="tabela" width="100%">
+            <table cellspacing="0" class="display" id="tabela" width="100%">
                 <thead>
                     <tr>
                         <th>
@@ -232,7 +287,7 @@
                         <th>
                             {{ trans('geral.total_lidos') }}
                         </th>
-                        <th style="min-width:130px">
+                        <th >
                             {{ trans('geral.acao') }}
                         </th>
                     </tr>
@@ -240,8 +295,8 @@
             </table>
             <!-- <div id="resize_handle">Drag to resize</div> -->
         </div>
-        <div class="modal fade modal-default " id="modal-default" style="display: none;width: '80%' ">
-            <div class="modal-dialog modal-lg" style="width: '80%'; ">
+        <div class="modal fade modal-default " id="modal-default" style="display: none;' ">
+            <div class="modal-dialog modal-lg" style="width: 960; ">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button aria-label="Close" class="close" data-dismiss="modal" type="button">
@@ -273,13 +328,9 @@
                                                     {{ trans('geral.data') }}
                                                 </th>
                                                 <th>
-                                                    {{ trans('geral.hora') }}
-                                                </th>
-                                                <th>
                                                     {{ trans('geral.sistema') }}
-                                                </th>
-                                                <th>
-                                                    {{ trans('geral.lido') }}
+                                                </th>                                                <th>
+                                                    {{ trans('geral.sistema') }}
                                                 </th>
                                             </tr>
                                         </thead>

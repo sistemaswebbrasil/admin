@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Model\CriaNovaPermissao;
 use App\Model\Permission;
 use App\Model\Role;
 use Datatables;
@@ -11,20 +10,6 @@ use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
-
-    /**
-     * Insere o controle de autenticação no controller
-     */
-    public function __construct()
-    {
-        /**
-         * Função que irá criar nova permissão se ela não existir e vinculará ao administrador
-         */
-        CriaNovaPermissao::verifica(['listar-funcoes', 'alterar-funcoes']);
-
-        $this->middleware('ability:,listar-funcoes,alterar-funcoes', ['only' => ['index', 'show']]);
-        $this->middleware('ability:,alterar-funcoes', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
-    }
 
     /**
      * Exibe uma lista

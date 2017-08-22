@@ -4,28 +4,15 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laratrust\Traits\LaratrustUserTrait;
 
 class User extends Authenticatable
 {
-    use LaratrustUserTrait;
     use Notifiable;
 
     protected $dates = [
         'created_at',
         'updated_at',
     ];
-
-    // //public function getCreatedAtAttribute($date)
-    // public function getUpdatedAtttribute($date)
-    // {
-    //     return new Date($date);
-    // }
-
-    // public function getCreatedAtAtttribute($date)
-    // {
-    //     return new Date($date);
-    // }
 
     /**
      * The attributes that are mass assignable.

@@ -4,12 +4,9 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Laratrust\LaratrustPermission;
-use Laratrust\Traits\LaratrustUserTrait;
 
-class Permission extends LaratrustPermission
+class Permission extends Model
 {
-    use LaratrustUserTrait;
     use Notifiable;
     protected $fillable = [
         'name', 'display_name', 'created_at', 'updated_at', 'description',

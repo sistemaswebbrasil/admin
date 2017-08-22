@@ -4,9 +4,8 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Laratrust\LaratrustRole;
 
-class Role extends LaratrustRole
+class Role extends Model
 {
     use Notifiable;
 

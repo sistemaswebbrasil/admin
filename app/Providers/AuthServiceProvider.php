@@ -38,9 +38,12 @@ class AuthServiceProvider extends ServiceProvider
     protected function verificarSeAutorizado($gate)
     {
         $gate->before(function ($user, $ability) {
-            if ($user) {
+            // dd($user->id);
+            if ($user->id) {
                 $roles      = $user->getRoleListAttribute();
                 $permissoes = $user->getPermissionListAttribute();
+
+                // dd($user);
 
                 $this->contador += 1;
                 if ($this->contador == 1) {

@@ -34,6 +34,7 @@ class HasAccess
     public function handle($request, Closure $next)
     {
         $action_name = $this->router->currentRouteName();
+
         if (!$this->user->can($action_name)) {
             /**
              * [$permissoesCad Permissões já cadastras no banco]
@@ -43,6 +44,8 @@ class HasAccess
                 ($action_name == 'password.request') ||
                 ($action_name == 'register') ||
                 ($action_name == 'logout') ||
+                ($action_name == 'usuario.update') ||
+                ($action_name == 'usuario.profile') ||
                 (empty($action_name))
             ) {
                 return $next($request);

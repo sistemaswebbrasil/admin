@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -52,7 +51,7 @@ class HomeController extends Controller
         $errosapp     = array_column($logerrosApp, 'total');
         $errosapplido = array_column($logerrosApp, 'total_lido');
         $errosappsis  = array_column($logerrosApp, 'sistema');
-        Log::info($errosappsis);
+        // Log::info($errosappsis);
 
 // SELECT
         //    month(data)
@@ -73,7 +72,7 @@ class HomeController extends Controller
 
         $errosperiodototal = array_column($errosperiodo, 'total');
         $errosperiododata  = array_column($errosperiodo, 'data');
-        Log::info($errosperiodo);
+        // Log::info($errosperiodo);
 
 // SELECT
         //    month(rl_data),
@@ -95,7 +94,7 @@ class HomeController extends Controller
 
         $atendperiodototal = array_column($atendperiodo, 'total');
         $atendperiododata  = array_column($atendperiodo, 'data');
-        Log::info($errosperiodo);
+        // Log::info($errosperiodo);
 
         $atendimentosArray = DB::connection('mysql-macae')->table("relacionamentos")
             ->select(DB::raw("rl_nome AS solicitante,count(*) AS total "))

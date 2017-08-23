@@ -16,7 +16,7 @@ class GateFilter implements FilterInterface
 
     public function transform($item, Builder $builder)
     {
-        if (! $this->isVisible($item)) {
+        if (!$this->isVisible($item)) {
             return false;
         }
 
@@ -29,6 +29,6 @@ class GateFilter implements FilterInterface
 
     protected function isVisible($item)
     {
-        return ! isset($item['can']) || $this->gate->allows($item['can']);
+        return !isset($item['can']) || $this->gate->allows($item['can']);
     }
 }

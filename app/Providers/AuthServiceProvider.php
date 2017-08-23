@@ -26,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(GateContract $gate)
     {
-        $this->registerPolicies();
+
         $this->verificarSeAutorizado($gate);
     }
 
@@ -38,8 +38,10 @@ class AuthServiceProvider extends ServiceProvider
     protected function verificarSeAutorizado($gate)
     {
         $gate->before(function ($user, $ability) {
+            \Config::set('ability', '');
             // dd($user->id);
             if ($user->id) {
+
                 $roles      = $user->getRoleListAttribute();
                 $permissoes = $user->getPermissionListAttribute();
 
@@ -65,8 +67,12 @@ class AuthServiceProvider extends ServiceProvider
                     return true;
                 }
                 Log::info('NEGADO:Usuário não autorizado');
-                abort(403, trans('geral.acessonegadopagina', ['name' => $ability]));
+                // abort(403, trans('geral.acessonegadopagina', ['name' => $ability]));
+
+                \Config::set('ability', trans('geral.acessonegadopagina', ['name' => $ability]));
+
                 return false;
+                // abort(403, trans('geral.acessonegadopagina', ['name' => $ability]));
             }
         });
     }

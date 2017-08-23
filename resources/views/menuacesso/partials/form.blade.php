@@ -163,7 +163,7 @@
 
 
 
-<!--         <div class="form-group">
+        <div class="form-group">
             <div class="form-group has-feedback {{ $errors->has('permission') ? 'has-error' : '' }}">
                 <strong>{{ trans('geral.permission') }}:</strong>
              <select class="form-control" name="permission">
@@ -183,7 +183,7 @@
                 </span>
                 @endif
             </div>
-        </div> -->
+        </div>
 
             </div>
         </div>

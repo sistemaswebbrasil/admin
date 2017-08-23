@@ -166,7 +166,9 @@ class UsuarioController extends Controller
             $locale = $request->input('language');
             App::setLocale($locale);
             Session::put('locale', $locale);
+            return redirect()->route('home');
         }
+
         return redirect()->route('usuario.index')->with('success', trans('geral.atualizadosucesso'));
     }
 

@@ -129,5 +129,11 @@ return [
     'errosnaolidos '               => 'Erros Não Lidos',
     'historico'                    => 'Histórico',
     'atendimentos'                 => 'Atendimentos',
+    'listarcliente'                => 'Listagem de Clientes',
+    'codigo'                       => 'Código',
+    'cpf'                          => 'CPF/CNPJ',
+    'cidade'                       => 'Cidade',
+    'telefone'                     => 'Telefone',
+    'st'                           => 'ST',
 
 ];

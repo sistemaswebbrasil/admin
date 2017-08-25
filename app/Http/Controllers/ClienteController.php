@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+use App\Model\Cliente;
+use Datatables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 
 class ClienteController extends Controller
 {
-    /**
-     * Insere o controle de autenticação no controller
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Exibe uma lista
      *
@@ -21,9 +18,7 @@ class ClienteController extends Controller
      */
     public function index(Request $request)
     {
-        $permissions = Permission::orderBy('id', 'DESC')->paginate(5);
-        return view('permission.index', compact('permissions'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        return view('cliente.index');
     }
 
     /**
@@ -33,59 +28,13 @@ class ClienteController extends Controller
      */
     public function grid(Request $request)
     {
-        $permissions = Permission::select(['id', 'name', 'display_name', 'created_at', 'updated_at']);
-        return Datatables::of($permissions)
-            ->editColumn('created_at', function ($permission) {
-                return $permission->created_at ? $permission->updated_at->format('d/m/y') : '';
-            })
-            ->editColumn('updated_at', function ($permission) {
-                if ($permission->updated_at != null) {
-                    return $permission->updated_at->diffForHumans();
-                }
-            })
-            ->make(true);
-    }
+        $clientes = DB::connection('mysql-homologacao')->table("clientes")
+            ->leftJoin('status', 'clientes.st_codigo', '=', 'status.st_codigo')
+            ->select(DB::raw("cl_nome,cl_codigo,cl_cpf,cl_cidade,cl_fone,st_nome"))
 
-    // Route::get('api/gerar', 'PermissionController@gerar')->name('permission.gerar.ajax');
-
-    /**
-     * Gerar as permissões de apps novos que ainda não consta na tabela permission
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function gerar(Request $request)
-    {
-        $routes   = Route::getRoutes();
-        $contador = 0;
-
-        foreach ($routes as $value) {
-            //echo $value->getPath();
-            // Log::info('URI :' . print_r($value->uri(), true));
-            //
-
-            if (!empty($value->getName())) {
-                $permissaoExiste = Permission::where(['name' => $value->getName()])->count();
-                // DB::table('permission')->where('name', '=', $value->getName() )->get();
-                if ($permissaoExiste == 0) {
-                    // Permission::create($params); //($request->all());
-
-                    $permission = Permission::create([
-                        'name'         => $value->getName(),
-                        'display_name' => $value->getName(),
-                        'description'  => 'Permissão Gerada Apartir do Botão Atualizar Permissões',
-                    ]);
-                    $contador += 1;
-                }
-            }
-
-            Log::info('getName :' . print_r($value->getName(), true));
-            // Log::info('getPrefix :' . print_r($value->getPrefix(), true));
-            // Log::info('getActionMethod :' . print_r($value->getActionMethod(), true));
-        };
-
-        return response()->json([
-            'status' => $contador . ' novas permissões cadastradas ! ',
-        ]);
+            ->where('clientes.sql_deleted', '=', 'F')
+            ->get();
+        return Datatables::of($clientes)->make(true);
     }
 
     /**
@@ -95,7 +44,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        return view('permission.create');
+        return view('cliente.create');
     }
 
     /**
@@ -111,9 +60,9 @@ class ClienteController extends Controller
             'display_name' => 'required',
         ]);
 
-        Permission::create($request->all());
-        return redirect()->route('permission.index')
-            ->with('success', 'Permission created successfully');
+        Cliente::create($request->all());
+        return redirect()->route('cliente.index')
+            ->with('success', 'Cliente created successfully');
     }
 
     /**
@@ -124,8 +73,8 @@ class ClienteController extends Controller
      */
     public function show($id)
     {
-        $permission = Permission::find($id);
-        return view('permission.show', compact('permission'));
+        $cliente = Cliente::find($id);
+        return view('cliente.show', compact('cliente'));
     }
 
     /**
@@ -134,10 +83,21 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($cl_codigo)
     {
-        $permission = Permission::find($id);
-        return view('permission.edit', compact('permission'));
+        $cliente = Cliente::find($cl_codigo);
+        // $tipopessoas = DB::connection('mysql-homologacao')->table("status")
+        //     ->select(DB::raw("st_nome,st_codigo"))
+        //     ->where('sql_deleted', '=', 'F')
+        //     ->get();
+
+        // $tipopessoas = DB::connection('mysql-homologacao')->table("status")->select('st_nome', 'st_codigo')->get();
+        $status      = DB::connection('mysql-homologacao')->table("status")->pluck('st_nome', 'st_codigo');
+        $tipopessoas = ['1' => 'Pessoa Física', '2' => 'Pessoa Jurídica'];
+        //$tipopessoas = DB::connection('mysql-homologacao')->table("status")->pluck('st_nome', 'st_codigo');
+
+        //Role::pluck('display_name', 'id');
+        return view('cliente.edit', compact('cliente', 'tipopessoas', 'status'));
     }
 
     /**
@@ -150,13 +110,15 @@ class ClienteController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name'  => 'required',
-            'email' => 'email',
+            'cl_codigo' => 'required',
+            'name'      => 'required',
+            'email'     => 'email',
+            'cl_cpf'    => 'required',
         ]);
 
-        Permission::find($id)->update($request->all());
-        return redirect()->route('permission.index')
-            ->with('success', 'Permission updated successfully');
+        Cliente::find($id)->update($request->all());
+        return redirect()->route('cliente.index')
+            ->with('success', 'Cliente updated successfully');
     }
 
     /**
@@ -167,11 +129,10 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
-        // Permission::find($id)->delete();
-        $permission = Permission::find($id);
-        $permission->delete();
-        return redirect()->route('permission.index')
-            ->with('success', 'Permission deleted successfully');
+        // Cliente::find($id)->delete();
+        $cliente = Cliente::find($id);
+        $cliente->delete();
+        return redirect()->route('cliente.index')
+            ->with('success', 'Cliente deleted successfully');
     }
-
 }

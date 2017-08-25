@@ -33,13 +33,13 @@ return [
 
     'connections' => [
 
-        'sqlite'      => [
+        'sqlite'            => [
             'driver'   => 'sqlite',
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
             'prefix'   => '',
         ],
 
-        'mysql'       => [
+        'mysql'             => [
             'driver'      => 'mysql',
             'host'        => env('DB_HOST', 'localhost'),
             'port'        => env('DB_PORT', '3306'),
@@ -54,7 +54,7 @@ return [
             'engine'      => null,
         ],
 
-        'mysql-macae' => [
+        'mysql-macae'       => [
             'driver'      => 'mysql',
             'host'        => env('DB_HOST_MACAE', 'localhost'),
             'port'        => env('DB_PORT_MACAE', '3306'),
@@ -72,7 +72,21 @@ return [
             ],
         ],
 
-        'pgsql'       => [
+        'mysql-homologacao' => [
+            'driver'      => 'mysql',
+            'host'        => env('DB_HOST_HOMOLOGACAO', 'localhost'),
+            'port'        => env('DB_PORT_HOMOLOGACAO', '3306'),
+            'database'    => env('DB_DATABASE_HOMOLOGACAO', 'projeto'),
+            'username'    => env('DB_USERNAME_HOMOLOGACAO', 'adriano'),
+            'password'    => env('DB_PASSWORD_HOMOLOGACAO', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset'     => 'utf8',
+            'prefix'      => '',
+            'strict'      => false,
+            'engine'      => null,
+        ],
+
+        'pgsql'             => [
             'driver'   => 'pgsql',
             'host'     => env('DB_HOST', '127.0.0.1'),
             'port'     => env('DB_PORT', '5432'),
@@ -85,7 +99,7 @@ return [
             'sslmode'  => 'prefer',
         ],
 
-        'sqlsrv'      => [
+        'sqlsrv'            => [
             'driver'   => 'sqlsrv',
             'host'     => env('DB_HOST', 'localhost'),
             'port'     => env('DB_PORT', '1433'),

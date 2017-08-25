@@ -79,3 +79,6 @@ php artisan config:clear
 ## Exemplo Log:
 Log::info('Quantidade de Itens encontrados: '.count($subItems));
 Log::info('Menu Final: '.print_r( $arrayMenu,true));---> Exibe formatado como array pulando linhas
+
+## Sublime show/hide sidebar
+Ctrl+K, Ctrl+B

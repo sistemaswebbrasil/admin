@@ -47,3 +47,8 @@ Route::group(['middleware' => ['auth', 'web']], function () {
     Route::get('api/logerrodetalhe/{id}', 'LogErroController@griddetalhe')->name('logerro.detalhe.ajax');
     Route::get('logerrografico', 'LogErroController@grafico')->name('logerro.grafico');
 });
+
+Route::group(['middleware' => ['auth', 'web']], function () {
+    Route::resource('cliente', 'ClienteController');
+    Route::get('api/cliente', 'ClienteController@grid')->name('cliente.ajax');
+});

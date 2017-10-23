@@ -2,9 +2,9 @@
 
 ## Permissão projeto dentro do apache
 
-sudo chmod 777 -R /var/www/html/laravel/admin
+sudo chmod 777 -R /var/www/html/admin
 
-sudo chgrp -R www-data /var/www/html/laravel/admin
+sudo chgrp -R www-data /var/www/html/admin
 
 ## Rodar a aplicação com live reload
 
@@ -58,14 +58,14 @@ php artisan config:clear
     ServerAdmin adriano.faria@gmail.com
     DocumentRoot  /var/www/html/laravel/admin/public
 
-    <Directory /var/www/html/laravel/admin/public>
+    <Directory /var/www/html/admin/public>
          Options Indexes FollowSymLinks
          AllowOverride All
          Require all granted
     </Directory>
 
     ErrorLog ${APACHE_LOG_DIR}/error.log
-    ErrorLog /var/www/html/laravel/admin/error.log
+    ErrorLog /var/www/html/admin/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 
